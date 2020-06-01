@@ -12,7 +12,7 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 # Prompt variable:
 
 OLD_PS1="$PS1"
-PS1="$status_style"'$fill \t\n'"$prompt_style$OLD_PS1$command_style"
+PS1="$status_style"'$fill $USER \t\n'"$prompt_style$OLD_PS1$command_style"
 
 # Reset color for command output
 # (this one is invoked every time before a command is executed):
@@ -21,8 +21,8 @@ trap 'echo -ne "\e[0m"' DEBUG
 
 function prompt_command {
 
-    # create a $fill of all screen width minus the time string and a space:
-    let fillsize=${COLUMNS}-9
+    # create a $fill of all screen width minus the time string and a space and USER and a space:
+    let fillsize=${COLUMNS}-10-${#USER}
     fill=""
     while [ "$fillsize" -gt "0" ]
     do
