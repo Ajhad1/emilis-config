@@ -12,7 +12,7 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 # Prompt variable:
 
 OLD_PS1="$PS1"
-PS1="$status_style"'$fill $USER \t\n'"$prompt_style$OLD_PS1$command_style"
+PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
 
 # Reset color for command output
 # (this one is invoked every time before a command is executed):
@@ -22,7 +22,8 @@ trap 'echo -ne "\e[0m"' DEBUG
 function prompt_command {
 
     # create a $fill of all screen width minus the time string and a space and USER and a space:
-    let fillsize=${COLUMNS}-10-${#USER}
+    name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
+    let fillsize=${COLUMNS}-10-${#name}
     fill=""
     while [ "$fillsize" -gt "0" ]
     do
