@@ -1,3 +1,6 @@
+################### customization for the command prompt #################
+
+#### code to input separator ####
 # Fill with minuses
 # (this is recalculated every time the prompt is shown in function prompt_command):
 fill="--- "
@@ -43,3 +46,160 @@ function prompt_command {
   
 }
 PROMPT_COMMAND=prompt_command
+
+### my personal settings ###
+force_color_prompt=yes             # add color to terminals
+HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space in the history.
+shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
+
+########### aliases ################
+## command replacements ##
+alias cd='function _f() { cd "$1"; ls -a;}; _f ' # replace cd with cd then ls
+alias cd0='/bin/cd ' # allow cd to be used normally
+alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
+alias cp0='/bin/cp ' # allows sp to be used normally
+alias ls='ls -hF --color=auto ' # auto runs with color
+alias ls0='/bin/ls ' # allows ls to be used normally
+alias cat='highlight -O ansi --force ' # runs highlight instead of cat
+alias cat0='bin/cat ' # allows cat to be run normally
+alias egrep='egrep --color=auto ' # auto runs with color
+alias fgrep='fgrep --color=auto ' # auto runs with color
+alias grep='grep --color=auto ' # auto runs with color
+alias wget='wget -c ' # auto runs with -c
+
+## shortcuts built-in on other commands ##
+alias ..='cd ..' # allows shortcut for cd ..
+alias ...='cd ../../' # shortcut for cd ../../
+alias ....='cd ../../../' # shortcut for cd ../../../
+alias cdl='function _f() { cd "$1"; ls -a;}; _f ' # cd then ls
+alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
+alias la='ls -a ' # ls with -a for show hidden
+alias ll='ls -la ' # short cut for long list
+alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
+
+### new commands ###
+alias getip='curl ifconfig.me' # get public ip
+alias getlocal='hostname -I' # get local ip
+alias getpublic='curl ifconfig.me' # get public ip
+alias trash='mv --force -t ~/.local/share/Trash ' # sends to trash instead of deleting
+alias s='sudo ' # shortcut to sudo
+## fix typos ##
+alias cd..='cd .. ' # allows typo to still work
+alias cd~='cd ~ ' # allows typo to still work
+
+################ common aliases trying out ##################
+alias untar='tar -zxvf ' # shortcut to untar
+alias c='clear' # shortcut to clear screen
+alias ports='netstat -tulanp ' # shows open ports
+alias bashreload='source ~/.bashrc && echo Bash reloaded' # shortcut to reload bash
+mkcd() { mkdir $1;cd $1; }
+alias hists='history | grep ' # searches history
+## cover my butt ##
+alias mkdir='mkdir -pv ' # always runs mkdir with create parent if needed
+alias rm='rm -I --preserve-root ' # do not delete / or prompt if deleting more than 3 files at a time #
+alias mv='mv -i ' # always runs in confirmation mode #
+alias cp='cp -i ' # always runs in confirmation mode #
+alias ln='ln -i ' # always runs in confirmation mode #
+alias chown='chown --preserve-root ' # Parenting changing perms on / #
+alias chmod='chmod --preserve-root ' # Parenting changing perms on / #
+alias chgrp='chgrp --preserve-root ' # Parenting changing perms on / #
+alias sudo='sudo ' # always checks commands after sudo for aliases
+alias yum='sudo yum ' # auto run yum with sudo
+alias apt-get='sudo apt-get ' # always runs apt-get as sudo
+
+
+################# functions #######################
+# Syntax: "repeat [X] [command]"
+function repeat()      
+{
+    local i max
+    max=$1; shift;
+    for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+        eval "$@";
+    done
+}
+
+### returns my most common commands ###
+function mycommon()
+{
+	history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+}
+
+### list common commands ###
+function common() {
+	declare -a commandlist=(pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
+	declare -a descriplist=()
+	for i in ${commandlist[@]}; do
+		commandstr=$(whatis $i);
+		echo $commandstr;
+	done
+	echo cd - Change the shell working directory.;
+	echo jobs - Display status of jobs. Lists the active jobs.;
+}
+
+### calls appropriate extraction tool ###
+function extract {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+    return 1
+ else
+    for n in $@
+    do
+      if [ -f "$n" ] ; then
+          case "${n%,}" in
+            *.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar) 
+                         tar xvf "$n"       ;;
+            *.lzma)      unlzma ./"$n"      ;;
+            *.bz2)       bunzip2 ./"$n"     ;;
+            *.rar)       unrar x -ad ./"$n" ;;
+            *.gz)        gunzip ./"$n"      ;;
+            *.zip)       unzip ./"$n"       ;;
+            *.z)         uncompress ./"$n"  ;;
+            *.7z|*.arj|*.cab|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.rpm|*.udf|*.wim|*.xar)
+                         7z x ./"$n"        ;;
+            *.xz)        unxz ./"$n"        ;;
+            *.exe)       cabextract ./"$n"  ;;
+            *)
+                         echo "extract: '$n' - unknown archive method"
+                         return 1
+                         ;;
+          esac
+      else
+          echo "'$n' - file does not exist"
+          return 1
+      fi
+    done
+fi
+}
+
+
+
+################## auto-complete? #############
+_complete_hosts () {
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    host_list=`{
+        for c in /etc/ssh_config /etc/ssh/ssh_config ~/.ssh/config
+        do [ -r $c ] && sed -n -e 's/^Host[[:space:]]//p' -e 's/^[[:space:]]*HostName[[:space:]]//p' $c
+        done
+        for k in /etc/ssh_known_hosts /etc/ssh/ssh_known_hosts ~/.ssh/known_hosts
+        do [ -r $k ] && egrep -v '^[#\[]' $k|cut -f 1 -d ' '|sed -e 's/[,:].*//g'
+        done
+        sed -n -e 's/^[0-9][0-9\.]*//p' /etc/hosts; }|tr ' ' '\n'|grep -v '*'`
+    COMPREPLY=( $(compgen -W "${host_list}" -- $cur))
+    return 0
+}
+complete -F _complete_hosts ssh
+complete -F _complete_hosts sshs
+complete -F _complete_hosts host
+complete -F _complete_hosts telnet
+complete -F _complete_hosts ping
+
+
+
+
+
+
+
