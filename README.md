@@ -3,9 +3,7 @@
 Add the following to .bashrc to take affect
 
 # Import Personal Configuration Files
-if [ -f "$HOME/.bash_ps1" ] && [[ $- == *i* ]]; then
-    . "$HOME/.bash_ps1"
-fi
+cat ~/linux-config/.bashrc >> ~/.bashrc
 
 Using git I download my personal configuration files to the machines running linux and update the .bashrc file to import it. 
 In this way, I can update all of my configurations in one place.
