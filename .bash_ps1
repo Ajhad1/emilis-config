@@ -54,7 +54,7 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 
 ########### aliases ################
 ## command replacements ##
-alias cd='function _f() { cd "$1"; ls -a;}; _f ' # replace cd with cd then ls
+alias cd='function _f() { cd "$1"/; ls -a; }; _f ' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias cp0='/bin/cp ' # allows sp to be used normally
@@ -68,10 +68,10 @@ alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
 
 ## shortcuts built-in on other commands ##
-alias ..='cd ..' # allows shortcut for cd ..
+alias ..='cd ../' # allows shortcut for cd ../
 alias ...='cd ../../' # shortcut for cd ../../
 alias ....='cd ../../../' # shortcut for cd ../../../
-alias cdl='function _f() { cd "$1"; ls -a;}; _f ' # cd then ls
+alias cdl='function _f() { cd "$1"/; ls -a; }; _f ' # cd then ls
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias la='ls -a ' # ls with -a for show hidden
 alias ll='ls -la ' # short cut for long list
@@ -83,8 +83,9 @@ alias getlocal='hostname -I' # get local ip
 alias getpublic='curl ifconfig.me' # get public ip
 alias trash='mv --force -t ~/.local/share/Trash ' # sends to trash instead of deleting
 alias s='sudo ' # shortcut to sudo
+
 ## fix typos ##
-alias cd..='cd .. ' # allows typo to still work
+alias cd..='\cd ../' # allows typo to still work
 alias cd~='cd ~ ' # allows typo to still work
 
 ################ common aliases trying out ##################
