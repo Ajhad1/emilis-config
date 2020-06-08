@@ -54,7 +54,7 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 
 ########### aliases ################
 ## command replacements ##
-alias cd='function _f() { cd "$1"/; ls -a; }; _f ' # replace cd with cd then ls
+alias cd='function _f() { \cd "$@"; ls -a; }; _f ' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias cp0='/bin/cp ' # allows sp to be used normally
@@ -93,7 +93,7 @@ alias untar='tar -zxvf ' # shortcut to untar
 alias c='clear' # shortcut to clear screen
 alias ports='netstat -tulanp ' # shows open ports
 alias bashreload='source ~/.bashrc && echo Bash reloaded' # shortcut to reload bash
-mkcd() { mkdir $1;cd $1; }
+#mkcd() { mkdir $1; cd $1; }
 alias hists='history | grep ' # searches history
 ## cover my butt ##
 alias mkdir='mkdir -pv ' # always runs mkdir with create parent if needed
