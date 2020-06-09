@@ -59,8 +59,9 @@ echo " "
 echo "Getting status of local files"
 git -C ~/linux-config/ status --short # get status on load
 echo " "
-echo "if not up to date"
-echo "run gitttycommit"
+echo "Committing local files"
+git -C ~/linux-config/ commit -am " " --allow-empty-message # commits any changes
+
 
 ########### aliases ################
 ## command replacements ##
