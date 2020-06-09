@@ -53,14 +53,13 @@ HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space 
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
 ####### load my newest personalization file on TTY load ##########
-echo "Pulling latest personalization file from remote repository"
-git -C ~/linux-config/ pull # pull on load
+printf "Pulling latest personalization file from remote repository. " && git -C ~/linux-config/ pull # pull on load
 echo " "
 echo "Comparing local personalization file to remote in git"
 git -C ~/linux-config/ status --short # get status on load
 echo " "
 echo "Committing local files"
-git -C ~/linux-config/ commit -am " " --allow-empty-message # commits any changes
+git -C ~/linux-config/ commit -am "" --allow-empty-message --short # commits any changes
 echo " "
 echo "If local changes push using gitttypush"
 
@@ -80,8 +79,14 @@ alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
    
 ## fix typos ##
-alias cd..='\cd ../' # allows typo to still work
+alias cd..='cd ../' # allows typo to still work
 alias cd~='cd ~' # allows typo to still work
+alias gittypull='gitttypull' # allows typo to still work
+alias gittyadd='gitttyadd' # allows typo to still work
+alias gittycommit='gitttycommit' # allows typo to still work
+alias gittypush='gitttypush' # allows typo to still work
+alias gitttycomit='gitttycommit' # allows typo to still work
+alias gittycomit='gitttycommit' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
 alias ..='\cd ../; ls' # allows shortcut for cd ../
