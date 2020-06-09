@@ -110,7 +110,7 @@ alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias reloadbash='source ~/.bashrc && echo Bash reloaded' # shortcut to reload bash
 alias gitttypull='git -C ~/linux-config/ pull' # git pull tty
 alias gitttyadd='git -C ~/linux-config/ add .' # git add changes tty
-alias gitttycommit='git -C ~/linux-config/ commit -am " " --allow-empty-message' # git commit tty
+alias gitttycommit='git -C ~/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 alias gitttypush='git -C ~/linux-config/ push' # git push tty
 alias gittty='git -C ~/linux-config' # auto gets location of tty file
 
