@@ -61,7 +61,8 @@ git -C ~/linux-config/ status --short # get status on load
 echo " "
 echo "Committing local files"
 git -C ~/linux-config/ commit -am " " --allow-empty-message # commits any changes
-
+echo " "
+echo "If local changes push using gitttypush"
 
 ########### aliases ################
 ## command replacements ##
