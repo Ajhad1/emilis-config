@@ -1,4 +1,3 @@
 #!/bin/bash
 
-git -C ~/ pull https://github.com/Ajhad1/linux-config.git
 cat ~/linux-config/.bashrc >> ~/.bashrc

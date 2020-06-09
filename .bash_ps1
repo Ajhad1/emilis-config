@@ -56,10 +56,10 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 printf "Pulling latest personalization file from remote repository. " && git -C ~/linux-config/ pull # pull on load
 echo " "
 echo "Comparing local personalization file to remote in git"
-git -C ~/linux-config/ status --short # get status on load
+git -C ~/linux-config/ add . # get status on load
 echo " "
 echo "Committing local files"
-git -C ~/linux-config/ commit -am "" --allow-empty-message --short # commits any changes
+git -C ~/linux-config/ commit -m " " --allow-empty-message --short # commits any changes
 echo " "
 echo "If local changes push using gitttypush"
 
