@@ -33,7 +33,7 @@ function prompt_command {
         fill="-${fill}" # fill with underscores to work on 
         let fillsize=${fillsize}-1
     done
-
+	
     # If this is an xterm set the title to user@host:dir
     case "$TERM" in
     xterm*|rxvt*)
@@ -52,13 +52,16 @@ force_color_prompt=yes             # add color to terminals
 HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space in the history.
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
+
+git -C ~/linux-config/ pull #pull on load
+
 ########### aliases ################
 ## command replacements ##
-alias cd='function _f() { \cd "$@"; ls -a; }; _f ' # replace cd with cd then ls
+alias cd='function _f { \cd "$1"/; ls;}; _f' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias cp0='/bin/cp ' # allows sp to be used normally
-alias ls='ls -hF --color=auto ' # auto runs with color
+alias ls='ls -ahF --color=auto ' # auto runs with color
 alias ls0='/bin/ls ' # allows ls to be used normally
 alias cat='highlight -O ansi --force ' # runs highlight instead of cat
 alias cat0='bin/cat ' # allows cat to be run normally
@@ -67,11 +70,16 @@ alias fgrep='fgrep --color=auto ' # auto runs with color
 alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
 
+## fix typos ##
+alias cd..='\cd ../' # allows typo to still work
+alias cd~='cd ~' # allows typo to still work
+
 ## shortcuts built-in on other commands ##
-alias ..='cd ../' # allows shortcut for cd ../
-alias ...='cd ../../' # shortcut for cd ../../
-alias ....='cd ../../../' # shortcut for cd ../../../
-alias cdl='function _f() { cd "$1"/; ls -a; }; _f ' # cd then ls
+alias ..='\cd ../; ls' # allows shortcut for cd ../
+alias ...='\cd ../../; ls' # shortcut for cd ../../
+alias ....='\cd ../../../; ls' # shortcut for cd ../../../
+alias cdl='function _f { \cd "$1"/; ls;}; _f' # cd then ls
+alias cdltest='cd_func' # cd then ls
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias la='ls -a ' # ls with -a for show hidden
 alias ll='ls -la ' # short cut for long list
@@ -81,20 +89,19 @@ alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias getip='curl ifconfig.me' # get public ip
 alias getlocal='hostname -I' # get local ip
 alias getpublic='curl ifconfig.me' # get public ip
-alias trash='mv --force -t ~/.local/share/Trash ' # sends to trash instead of deleting
+alias trash='mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files ' # sends to trash instead of deleting
 alias s='sudo ' # shortcut to sudo
+alias bashreload='reloadbash' # shortcut to shortcut to reload bash
+alias reloadbash='source ~/.bashrc && echo Bash reloaded' # shortcut to reload bash
 
-## fix typos ##
-alias cd..='\cd ../' # allows typo to still work
-alias cd~='cd ~ ' # allows typo to still work
-
-################ common aliases trying out ##################
+################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
 alias c='clear' # shortcut to clear screen
 alias ports='netstat -tulanp ' # shows open ports
-alias bashreload='source ~/.bashrc && echo Bash reloaded' # shortcut to reload bash
-#mkcd() { mkdir $1; cd $1; }
+alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
+alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias hists='history | grep ' # searches history
+
 ## cover my butt ##
 alias mkdir='mkdir -pv ' # always runs mkdir with create parent if needed
 alias rm='rm -I --preserve-root ' # do not delete / or prompt if deleting more than 3 files at a time #
@@ -110,8 +117,15 @@ alias apt-get='sudo apt-get ' # always runs apt-get as sudo
 
 
 ################# functions #######################
+## testing function as alias ##
+function cd_func
+{
+	\cd "$1"; 
+	ls; 
+} 
+
 # Syntax: "repeat [X] [command]"
-function repeat()      
+function repeat      
 {
     local i max
     max=$1; shift;
@@ -121,13 +135,14 @@ function repeat()
 }
 
 ### returns my most common commands ###
-function mycommon()
+function mycommon
 {
 	history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
 }
 
 ### list common commands ###
-function common() {
+function common 
+{
 	declare -a commandlist=(pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
 	declare -a descriplist=()
 	for i in ${commandlist[@]}; do
@@ -139,7 +154,8 @@ function common() {
 }
 
 ### calls appropriate extraction tool ###
-function extract {
+function extract 
+{
  if [ -z "$1" ]; then
     # display usage if no parameters given
     echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
@@ -178,7 +194,8 @@ fi
 
 
 ################## auto-complete? #############
-_complete_hosts () {
+function _complete_hosts 
+{
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     host_list=`{
