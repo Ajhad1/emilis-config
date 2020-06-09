@@ -78,7 +78,7 @@ alias egrep='egrep --color=auto ' # auto runs with color
 alias fgrep='fgrep --color=auto ' # auto runs with color
 alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
-
+  
 ## fix typos ##
 alias cd..='\cd ../' # allows typo to still work
 alias cd~='cd ~' # allows typo to still work
