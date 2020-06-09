@@ -87,6 +87,7 @@ alias gittycommit='gitttycommit' # allows typo to still work
 alias gittypush='gitttypush' # allows typo to still work
 alias gitttycomit='gitttycommit' # allows typo to still work
 alias gittycomit='gitttycommit' # allows typo to still work
+alias gitty='gittty' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
 alias ..='\cd ../; ls' # allows shortcut for cd ../
@@ -111,6 +112,7 @@ alias gitttypull='git -C ~/linux-config/ pull' # git pull tty
 alias gitttyadd='git -C ~/linux-config/ add .' # git add changes tty
 alias gitttycommit='git -C ~/linux-config/ commit -am " " --allow-empty-message' # git commit tty
 alias gitttypush='git -C ~/linux-config/ push' # git push tty
+alias gittty='git -C ~/linux-config' # auto gets location of tty file
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
