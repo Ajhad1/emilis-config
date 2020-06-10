@@ -101,7 +101,7 @@ alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias getip='curl ifconfig.me' # get public ip
 alias getlocal='hostname -I' # get local ip
 alias getpublic='curl ifconfig.me' # get public ip
-alias trash='mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files ' # sends to trash instead of deleting
+alias trash='function _t { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _t' # sends to trash instead of deleting
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias reloadbash='source ~/.bashrc && echo Bash reloaded' # shortcut to reload bash
