@@ -68,12 +68,13 @@ alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progre
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -ahF --color=auto ' # auto runs with color
 alias ls0='/bin/ls ' # allows ls to be used normally
-alias cat='highlight -O ansi --force ' # runs highlight instead of cat
+alias cat='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead of cat
 alias cat0='bin/cat ' # allows cat to be run normally
 alias egrep='egrep --color=auto ' # auto runs with color
 alias fgrep='fgrep --color=auto ' # auto runs with color
 alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
+alias vi='vim'
    
 ## fix typos ##
 alias cd..='cd ../' # allows typo to still work
@@ -131,6 +132,7 @@ alias chgrp='chgrp --preserve-root ' # Parenting changing perms on / #
 alias sudo='sudo ' # always checks commands after sudo for aliases
 alias yum='sudo yum ' # auto run yum with sudo
 alias apt-get='sudo apt-get ' # always runs apt-get as sudo
+alias dnf='sudo dnf ' # always runs dnf as sudo
 
 
 ################# functions #######################
