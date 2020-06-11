@@ -99,6 +99,7 @@ alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead of cat
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
+alias cdp='cd ~/linux-config/' # changes to linux config directory
 
 ### new commands ###
 alias getip='curl ifconfig.me' # get public ip
