@@ -111,6 +111,7 @@ alias gitttyadd='git -C ~/linux-config/ add .' # git add changes tty
 alias gitttycommit='git -C ~/linux-config/ add . && git -C ~/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 alias gitttypush='git -C ~/linux-config/ add . && git -C ~/linux-config/ commit -m " " --allow-empty-message && git -C ~/linux-config/ push' # git push tty
 alias gittty='git -C ~/linux-config' # auto gets location of tty file
+alias common='commonlist | less' # outputs common commands into less
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
@@ -160,18 +161,18 @@ function mycommon
 }
 
 ### list common commands ###
-function common 
+function commonlist 
 {
-	echo cd - Change the shell working directory.;
-	echo jobs - Display status of jobs. List the active jobs.
-	echo !* - Copy previous options and arguments.;
-	echo !! - Copy complete last command libe.;
-	declare -a commandlist=(git pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
+	declare -a commandlist=(awk sed git pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
 	declare -a descriplist=()
 	for i in ${commandlist[@]}; do
 		commandstr=$(whatis $i);
-		echo $commandstr;
+		echo -e $commandstr|sed 's/ -/\n\t-/g';
 	done
+	echo -e "cd (1)\n\t- Change the shell working directory.;";
+	echo -e "jobs (1)\n\t- Display status of jobs. List the active jobs.;";
+        echo -e "!* (1)\n\t- Copy previous options and arguments.;";
+        echo -e "!! (1)\n\t- Copy complete last command line.;";
 }
 
 ### calls appropriate extraction tool ###
