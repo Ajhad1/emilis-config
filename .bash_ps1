@@ -57,7 +57,7 @@ echo "Pulling latest personalization file from remote repository. "
 printf ".......Status: " && git -C ~/linux-config/ pull # pull on load
 echo "Comparing local personalization file to remote in git."
 git -C ~/linux-config/ add . > /dev/null && git -C ~/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
-printf ".......Changes: " && git -C ~/linux-config/ status --short | echo # get status on load
+printf ".......Changes: " && echo -e $(git -C ~/linux-config/ status --short) # get status on load
 echo "If local changes push using gitttypush"
 updatep # set git config files for linux-config
 
@@ -69,7 +69,6 @@ alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progre
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -AhG --color=auto --group-directories-first --file-type ' # auto runs with color
 alias ls0='\ls ' # allows ls to be used normally
-alias cat='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead of cat
 alias cat0='\cat ' # allows cat to be run normally
 alias egrep='egrep --color=auto ' # auto runs with color
 alias fgrep='fgrep --color=auto ' # auto runs with color
@@ -95,9 +94,11 @@ alias ....='\cd ../../../; ls' # shortcut for cd ../../../
 alias cdl='function _f { \cd "$1"/; ls;}; _f' # cd then ls
 alias cdltest='cd_func' # cd then ls
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
-alias la='ls -A ' # ls with -a for show hidden
 alias ll='ls -lA ' # short cut for long list
+alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
+alias cath='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead of cat
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
+alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 
 ### new commands ###
 alias getip='curl ifconfig.me' # get public ip
@@ -119,8 +120,6 @@ alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 alias untar='tar -zxvf ' # shortcut to untar
 alias c='clear' # shortcut to clear screen
 alias ports='netstat -tulanp ' # shows open ports
-alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
-alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias hists='history | grep ' # searches history
 
 ## cover my butt ##
