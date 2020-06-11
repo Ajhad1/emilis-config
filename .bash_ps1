@@ -54,10 +54,10 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 
 ####### load my newest personalization file on TTY load ##########
 echo "Pulling latest personalization file from remote repository. "
-printf ".......Status: " && git -C ~/linux-config/ pull # pull on load
+printf "______Status:_____ " && git -C ~/linux-config/ pull # pull on load
 echo "Comparing local personalization file to remote in git."
 git -C ~/linux-config/ add . > /dev/null && git -C ~/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
-printf ".......Changes: " && echo -e $(git -C ~/linux-config/ status --short) # get status on load
+printf "_____Changes:_____ " && echo -e $(git -C ~/linux-config/ status --short) # get status on load
 echo "If local changes push using gitttypush"
 updatep # set git config files for linux-config
 
