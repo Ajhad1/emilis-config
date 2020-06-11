@@ -162,14 +162,16 @@ function mycommon
 ### list common commands ###
 function common 
 {
+	echo cd - Change the shell working directory.;
+	echo jobs - Display status of jobs. List the active jobs.
+	echo !* - Copy previous options and arguments.;
+	echo !! - Copy complete last command libe.;
 	declare -a commandlist=(git pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
 	declare -a descriplist=()
 	for i in ${commandlist[@]}; do
 		commandstr=$(whatis $i);
 		echo $commandstr;
 	done
-	echo cd - Change the shell working directory.;
-	echo jobs - Display status of jobs. Lists the active jobs.;
 }
 
 ### calls appropriate extraction tool ###
