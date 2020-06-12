@@ -76,7 +76,8 @@ alias egrep='egrep --color=auto ' # auto runs with color
 alias fgrep='fgrep --color=auto ' # auto runs with color
 alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
-alias vi='vim'
+alias vi='vim ' # always use vim instead of vi
+alias vim='vim -c"set number"' # always include line numbers
   
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -111,6 +112,7 @@ alias cath='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead 
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
+alias touchs='function _to { touch "$1"; chmod a+x "$1";}; _to' # create shell script and automatically make executable
 
 ### new commands ###
 alias getip='curl ifconfig.me' # get public ip
@@ -119,7 +121,6 @@ alias getpublic='curl ifconfig.me' # get public ip
 alias trash='function _t { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _t' # sends to trash instead of deleting
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
-alias reloadbash='source ~/.bashrc' # shortcut to reload bash
 alias gitttypull='git -C ~/linux-config/ pull' # git pull tty
 alias gitttyadd='git -C ~/linux-config/ add .' # git add changes tty
 alias gitttycommit='git -C ~/linux-config/ add . && git -C ~/linux-config/ commit -m " " --allow-empty-message' # git commit tty
@@ -157,6 +158,56 @@ function cd_func
 	\cd "$1"; 
 	ls; 
 } 
+
+## get terminal name ##
+function getSystemInfo
+{
+	osInfo=$(cat /etc/*release)
+	shellName=$(ps -p $$ -o args | tail -n 1)
+	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 )
+	terminalNameRaw=$(ps -p "$terminalParentId" -o args | tail -n 1 )
+	
+	if [[ $terminalNameRaw == *"gnome-terminal"* ]]; then
+		terminalName="GNOME"
+	else
+		if [[ $terminalNameRaw == *"tmux"* ]]; then
+			terminalName="TMUX"
+		else
+			terminalName="UNKNOWN"
+		fi	
+	fi
+	if [[ $osInfo == *"ubunutu"* ]]; then
+		osName="UBUNTU"
+	else
+		if [[ $osInfo == *"centos"* ]]; then
+			osName="CENTOS"
+		else
+			osName="UNKNOWN"
+		fi
+	fi
+}
+
+## reload aliases from .bash_ps1##
+function reloadbash
+{
+	getSystemInfo
+	if [[ $osName == "UBUNTU" ]]; then
+		if [[ $terminalName == "GNOME" ]]; then
+			source ~/.bashrc
+		else
+			source ~/.bashrc
+		fi
+	else
+		if [[ $osName == "CENTOS" ]]; then
+			if [[ $terminalName == "GNOME" ]]; then
+				gnome-terminal --tab --title=newTab
+				exit
+			else
+				source ~/.bashrc
+			fi
+		fi
+	fi
+}
 
 # Syntax: "repeat [X] [command]"
 function repeat      
