@@ -59,7 +59,9 @@ echo "Comparing local personalization file to remote in git."
 git -C ~/linux-config/ add . > /dev/null && git -C ~/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
 printf "_____Changes:_____ " && echo -e $(git -C ~/linux-config/ status --short) # get status on load
 echo "If local changes push using gitttypush"
-updatep # set git config files for linux-config
+git -C ~/linux-config/ config user.name "Alejandro Colon"
+git -C ~/linux-config/ config user.email "Alejandro@alejandroc.com"
+git -C ~/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 
 ########### aliases ################
 ## command replacements ##
@@ -125,6 +127,7 @@ alias gitttypush='updatep && git -C ~/linux-config/ add . && git -C ~/linux-conf
 alias gittty='updatep && git -C ~/linux-config' # auto gets location of tty file
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
+#alias updatep='updatep' # making alias for updatep function
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
