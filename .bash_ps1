@@ -75,7 +75,16 @@ alias fgrep='fgrep --color=auto ' # auto runs with color
 alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
 alias vi='vim'
-   
+  
+### Human readable ###
+alias free='free -h' # makes free always human readable
+alias df='df -h' # makes df alwaysd human readable
+alias du='du -h' # makes du always human readable
+
+
+
+
+ 
 ## fix typos ##
 alias cd..='cd ../' # allows typo to still work
 alias cd~='cd ~' # allows typo to still work
