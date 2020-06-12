@@ -169,21 +169,18 @@ function getSystemInfo
 	
 	if [[ $terminalNameRaw == *"gnome-terminal"* ]]; then
 		terminalName="GNOME"
+	elif [[ $terminalNameRaw == *"tmux"* ]]; then
+		terminalName="TMUX"
 	else
-		if [[ $terminalNameRaw == *"tmux"* ]]; then
-			terminalName="TMUX"
-		else
-			terminalName="UNKNOWN"
-		fi	
-	fi
+		terminalName="UNKNOWN"
+	fi	
+	
 	if [[ $osInfo == *"ubunutu"* ]]; then
 		osName="UBUNTU"
+	elif [[ $osInfo == *"centos"* ]]; then
+		osName="CENTOS"
 	else
-		if [[ $osInfo == *"centos"* ]]; then
-			osName="CENTOS"
-		else
-			osName="UNKNOWN"
-		fi
+		osName="UNKNOWN"
 	fi
 }
 
@@ -197,14 +194,12 @@ function reloadbash
 		else
 			source ~/.bashrc
 		fi
-	else
-		if [[ $osName == "CENTOS" ]]; then
-			if [[ $terminalName == "GNOME" ]]; then
-				gnome-terminal --tab --title=newTab
-				exit
-			else
-				source ~/.bashrc
-			fi
+	elif [[ $osName == "CENTOS" ]]; then
+		if [[ $terminalName == "GNOME" ]]; then
+			gnome-terminal --tab --title=newTab
+			exit
+		else
+			source ~/.bashrc
 		fi
 	fi
 }
