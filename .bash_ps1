@@ -54,14 +54,14 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 
 ####### load my newest personalization file on TTY load ##########
 echo "Pulling latest personalization file from remote repository. "
-printf "______Status:_____ " && git -C ~/linux-config/ pull # pull on load
+printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull # pull on load
 echo "Comparing local personalization file to remote in git."
-git -C ~/linux-config/ add . > /dev/null && git -C ~/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
-printf "_____Changes:_____ " && echo -e $(git -C ~/linux-config/ status --short) # get status on load
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
+printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short) # get status on load
 echo "If local changes push using gitttypush"
-git -C ~/linux-config/ config user.name "Alejandro Colon"
-git -C ~/linux-config/ config user.email "Alejandro@alejandroc.com"
-git -C ~/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 
 ########### aliases ################
 ## command replacements ##
@@ -121,11 +121,11 @@ alias getpublic='curl ifconfig.me' # get public ip
 alias trash='function _t { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _t' # sends to trash instead of deleting
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
-alias gitttypull='git -C ~/linux-config/ pull' # git pull tty
-alias gitttyadd='git -C ~/linux-config/ add .' # git add changes tty
-alias gitttycommit='git -C ~/linux-config/ add . && git -C ~/linux-config/ commit -m " " --allow-empty-message' # git commit tty
-alias gitttypush='updatep && git -C ~/linux-config/ add . && git -C ~/linux-config/ commit -m " " --allow-empty-message && git -C ~/linux-config/ push' # git push tty
-alias gittty='updatep && git -C ~/linux-config' # auto gets location of tty file
+alias gitttypull='git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull' # git pull tty
+alias gitttyadd='git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add .' # git add changes tty
+alias gitttycommit='git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
+alias gitttypush='updatep && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ push' # git push tty
+alias gittty='updatep && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 #alias updatep='updatep' # making alias for updatep function
@@ -217,9 +217,9 @@ function repeat
 ###### updates personal git stuff ######
 function updatep
 {
-	git -C ~/linux-config/ config user.name "Alejandro Colon"
-	git -C ~/linux-config/ config user.email "Alejandro@alejandroc.com"
-	git -C ~/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 }
 
 ### returns my most common commands ###
