@@ -78,7 +78,8 @@ alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
 alias vi='vim ' # always use vim instead of vi
 alias vim='vim -c"set number"' # always include line numbers
-  
+alias aspell='aspell --dont-backup' # always run in don't backup mode  
+
 ### Human readable ###
 alias free='free -h' # makes free always human readable
 alias df='df -h' # makes df alwaysd human readable
@@ -113,6 +114,7 @@ alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
 alias touchs='function _to { touch "$1"; chmod a+x "$1";}; _to' # create shell script and automatically make executable
+alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
 
 ### new commands ###
 alias getip='curl ifconfig.me' # get public ip
