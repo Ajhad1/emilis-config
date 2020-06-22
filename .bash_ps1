@@ -62,6 +62,10 @@ echo "If local changes push using gitttypush"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
+prompt_command
+echo -e "$fill $name $(date +'%T')"
+ls -AhG --color=auto --group-directories-first --file-type
+
 
 ########### aliases ################
 ## command replacements ##
