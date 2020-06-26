@@ -290,7 +290,8 @@ fi
 
 
 
-################## auto-complete? #############
+################## CLI completion/auto-complete? #############
+#### IP completion for connections ####
 function _complete_hosts 
 {
     COMPREPLY=()
@@ -312,9 +313,20 @@ complete -F _complete_hosts host
 complete -F _complete_hosts telnet
 complete -F _complete_hosts ping
 
-
-
-
+## DSCONFIG CLI completion ##
+function _complete_ds
+{
+	dspath=$(locate /bin/dsconfig | tail -n 1)
+	if [ ! -z "$dspath" ] ; then
+		commandlist=$($dspath --help-all | grep '^[a-z].*')
+		printf "$commandlist"
+		return 0
+	fi
+}
+dspath=$(locate /bin/dsconfig | tail -n 1)
+if [ ! -z "$dspath" ] ; then
+	complete -W "$(_complete_ds)" dsconfig
+fi
 
 
 
