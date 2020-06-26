@@ -275,7 +275,7 @@ fill="--- "
 
 reset_style='\[\033[00m\]'
 if [ -z "$VIM" ];
-then status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
+	then status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
 else status_style=$reset_style'\[\033[0;90;107m\]'
 fi
 prompt_style=$reset_style
@@ -283,7 +283,10 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 # Prompt variable:
 
 OLD_PS1="$PS1"
-PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
+NEW_PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
+if [[ ! $OLD_PS1 == NEW_PS1 ]] ; then
+	PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
+fi
 
 # Reset color for command output
 # (this one is invoked every time before a command is executed):
@@ -313,7 +316,11 @@ function prompt_command {
     esac
   
 }
-PROMPT_COMMAND=prompt_command
+OLD_PROMPT_COMMAND=PROMPT_COMMAND
+NEW_PROMPT_COMMAND=prompt_command
+if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
+	PROMPT_COMMAND=prompt_command
+fi
 
 ### my personal settings ###
 force_color_prompt=yes             # add color to terminals
