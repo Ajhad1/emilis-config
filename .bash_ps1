@@ -284,9 +284,9 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 
 OLD_PS1="$PS1"
 NEW_PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
-if [[ ! $OLD_PS1 == *"$name"* ]] ; then
+## if [[ ! $OLD_PS1 == *"$name"* ]] ; then
 	PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
-fi
+## fi
 
 # Reset color for command output
 # (this one is invoked every time before a command is executed):
@@ -318,9 +318,9 @@ function prompt_command {
 }
 OLD_PROMPT_COMMAND=PROMPT_COMMAND
 NEW_PROMPT_COMMAND=prompt_command
-if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
+## if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
 	PROMPT_COMMAND=prompt_command
-fi
+## fi
 
 ### my personal settings ###
 force_color_prompt=yes             # add color to terminals
