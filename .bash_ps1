@@ -171,7 +171,7 @@ function getSystemInfo
 {
 	osInfo=$(cat /etc/*release)
 	shellName=$(ps -p $$ -o args | tail -n 1)
-	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 )
+	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 | sed -e 's/^[[:space:]]*//')
 	terminalNameRaw=$(ps -p "$terminalParentId" -o args | tail -n 1 )
 	
 	if [[ $terminalNameRaw == *"gnome-terminal"* ]]; then
