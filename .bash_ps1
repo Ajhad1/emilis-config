@@ -284,7 +284,7 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 
 OLD_PS1="$PS1"
 NEW_PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
-if [[ ! $OLD_PS1 == NEW_PS1 ]] ; then
+if [[ ! $OLD_PS1 == *"$name"* ]] ; then
 	PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
 fi
 
