@@ -208,6 +208,13 @@ function reloadbash
 		else
 			source ~/.bashrc
 		fi
+	else
+		if [[ $terminalName == "GNOME" ]]; then
+			gnome-terminal --tab --title=newTab
+			exit
+		else
+			source ~/.bashrc
+		fi
 	fi
 }
 
