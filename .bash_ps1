@@ -253,7 +253,7 @@ complete -F _complete_hosts ping
 ## DSCONFIG CLI completion ##
 function _complete_ds
 {
-	dspath=$(find / -name "dsconfig" 2>/dev/null | tail -n 1)
+	dspath=$(find / -name "dsconfig" -mount 2>/dev/null | tail -n 1)
 	## dspath=$(locate /bin/dsconfig | tail -n 1)
 	if [ ! -z "$dspath" ] ; then
 		commandlist=$($dspath --help-all | grep '^[a-z].*')
@@ -262,7 +262,7 @@ function _complete_ds
 	fi
 }
 ## dspath=$(locate /bin/dsconfig | tail -n 1)
-dspath=$(find / -name "dsconfig" 2>/dev/null | tail -n 1)
+dspath=$(find / -name "dsconfig" -mount 2>/dev/null | tail -n 1)
 if [ ! -z "$dspath" ] ; then
 	complete -W "$(_complete_ds)" dsconfig
 fi
