@@ -328,6 +328,8 @@ HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space 
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
 ####### load my newest personalization file on TTY load ##########
+prompt_command
+echo -e "$fill $name $(date +'%T')"
 echo "Pulling latest personalization file from remote repository. "
 printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull # pull on load
 echo "Comparing local personalization file to remote in git."
@@ -337,7 +339,8 @@ echo "If local changes push using gitttypush"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
-prompt_command
 echo -e "$fill $name $(date +'%T')"
-echo "Current Path: $(pwd)"
-ls -AhG --color=auto --group-directories-first --file-type
+echo "_____Current Directory:_____ $(pwd)"
+echo -e "$fill $name $(date +'%T')"
+ls
+## ls -AhG --color=auto --group-directories-first --file-type
