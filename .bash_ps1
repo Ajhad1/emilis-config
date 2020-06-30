@@ -107,7 +107,9 @@ function getSystemInfo
 		terminalName="GNOME"
 	elif [[ $terminalNameRaw == *"tmux"* ]]; then
 		terminalName="TMUX"
-	else
+	elseif [[ $terminalNameRaw == *"sshd"* ]]; then
+		terminalName="SSH"
+	else	
 		terminalName="UNKNOWN"
 	fi	
 	
@@ -340,11 +342,11 @@ git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config u
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 prompt_command && echo -e "$fill $name $(date +'%T')"
-echo "_____Public IP:_____ $(getip)"
+echo "_____Public IP:    _____ $(getip)"
 echo "_____Private IP(s):_____ $(hostname -I)"
-echo "_____FQDN(s):_____ $(hostname -A)"
-echo "_____OS:_____ $osName"
-echo "_____Terminal:_____ $terminalName"
+echo "_____FQDN(s):      _____ $(hostname -A)"
+echo "_____OS:           _____ $osName"
+echo "_____Terminal:     _____ $terminalName"
 prompt_command && echo -e "$fill $name $(date +'%T')"
 echo "_____Current Directory:_____ $(pwd)"
 prompt_command && echo -e "$fill $name $(date +'%T')"
