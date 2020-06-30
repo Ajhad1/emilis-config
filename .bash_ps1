@@ -2,7 +2,6 @@
 ## command replacements ##
 alias cd='function _f { \cd "$1"/; ls;}; _f' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
-alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -AhG --color=auto --group-directories-first --file-type' # auto runs with color
 alias ls0='\ls ' # allows ls to be used normally
@@ -36,7 +35,7 @@ alias gittycomit='gitttycommit' # allows typo to still work
 alias gitty='gittty' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
-alias ..='\cd ../; ls' # allows shortcut for cd ../
+## alias ..='\cd ../; ls' # allows shortcut for cd ../
 alias ...='\cd ../../; ls' # shortcut for cd ../../
 alias ....='\cd ../../../; ls' # shortcut for cd ../../../
 alias cdl='function _f { \cd "$1"/; ls;}; _f' # cd then ls
