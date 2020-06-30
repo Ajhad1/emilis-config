@@ -331,6 +331,7 @@ HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space 
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
 ####### load my newest personalization file on TTY load ##########
+getSystemInfo
 prompt_command && prompt_command && echo -e "$fill $name $(date +'%T')"
 echo "Pulling latest personalization file from remote repository. "
 printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull # pull on load
