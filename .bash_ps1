@@ -341,6 +341,9 @@ git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config u
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 prompt_command && echo -e "$fill $name $(date +'%T')"
 echo "_____Current Directory:_____ $(pwd)"
+echo "_____Public IP:_____ $(getip)"
+echo "_____Private IP(s):_____ $(hostname -I)"
+echo "_____FQDNs:_____ $(hostname -A)"
 prompt_command && echo -e "$fill $name $(date +'%T')"
 ls
 ## ls -AhG --color=auto --group-directories-first --file-type
