@@ -288,7 +288,7 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 OLD_PS1="$PS1"
 NEW_PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
 if [[ ! $PS1 == *'$name'* ]] ; then
-	PS1="$status_style"'$fill $name \t\n'"$prompt_style$OLD_PS1$command_style"
+	PS1="$status_style"'$fill DIR: $pwdVar UN: $name \t\n'"$prompt_style$OLD_PS1$command_style"
 fi
 
 # Reset color for command output
@@ -300,7 +300,8 @@ function prompt_command {
 
     # create a $fill of all screen width minus the time string and a space and USER and a space:
     name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
-    let fillsize=${COLUMNS}-10-${#name}
+    pwdVar=$(pwd)
+    let fillsize=${COLUMNS}-20-${#name}-${#pwdVar}
     fill=""
     while [ "$fillsize" -gt "0" ]
     do
