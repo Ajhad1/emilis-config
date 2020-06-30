@@ -107,7 +107,7 @@ function getSystemInfo
 		terminalName="GNOME"
 	elif [[ $terminalNameRaw == *"tmux"* ]]; then
 		terminalName="TMUX"
-	elseif [[ $terminalNameRaw == *"sshd"* ]]; then
+	elif [[ $terminalNameRaw == *"sshd"* ]]; then
 		terminalName="SSH"
 	else	
 		terminalName="UNKNOWN"
