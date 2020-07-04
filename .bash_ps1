@@ -285,30 +285,50 @@ prompt_style=$reset_style
 command_style=$reset_style'\[\033[1;29m\]' # bold black
 # Prompt variable:
 
-OLD_PS1="$PS1"
-NEW_PS1="$status_style"'$fill HN: $hostnameVar DIR: $pwdVar UN: $name \t \n'"$prompt_style$OLD_PS1$command_style"
-if [[ ! $PS1 == *'$name'* ]] ; then
-	PS1="$status_style"'$fill HN: $hostnameVar DIR: $pwdVar UN: $name \t \n'"$prompt_style$OLD_PS1$command_style"
-fi
-
-# Reset color for command output
-# (this one is invoked every time before a command is executed):
-trap 'echo -ne "\e[0m"' DEBUG
-
+## OLD_PS1="$PS1"
+## NEW_PS1='$fill HN: $hostnameVar DIR: $pwdVar UN: $name \t \n'
+## if [[ ${#NEW_PS1} -gt ${COLUMNS} ]] ; then
+##     columns=${COLUMNS}
+##     NEW_PS1='$columns $fill DIR: $pwdVar UN: $name \t \n'
+## fi
+## if [[ ! $PS1 == *'$name'* ]] ; then
+##     PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
+## fi
+## 
+## # Reset color for command output
+## # (this one is invoked every time before a command is executed):
+## trap 'echo -ne "\e[0m"' DEBUG
 
 function prompt_command {
 
     # create a $fill of all screen width minus the time string and a space and USER and a space:
     name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
-    pwdVar=$(pwd)
-    hostnameVar=$(hostname)
-    let fillsize=${COLUMNS}-26-${#name}-${#pwdVar}-${#hostnameVar}
+    if [[ $name == "" ]] ; then
+        nameVar=""
+    else
+        nameVar="UN: $name "
+    fi
+    pwdVar="DIR: $(pwd) "
+    hostnameVar="HN: $(hostname) "
+    let fillsize=${COLUMNS}-10-${#nameVar}-${#pwdVar}-${#hostnameVar}
     fill=""
     while [ "$fillsize" -gt "0" ]
     do
         fill="-${fill}" # fill with underscores to work on 
         let fillsize=${fillsize}-1
-    done
+    done    
+
+    NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX "
+    if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
+        let fillsize=${COLUMNS}-10-${#nameVar}-${#pwdVar}
+        fill=""
+        while [ "$fillsize" -gt "0" ]
+        do
+             fill="-${fill}" # fill with underscores to work 
+             let fillsize=${fillsize}-1
+        done
+        hostnameVar=""
+    fi
 	
     # If this is an xterm set the title to user@host:dir
     case "$TERM" in
@@ -327,6 +347,21 @@ if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
 	PROMPT_COMMAND=prompt_command
 fi
 
+OLD_PS1="$PS1"
+NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t \n'
+## if [[ ${#NEW_PS1} -gt $columns ]] ; then
+##     columns1=$columns
+##     NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
+## fi
+if [[ ! $PS1 == *'$name'* ]] ; then
+    PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
+fi
+
+# Reset color for command output
+# (this one is invoked every time before a command is executed):
+trap 'echo -ne "\e[0m"' DEBUG
+
+
 ### my personal settings ###
 force_color_prompt=yes             # add color to terminals
 HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space in the history.
@@ -334,7 +369,7 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 
 ####### load my newest personalization file on TTY load ##########
 getSystemInfo
-prompt_command && prompt_command && echo -e "$fill HN: $hostnameVar DIR: $pwdVar UN: $name $(date +'%T')"
+prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "Pulling latest personalization file from remote repository. "
 printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull # pull on load
 echo "Comparing local personalization file to remote in git."
@@ -344,14 +379,14 @@ echo "If local changes push using gitttypush"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
-prompt_command && echo -e "$fill HN: $hostnameVar DIR: $pwdVar UN: $name $(date +'%T')"
+prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "_____Public IP:    _____ $(getip)"
 echo "_____Private IP(s):_____ $(hostname -I)"
 echo "_____FQDN(s):      _____ $(hostname -A)"
 echo "_____OS:           _____ $osName"
 echo "_____Terminal:     _____ $terminalName"
-prompt_command && echo -e "$fill HN: $hostnameVar DIR: $pwdVar UN: $name $(date +'%T')"
+prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "_____Current Directory:_____ $(pwd)"
-prompt_command && echo -e "$fill HN: $hostnameVar DIR: $pwdVar UN: $name $(date +'%T')"
+prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 ls
 ## ls -AhG --color=auto --group-directories-first --file-type
