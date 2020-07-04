@@ -333,7 +333,7 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 
 ####### load my newest personalization file on TTY load ##########
 getSystemInfo
-prompt_command && prompt_command && echo -e "$fill $name $(date +'%T')"
+prompt_command && prompt_command && echo -e "$fill DIR: $pwdVar UN: $name $(date +'%T')"
 echo "Pulling latest personalization file from remote repository. "
 printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull # pull on load
 echo "Comparing local personalization file to remote in git."
@@ -349,8 +349,8 @@ echo "_____Private IP(s):_____ $(hostname -I)"
 echo "_____FQDN(s):      _____ $(hostname -A)"
 echo "_____OS:           _____ $osName"
 echo "_____Terminal:     _____ $terminalName"
-prompt_command && echo -e "$fill $name $(date +'%T')"
+prompt_command && echo -e "$fill DIR: $pwdVar UN: $name $(date +'%T')"
 echo "_____Current Directory:_____ $(pwd)"
-prompt_command && echo -e "$fill $name $(date +'%T')"
+prompt_command && echo -e "$fill DIR: $pwdVar UN: $name $(date +'%T')"
 ls
 ## ls -AhG --color=auto --group-directories-first --file-type
