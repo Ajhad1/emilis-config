@@ -353,7 +353,7 @@ NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t\n'
 ##     columns1=$columns
 ##     NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
 ## fi
-if [[ ! $PS1 == *'$name'* ]] ; then
+if [[ ! $PS1 == *'${nameVar}'* ]] ; then
     PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
 fi
 
