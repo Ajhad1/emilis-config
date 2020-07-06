@@ -310,7 +310,7 @@ function prompt_command {
     fi
     pwdVar="DIR: $(pwd) "
     hostnameVar="HN: $(hostname) "
-    let fillsize=${COLUMNS}-10-${#nameVar}-${#pwdVar}-${#hostnameVar}
+    let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
     fill=""
     while [ "$fillsize" -gt "0" ]
     do
@@ -318,9 +318,9 @@ function prompt_command {
         let fillsize=${fillsize}-1
     done    
 
-    NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX  "
+    NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
     if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
-        let fillsize=${COLUMNS}-10-${#nameVar}-${#pwdVar}
+        let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}
         fill=""
         while [ "$fillsize" -gt "0" ]
         do
