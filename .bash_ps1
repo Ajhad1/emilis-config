@@ -312,10 +312,10 @@ function prompt_command {
     if [[ $name == "" ]] ; then
         nameVar=""
     else
-        nameVar="UN: $name "
+        nameVar="UN: $name | "
     fi
-    pwdVar="DIR: $(pwd) "
-    hostnameVar="HN: $(hostname) "
+    pwdVar="DIR: $(pwd) | "
+    hostnameVar="HN: $(hostname) | "
     let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
     fill=""
     while [ "$fillsize" -gt "0" ]
