@@ -95,6 +95,12 @@ function cd_func
 	ls; 
 } 
 
+## get hosts file and list hosts ##
+function hosts
+{
+	cat /etc/hosts
+}
+
 ## get terminal name ##
 function getSystemInfo
 {
