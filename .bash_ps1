@@ -14,16 +14,14 @@ alias vi='vim ' # always use vim instead of vi
 alias vim='vim -c"set number"' # always include line numbers
 alias aspell='aspell --dont-backup' # always run in don't backup mode  
 alias less='less -R' # always display colors
+alias jq='jq -C --tab' # always use color and tabs
+alias highlight='highlight -O ansi --force --syntax=sh -n' # always run highlight with color and default syntax
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
 alias df='df -h' # makes df alwaysd human readable
 alias du='du -h' # makes du always human readable
 
-
-
-
- 
 ## fix typos ##
 alias cd..='cd ../' # allows typo to still work
 alias cd~='cd ~' # allows typo to still work
@@ -34,9 +32,11 @@ alias gittypush='gitttypush' # allows typo to still work
 alias gitttycomit='gitttycommit' # allows typo to still work
 alias gittycomit='gitttycommit' # allows typo to still work
 alias gitty='gittty' # allows typo to still work
+alias pretyprint='jq' # allows typo to stil work
+alias printprety='jq' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
-## alias ..='\cd ../; ls' # allows shortcut for cd ../
+## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
 alias ...='\cd ../../; ls' # shortcut for cd ../../
 alias ....='\cd ../../../; ls' # shortcut for cd ../../../
 alias cdl='function _f { \cd "$1"/; ls;}; _f' # cd then ls
@@ -45,6 +45,7 @@ alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progre
 alias ll='ls -lA ' # short cut for long list
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead of cat
+alias catj='jq' # runs jq instead of cat
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
@@ -66,6 +67,11 @@ alias gittty='updatep && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HO
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 #alias updatep='updatep' # making alias for updatep function
+
+#### actual aliases ####
+alias prettyprint='jq' 
+alias printpretty='jq'
+alias pp='jq'
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
