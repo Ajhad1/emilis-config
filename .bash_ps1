@@ -44,7 +44,7 @@ alias cdltest='cd_func' # cd then ls
 alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
 alias ll='ls -lA ' # short cut for long list
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
-alias cath='highlight -O ansi --force --syntax=sh -n ' # runs highlight instead of cat
+alias cath='highlight ' # runs highlight instead of cat
 alias catj='jq' # runs jq instead of cat
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
@@ -59,11 +59,11 @@ alias getpublic='curl -s ifconfig.me' # get public ip
 alias trash='function _t { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _t' # sends to trash instead of deleting
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
-alias gitttypull='git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ pull' # git pull tty
-alias gitttyadd='git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add .' # git add changes tty
-alias gitttycommit='git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
-alias gitttypush='updatep && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ push' # git push tty
-alias gittty='updatep && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/' # auto gets location of tty file
+alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
+alias gitttyadd='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add .' # git add changes tty
+alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
+alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push' # git push tty
+alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 #alias updatep='updatep' # making alias for updatep function
