@@ -41,7 +41,8 @@ alias ...='\cd ../../; ls' # shortcut for cd ../../
 alias ....='\cd ../../../; ls' # shortcut for cd ../../../
 alias cdl='function _f { \cd "$1"/; ls;}; _f' # cd then ls
 alias cdltest='cd_func' # cd then ls
-alias cpp='rsync -ah --info=progress2 ' # use rsync instead of cp for its progress
+alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
+alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its progress
 alias ll='ls -lA ' # short cut for long list
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
