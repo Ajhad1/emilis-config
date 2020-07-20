@@ -46,7 +46,7 @@ alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its prog
 alias ll='ls -lA ' # short cut for long list
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
-alias catj='jq' # runs jq instead of cat
+alias catj='jq .' # runs jq instead of cat
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
