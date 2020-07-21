@@ -3,7 +3,7 @@
 alias cd='function _f { \cd "$1"/; ls;}; _f' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
-alias ls='ls -AhG --color=auto --group-directories-first --file-type' # auto runs with color
+alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
 alias ls0='\ls ' # allows ls to be used normally
 alias cat0='\cat ' # allows cat to be run normally
 alias egrep='egrep --color=auto ' # auto runs with color
