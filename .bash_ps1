@@ -1,6 +1,6 @@
 ########### aliases ################
 ## command replacements ##
-alias cd='function _f { \cd "$1"/; ls;}; _f' # replace cd with cd then ls
+alias cd='function _f { \cd "$1"/; tree1 --noreport;}; _f' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
@@ -16,7 +16,7 @@ alias aspell='aspell --dont-backup' # always run in don't backup mode
 alias less='less -R' # always display colors
 alias jq='jq -C --tab' # always use color and tabs
 alias highlight='highlight -O ansi --force --syntax=sh -n' # always run highlight with color and default syntax
-alias tree='tree -ChaD --du --dirsfirst' # always colorize Tree
+alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -38,9 +38,10 @@ alias printprety='jq' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
 ## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
-alias ...='\cd ../../; ls' # shortcut for cd ../../
-alias ....='\cd ../../../; ls' # shortcut for cd ../../../
+alias ...='\cd ../../; tree1 --noreport' # shortcut for cd ../../
+alias ....='\cd ../../../; tree1 --noreport' # shortcut for cd ../../../
 alias cdl='function _f { \cd "$1"/; ls;}; _f' # cd then ls
+alias cdt='function _f { \cd "$1"/; tree1 --noreport;}; _f' # cd then tree1
 alias cdltest='cd_func' # cd then ls
 alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
 alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its progress
@@ -406,5 +407,5 @@ echo "_____Terminal:     _____ $terminalName"
 prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "_____Current Directory:_____ $(pwd)"
 ## prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-ls
+tree1 --noreport
 ## ls -AhG --color=auto --group-directories-first --file-type
