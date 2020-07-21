@@ -45,7 +45,8 @@ alias cdt='function _f { \cd "$1"/; tree1 --noreport;}; _f' # cd then tree1
 alias cdltest='cd_func' # cd then ls
 alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
 alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its progress
-alias ll='ls -lA ' # short cut for long list
+# alias ll='ls -lA ' # short cut for long list
+alias ll='tree1 -pu' # shortcut for long list with tree
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
 alias catj='jq .' # runs jq instead of cat
