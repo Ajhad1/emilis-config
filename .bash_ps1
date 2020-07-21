@@ -16,7 +16,7 @@ alias aspell='aspell --dont-backup' # always run in don't backup mode
 alias less='less -R' # always display colors
 alias jq='jq -C --tab' # always use color and tabs
 alias highlight='highlight -O ansi --force --syntax=sh -n' # always run highlight with color and default syntax
-alias tree='tree -Cha --du --dirsfirst' # always colorize Tree
+alias tree='tree -ChaD --du --dirsfirst' # always colorize Tree
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -53,6 +53,9 @@ alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds 
 alias cdp='cd ~/linux-config/' # changes to linux config directory
 alias touchs='function _to { touch "$1"; chmod a+x "$1";}; _to' # create shell script and automatically make executable
 alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
+alias tree1='tree -L 1' # Tree to the first level
+alias tree2='tree -L 2' # Tree to the second level
+alias tree3='tree -L 3' # Tree to the third level
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
