@@ -16,6 +16,7 @@ alias aspell='aspell --dont-backup' # always run in don't backup mode
 alias less='less -R' # always display colors
 alias jq='jq -C --tab' # always use color and tabs
 alias highlight='highlight -O ansi --force --syntax=sh -n' # always run highlight with color and default syntax
+alias tree='tree -L' # always colorize Tree
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
