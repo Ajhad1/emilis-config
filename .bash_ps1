@@ -35,8 +35,8 @@ alias gittypush='gitttypush' # allows typo to still work
 alias gitttycomit='gitttycommit' # allows typo to still work
 alias gittycomit='gitttycommit' # allows typo to still work
 alias gitty='gittty' # allows typo to still work
-alias pretyprint='jq' # allows typo to stil work
-alias printprety='jq' # allows typo to still work
+alias pretyprint='jq .' # allows typo to stil work
+alias printprety='jq .' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
 ## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
