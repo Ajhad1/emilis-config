@@ -80,7 +80,7 @@ alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 # alias updatep='updatep' # making alias for updatep function
-alias exits='gitttypush && exit' # save before exiting
+alias exits='gitttypush && exit && exit' # save before exiting
 
 #### actual aliases ####
 alias prettyprint='jq' 
