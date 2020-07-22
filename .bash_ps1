@@ -60,7 +60,7 @@ alias tree2='tree -L 2' # Tree to the second level
 alias tree3='tree -L 3' # Tree to the third level
 alias psgrep='ps -ef | grep -v grep | grep' # use grep on ps without showing grep 
 alias grepps='ps -ef | grep -v grep | grep' # use grep on ps without showing grep
-alias grepp='ps-ef | grep -v grep | grep' # use grep on ps without showing grep
+alias grepp='ps -ef | grep -v grep | grep' # use grep on ps without showing grep
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
