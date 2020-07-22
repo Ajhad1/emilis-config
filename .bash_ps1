@@ -58,6 +58,9 @@ alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backu
 alias tree1='tree -L 1' # Tree to the first level
 alias tree2='tree -L 2' # Tree to the second level
 alias tree3='tree -L 3' # Tree to the third level
+alias psgrep='ps -ef | grep -v grep | grep' # use grep on ps without showing grep 
+alias grepps='ps -ef | grep -v grep | grep' # use grep on ps without showing grep
+alias grepp='ps-ef | grep -v grep | grep' # use grep on ps without showing grep
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
@@ -73,7 +76,7 @@ alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
-#alias updatep='updatep' # making alias for updatep function
+# alias updatep='updatep' # making alias for updatep function
 
 #### actual aliases ####
 alias prettyprint='jq' 
