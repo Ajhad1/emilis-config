@@ -142,10 +142,10 @@ function _logout
 	echo "$commitVar"
 	if [[ -z $commitVar ]]; then
 	 	\logout
-		echo "Empty"
 	else
-		echo "Not Empty"
-	## 	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout
+		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push
+		sleep 2s
+		\logout
 	fi
 }
 
