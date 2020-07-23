@@ -416,6 +416,7 @@ printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git
 echo "If local changes push using gitttypush"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "_____Public IP:    _____ $(getip)"
