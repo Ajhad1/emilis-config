@@ -423,7 +423,8 @@ echo "_____FQDN(s):      _____ $(hostname -A)"
 echo "_____OS:           _____ $osName"
 echo "_____Terminal:     _____ $terminalName"
 prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-echo "_____Current Directory:_____ $(pwd)"
+## echo "_____Current Directory:_____ $(pwd)"
+echo "$(pwd)"
 ## prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 tree1 --noreport
 ## ls -AhG --color=auto --group-directories-first --file-type
