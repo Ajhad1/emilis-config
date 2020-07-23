@@ -139,11 +139,12 @@ function hosts
 function _logout
 {
 	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short) 
-	if [[ -z $commitVar ]]; then
-		logout
-	else 
-		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout
-	fi
+	echo "$commitVar"
+	## if [[ -z $commitVar ]]; then
+	## 	logout
+	## else 
+	## 	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout
+	## fi
 }
 
 ## get terminal name ##
