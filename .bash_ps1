@@ -144,10 +144,11 @@ function _logout
 	 	\logout
 	else
 		gitttypush
-		sleep 2s
+		#sleep 2s
 		\logout
 	fi
 }
+
 
 ## get terminal name ##
 function getSystemInfo
