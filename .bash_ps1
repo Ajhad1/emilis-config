@@ -143,7 +143,7 @@ function _logout
 	if [[ -z $commitVar ]]; then
 	 	\logout
 	else
-		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push
+		gitttypush
 		sleep 2s
 		\logout
 	fi
