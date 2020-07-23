@@ -84,7 +84,7 @@ alias trash='function _t { mkdir --parents ~/.local/share/Trash/files; mv --forc
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
-alias gitttyadd='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null' # git add changes tty
+alias gitttyadd='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add .' # git add changes tty
 alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
