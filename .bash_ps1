@@ -22,8 +22,9 @@ alias highlight='highlight -O ansi --force --syntax=sh --line-number --line-numb
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 alias view='vim -R' # changes view to vim -R
 alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
-alias logout='updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short & disown && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout' # save before logging out
+## alias logout='updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short & disown && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout' # save before logging out
 ## alias logout='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m "" --allow-empty-message --short & disown && echo "show up" && exit && logout' # test logout alias
+alias logout='_logout' # logout test
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -132,6 +133,17 @@ function cd_func
 function hosts
 {
 	cat /etc/hosts
+}
+
+### log out function ###
+function _logout
+{
+	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short) 
+	if [[ -z $commitVar ]]; then
+		logout
+	else 
+		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout
+	fi
 }
 
 ## get terminal name ##
@@ -265,7 +277,6 @@ function extract
     done
 fi
 }
-
 
 
 ################## CLI completion/auto-complete? #############
