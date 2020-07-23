@@ -22,7 +22,7 @@ alias highlight='highlight -O ansi --force --syntax=sh --line-number --line-numb
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 alias view='vim -R' # changes view to vim -R
 alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
-alias logout='gittypush && logout' # save before logging out
+alias logout='gittypush && \logout' # save before logging out
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -91,7 +91,7 @@ alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 # alias updatep='updatep' # making alias for updatep function
-alias exits='gitttypush && logout' # save before exiting
+alias exits='gitttypush && \logout' # save before exiting
 
 #### actual aliases ####
 alias prettyprint='jq' 
