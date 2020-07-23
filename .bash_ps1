@@ -14,11 +14,13 @@ alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
 alias vi='vim ' # always use vim instead of vi
 alias vim='vim -c"set number" -c"colorscheme torte"' # always include line numbers
+alias view='view -c"set number" -c"colorscheme torte"' # always run view with line numbers and colors
 alias aspell='aspell --dont-backup' # always run in don't backup mode  
 alias less='less -R' # always display colors
 alias jq='jq -C --tab' # always use color and tabs
 alias highlight='highlight -O ansi --force --syntax=sh -n' # always run highlight with color and default syntax
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
+alias view='vim -R' # changes view to vim -R
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -52,6 +54,7 @@ alias ll='tree1 -pu' # shortcut for long list with tree
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
 alias catj='jq .' # runs jq instead of cat
+alias catv='vim -R' # runs vim -R
 alias lstest='ls -Alhf --color=auto ' # supposed to be a good ls
 alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
