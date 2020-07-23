@@ -140,11 +140,13 @@ function _logout
 {
 	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short) 
 	echo "$commitVar"
-	## if [[ -z $commitVar ]]; then
+	if [[ -z $commitVar ]]; then
 	## 	logout
-	## else 
+		echo "Empty"
+	else
+		echo "Not Empty"
 	## 	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout
-	## fi
+	fi
 }
 
 ## get terminal name ##
