@@ -22,9 +22,8 @@ alias highlight='highlight -O ansi --force --syntax=sh --line-number --line-numb
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 alias view='vim -R' # changes view to vim -R
 alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
-## alias logout='updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short & disown && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && logout' # save before logging out
-## alias logout='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m "" --allow-empty-message --short & disown && echo "show up" && exit && logout' # test logout alias
-alias logout='_logout' # logout test
+alias logout='_logout' # save when logout
+alias exit='_exit' # save when exiting
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -144,11 +143,21 @@ function _logout
 	 	\logout
 	else
 		gitttypush
-		#sleep 2s
 		\logout
 	fi
 }
 
+function _exit
+{
+        commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
+        echo "$commitVar"
+        if [[ -z $commitVar ]]; then
+                \exit
+        else
+                gitttypush
+                \exit
+        fi
+}
 
 ## get terminal name ##
 function getSystemInfo
