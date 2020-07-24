@@ -21,7 +21,7 @@ alias jq='jq -C --tab' # always use color and tabs
 alias highlight='highlight -O ansi --force --syntax=sh --line-number --line-numbers' # always run highlight with color and default syntax
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 alias view='vim -R' # changes view to vim -R
-alias fmt='fmt -t -w "$COLUMNS"' # line indentation
+alias fmt='fmt -t -g 110 -w "$COLUMNS"' # line indentation
 alias nl='function _nl { \nl -ba -nrz -s " - " "$@" | fmt;}; _nl' #left justify and indent 
 ## alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
 alias logout='_logout' # save when logout
