@@ -88,7 +88,7 @@ alias trash='function _trash { mkdir --parents ~/.local/share/Trash/files; mv --
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
-alias gitttyadd='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add .' # git add changes tty
+alias gitttyadd='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 ## alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
@@ -105,6 +105,11 @@ alias edit='vim' # edit = vim
 alias prettyprint='jq' 
 alias printpretty='jq'
 alias pp='jq'
+alias t1='tree1'
+alias t2='tree2'
+alias t3='tree3'
+alias t4='tree4'
+alias t5='tree5'
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
