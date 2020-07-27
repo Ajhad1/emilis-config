@@ -42,8 +42,8 @@ alias gittypush='gitttypush' # allows typo to still work
 alias gitttycomit='gitttycommit' # allows typo to still work
 alias gittycomit='gitttycommit' # allows typo to still work
 alias gitty='gittty' # allows typo to still work
-alias pretyprint='jq .' # allows typo to stil work
-alias printprety='jq .' # allows typo to still work
+alias pretyprint='prettyprint' # allows typo to stil work
+alias printprety='printpretty' # allows typo to still work
 
 ## shortcuts built-in on other commands ##
 ## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
@@ -58,7 +58,7 @@ alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its prog
 alias ll='tree1 -pu' # shortcut for long list with tree
 alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
-alias catj='jq .' # runs jq instead of cat
+alias catj='jq' # runs jq instead of cat
 alias catv='vim -R' # runs vim -R
 alias catn='cat -n' # runs cat with line numbering
 alias cati='function _cati { \cat "$@" | fmt;}; _cati' # runs with indentation
