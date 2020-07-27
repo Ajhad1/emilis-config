@@ -13,7 +13,7 @@ alias fgrep='fgrep --color=auto ' # auto runs with color
 alias grep='grep --color=auto ' # auto runs with color
 alias wget='wget -c ' # auto runs with -c
 alias vi='vim ' # always use vim instead of vi
-alias vim='vim -c"set number" -c"colorscheme torte"' # always include line numbers
+## alias vim='vim -c"set number" -c"colorscheme torte"' # always include line numbers
 alias view='view -c"set number" -c"colorscheme torte"' # always run view with line numbers and colors
 alias aspell='aspell --dont-backup' # always run in don't backup mode  
 alias less='less -R' # always display colors
@@ -96,6 +96,7 @@ alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/li
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
+alias vimp='vim ~/linux-config/.vimrc_profile' # starts editing VIM personalization file
 # alias updatep='updatep' # making alias for updatep function
 alias exits='gitttypush && \logout' # save before exiting
 
