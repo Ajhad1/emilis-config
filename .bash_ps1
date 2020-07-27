@@ -99,6 +99,7 @@ alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 alias vimp='vim ~/linux-config/.vimrc_profile' # starts editing VIM personalization file
 # alias updatep='updatep' # making alias for updatep function
 alias exits='gitttypush && \logout' # save before exiting
+alias edit='vim' # edit = vim
 
 #### actual aliases ####
 alias prettyprint='jq' 
