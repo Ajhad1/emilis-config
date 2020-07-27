@@ -1,6 +1,4 @@
-
 " Import Personal Configuration Files
-" if [ -f "$HOME/linux-config/.vim_profile" ] && [[ $- == *i* ]]; then
-"     . "$HOME/linux-config/.vim_profile"
-" fi
-:source ~/linux-config/.vimrc
+if !empty(glob("$HOME/linux-config/.vim_profile"))
+	:source ~/linux-config/.vimrc_profile
+endif
