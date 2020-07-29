@@ -2,8 +2,8 @@
 
 ########### aliases ################
 ## command replacements ##
-## alias cd='_cd' # replace cd with cd then ls
-## alias cd='function _cd0 { \cd "$1"/; tree1 --noreport;}; _cd0' # replace cd with cd then ls
+alias cd='_cd_' # replace cd with cd then ls
+## alias cd='function _cd_ { \cd "$1"/; tree1 --noreport;}; _cd_' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
@@ -22,11 +22,11 @@ alias highlight='highlight -O ansi --force --line-number --line-numbers' # alway
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 alias view='vim -R' # changes view to vim -R
 alias fmt='fmt -t -g 110 -w "$COLUMNS"' # line indentation
-alias nl='_nl' # left justify and indent
+alias nl='_nl_' # left justify and indent
 ## alias nl='function _nl { \nl -ba -nrz -s " - " "$@" | fmt;}; _nl' # left justify and indent 
 ## alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
-alias logout='_logout' # save when logout
-alias exit='_exit' # save when exiting
+alias logout='_logout_' # save when logout
+alias exit='_exit_' # save when exiting
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -50,23 +50,22 @@ alias printprety='printpretty' # allows typo to still work
 ## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
 alias ...='\cd ../../; tree1 --noreport' # shortcut for cd ../../
 alias ....='\cd ../../../; tree1 --noreport' # shortcut for cd ../../../
-alias cdl='function _cdl { \cd "$@"/; ls;}; _cdl' # cd then ls
-alias cdt='function _cdt { \cd "$@"/; tree1 --noreport;}; _cdt' # cd then tree1
-alias cdltest='cd_func' # cd then ls
+alias cdl='function _cdl_ { \cd "$@"/; ls;}; _cdl_' # cd then ls
+alias cdt='function _cdt_ { \cd "$@"/; tree1 --noreport;}; _cdt_' # cd then tree1
 alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
 alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its progress
 # alias ll='ls -lA ' # short cut for long list
 alias ll='tree1 -pu' # shortcut for long list with tree
-alias mvf='function _mvf { mv $@; cd $2; }; _mvf' # moves files and cds into it
+alias mvf='function _mvf_ { mv $@; cd $2; }; _mvf_' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
 alias catj='jq' # runs jq instead of cat
 alias catv='vim -R' # runs vim -R
 alias catn='cat -n' # runs cat with line numbering
-alias cati='function _cati { \cat "$@" | fmt;}; _cati' # runs with indentation
+alias cati='function _cati_ { \cat "$@" | fmt;}; _cati_' # runs with indentation
 alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
-alias mkdirf='function _mkdirf { mkdir $1; cd $1; }; _mkdirf' # makes directory and cds into it
+alias mkdirf='function _mkdirf_ { mkdir $1; cd $1; }; _mkdirf_' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
-alias touchs='function _touchs { touch "$1"; chmod a+x "$1";}; _touchs' # create shell script and automatically make executable
+alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
 alias tree1='tree -L 1' # Tree to the first level
 alias tree2='tree -L 2' # Tree to the second level
@@ -85,9 +84,7 @@ alias nl5='nl -w5' # set nl number length to 5
 alias getip='curl -s ifconfig.me' # get public ip
 alias getlocal='hostname -I' # get local ip
 alias getpublic='curl -s ifconfig.me' # get public ip
-alias trash='function _trash { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash' # sends to trash instead of deleting
-alias s='sudo ' # shortcut to sudo
-alias bashreload='reloadbash' # shortcut to shortcut to reload bash
+alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash_' # sends to trash instead of deleting
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
 alias gitttyadd='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
@@ -98,9 +95,8 @@ alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 alias vimp='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
+alias ports='netstat -tulanp ' # shows open ports
 # alias updatep='updatep' # making alias for updatep function
-alias exits='_exit' # save before exiting
-alias edit='vim -u ~/linux-config/.vimrc' # edit = vim
 
 #### actual aliases ####
 alias prettyprint='jq' 
@@ -111,11 +107,14 @@ alias t2='tree2'
 alias t3='tree3'
 alias t4='tree4'
 alias t5='tree5'
+alias exits='exit' # save before exiting
+alias edit='vim -u ~/linux-config/.vimrc' # edit = vim
+alias s='sudo ' # shortcut to sudo
+alias bashreload='reloadbash' # shortcut to shortcut to reload bash
+alias c='clear' # shortcut to clear screen
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
-alias c='clear' # shortcut to clear screen
-alias ports='netstat -tulanp ' # shows open ports
 alias hists='history | grep ' # searches history
 
 ## cover my butt ##
@@ -142,7 +141,7 @@ function hosts
 
 ###### commands turned into functions ###### --->
 ## log out function ##
-function _logout
+function _logout_
 {
 	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
 	echo "$commitVar"
@@ -154,7 +153,7 @@ function _logout
 	fi
 }
 
-function _exit
+function _exit_
 {
 	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
 	echo "$commitVar"
@@ -166,8 +165,8 @@ function _exit
 	fi
 }
 
-function _nl { \nl -ba -nrz -s " - " "$@" | fmt;} #
-function _cd { \cd "$@"/; tree1 --noreport;} # replace cd with cd then ls
+function _nl_ { \nl -ba -nrz -s " - " "$@" | fmt;} #
+function _cd_ { \cd "$@"/; tree1 --noreport;} # replace cd with cd then ls
 ###### commands turned into functions ###### <---
 
 
