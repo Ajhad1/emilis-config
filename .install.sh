@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 if ! grep -q '$HOME/linux-config' $HOME/.bashrc; then
-    cat ~/linux-config/.bashrc >> ~/.bashrc
+	cat ~/linux-config/.bashrc >> ~/.bashrc
 fi
 if ! grep -q 'linux-config' $HOME/.vimrc 2> /dev/null; then
-    cat ~/linux-config/.vimrc_config >> ~/.vimrc
+	cat ~/linux-config/.vimrc_config >> ~/.vimrc
 fi
 ## cat ~/linux-config/.bashrc >> ~/.bashrc
 ## cat ~/linux-config/.vimrc >> ~/.vimrc
