@@ -2,13 +2,13 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helps force plug-ins to load correctly when it is turned back on below.
-filetype off
+" filetype off
 
 " Sets how many lines of history VIM has to remember
 set history=50
 
 " For plug-ins to load correctly.
-filetype plugin on
+" filetype plugin on
 filetype indent on
 
 " Prompt confirmation dialogs
@@ -75,7 +75,7 @@ set ruler
 syntax enable
 
 " Display command line’s tab complete options as a menu.
-" set wildmenu
+set wildmenu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -102,7 +102,8 @@ set showcmd
 set laststatus=2
 
 " Set status line display
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
+set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
+" set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 
 " Highlight matching search patterns
 set hlsearch
