@@ -166,7 +166,7 @@ function _exit_
 }
 
 function _nl_ { \nl -ba -nrz -s " - " "$@" | fmt;} #
-function _cd_ { \cd "$@"/; tree1 --noreport;} # replace cd with cd then ls
+function _cd_ { \cd "$@"/ > /dev/null; tree1 --noreport;} # replace cd with cd then ls
 ###### commands turned into functions ###### <---
 
 
