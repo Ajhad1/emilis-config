@@ -2,8 +2,8 @@
 
 ########### aliases ################
 ## command replacements ##
-alias cd='_cd' # replace cd with cd then ls
-## alias cd='function _f { \cd "$@"/; tree1 --noreport;}; _f' # replace cd with cd then ls
+## alias cd='_cd' # replace cd with cd then ls
+alias cd='function _cd0 { \cd "$@"/; tree1 --noreport;}; _cd0' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
@@ -50,23 +50,23 @@ alias printprety='printpretty' # allows typo to still work
 ## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
 alias ...='\cd ../../; tree1 --noreport' # shortcut for cd ../../
 alias ....='\cd ../../../; tree1 --noreport' # shortcut for cd ../../../
-alias cdl='function _f { \cd "$@"/; ls;}; _f' # cd then ls
-alias cdt='function _f { \cd "$@"/; tree1 --noreport;}; _f' # cd then tree1
+alias cdl='function _cdl { \cd "$@"/; ls;}; _cdl' # cd then ls
+alias cdt='function _cdt { \cd "$@"/; tree1 --noreport;}; _cdt' # cd then tree1
 alias cdltest='cd_func' # cd then ls
 alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
 alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its progress
 # alias ll='ls -lA ' # short cut for long list
 alias ll='tree1 -pu' # shortcut for long list with tree
-alias mvf='function _mv { mv $@; cd $2; }; _mv' # moves files and cds into it
+alias mvf='function _mvf { mv $@; cd $2; }; _mvf' # moves files and cds into it
 alias cath='highlight ' # runs highlight instead of cat
 alias catj='jq' # runs jq instead of cat
 alias catv='vim -R' # runs vim -R
 alias catn='cat -n' # runs cat with line numbering
 alias cati='function _cati { \cat "$@" | fmt;}; _cati' # runs with indentation
 alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
-alias mkdirf='function _mk { mkdir $1; cd $1; }; _mk' # makes directory and cds into it
+alias mkdirf='function _mkdirf { mkdir $1; cd $1; }; _mkdirf' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
-alias touchs='function _to { touch "$1"; chmod a+x "$1";}; _to' # create shell script and automatically make executable
+alias touchs='function _touchs { touch "$1"; chmod a+x "$1";}; _touchs' # create shell script and automatically make executable
 alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
 alias tree1='tree -L 1' # Tree to the first level
 alias tree2='tree -L 2' # Tree to the second level
@@ -144,10 +144,10 @@ function hosts
 ## log out function ##
 function _logout
 {
-	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short) 
+	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
 	echo "$commitVar"
 	if [[ -z $commitVar ]]; then
-	 	\logout
+		\logout
 	else
 		gitttypush
 		\logout
@@ -156,17 +156,17 @@ function _logout
 
 function _exit
 {
-        commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
-        echo "$commitVar"
-        if [[ -z $commitVar ]]; then
-                \exit
-        else
-                gitttypush
-                \exit
-        fi
+	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
+	echo "$commitVar"
+	if [[ -z $commitVar ]]; then
+		\exit
+	else
+		gitttypush
+		\exit
+	fi
 }
 
-function _nl { \nl -ba -nrz -s " - " "$@" | fmt;} # 
+function _nl { \nl -ba -nrz -s " - " "$@" | fmt;} #
 function _cd { \cd "$@"/; tree1 --noreport;} # replace cd with cd then ls
 ###### commands turned into functions ###### <---
 
@@ -185,9 +185,9 @@ function getSystemInfo
 		terminalName="TMUX"
 	elif [[ $terminalNameRaw == *"sshd"* ]]; then
 		terminalName="SSH"
-	else	
+	else
 		terminalName="UNKNOWN"
-	fi	
+	fi
 	
 	if [[ $osInfo == *"ubunutu"* ]]; then
 		osName="UBUNTU"
@@ -228,11 +228,11 @@ function reloadbash
 # Syntax: "repeat [X] [command]"
 function repeat      
 {
-    local i max
-    max=$1; shift;
-    for ((i=1; i <= max ; i++)); do  # --> C-like syntax
-        eval "$@";
-    done
+	local i max
+	max=$1; shift;
+	for ((i=1; i <= max ; i++)); do  # --> C-like syntax
+		eval "$@";
+	done
 }
 
 ###### updates personal git stuff ######
@@ -261,23 +261,23 @@ function commonlist
 	done
 	echo -e "cd (1)\n\t- Change the shell working directory.;";
 	echo -e "jobs (1)\n\t- Display status of jobs. List the active jobs.;";
-        echo -e "!* (1)\n\t- Copy previous options and arguments.;";
-        echo -e "!! (1)\n\t- Copy complete last command line.;";
+	echo -e "!* (1)\n\t- Copy previous options and arguments.;";
+	echo -e "!! (1)\n\t- Copy complete last command line.;";
 }
 
 ### calls appropriate extraction tool ###
 function extract 
 {
- if [ -z "$1" ]; then
-    # display usage if no parameters given
-    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
-    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
-    return 1
- else
-    for n in $@
-    do
-      if [ -f "$n" ] ; then
-          case "${n%,}" in
+	if [ -z "$1" ]; then
+		# display usage if no parameters given
+		echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+		echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+		return 1
+	else
+		for n in $@
+		do
+			if [ -f "$n" ] ; then
+				case "${n%,}" in
             *.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar) 
                          tar xvf "$n"       ;;
             *.lzma)      unlzma ./"$n"      ;;
@@ -291,16 +291,16 @@ function extract
             *.xz)        unxz ./"$n"        ;;
             *.exe)       cabextract ./"$n"  ;;
             *)
-                         echo "extract: '$n' - unknown archive method"
-                         return 1
-                         ;;
-          esac
-      else
-          echo "'$n' - file does not exist"
-          return 1
-      fi
-    done
-fi
+				echo "extract: '$n' - unknown archive method"
+				return 1
+				;;
+				esac
+			else
+				echo "'$n' - file does not exist"
+				return 1
+			fi
+		done
+	fi
 }
 
 
@@ -308,18 +308,18 @@ fi
 #### IP completion for connections ####
 function _complete_hosts 
 {
-    COMPREPLY=()
-    cur="${COMP_WORDS[COMP_CWORD]}"
-    host_list=`{
-        for c in /etc/ssh_config /etc/ssh/ssh_config ~/.ssh/config
-        do [ -r $c ] && sed -n -e 's/^Host[[:space:]]//p' -e 's/^[[:space:]]*HostName[[:space:]]//p' $c
-        done
-        for k in /etc/ssh_known_hosts /etc/ssh/ssh_known_hosts ~/.ssh/known_hosts
-        do [ -r $k ] && egrep -v '^[#\[]' $k|cut -f 1 -d ' '|sed -e 's/[,:].*//g'
-        done
-        sed -n -e 's/^[0-9][0-9\.]*//p' /etc/hosts; }|tr ' ' '\n'|grep -v '*'`
-    COMPREPLY=( $(compgen -W "${host_list}" -- $cur))
-    return 0
+	COMPREPLY=()
+	cur="${COMP_WORDS[COMP_CWORD]}"
+	host_list=`{
+		for c in /etc/ssh_config /etc/ssh/ssh_config ~/.ssh/config
+		do [ -r $c ] && sed -n -e 's/^Host[[:space:]]//p' -e 's/^[[:space:]]*HostName[[:space:]]//p' $c
+		done
+		for k in /etc/ssh_known_hosts /etc/ssh/ssh_known_hosts ~/.ssh/known_hosts
+		do [ -r $k ] && egrep -v '^[#\[]' $k|cut -f 1 -d ' '|sed -e 's/[,:].*//g'
+		done
+		sed -n -e 's/^[0-9][0-9\.]*//p' /etc/hosts; }|tr ' ' '\n'|grep -v '*'`
+	COMPREPLY=( $(compgen -W "${host_list}" -- $cur))
+	return 0
 }
 complete -F _complete_hosts ssh
 complete -F _complete_hosts sshs
@@ -364,59 +364,59 @@ command_style=$reset_style'\[\033[1;29m\]' # bold black
 ## OLD_PS1="$PS1"
 ## NEW_PS1='$fill HN: $hostnameVar DIR: $pwdVar UN: $name \t \n'
 ## if [[ ${#NEW_PS1} -gt ${COLUMNS} ]] ; then
-##     columns=${COLUMNS}
-##     NEW_PS1='$columns $fill DIR: $pwdVar UN: $name \t \n'
+## 	columns=${COLUMNS}
+## 	NEW_PS1='$columns $fill DIR: $pwdVar UN: $name \t \n'
 ## fi
 ## if [[ ! $PS1 == *'$name'* ]] ; then
-##     PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
+## 	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
 ## fi
-## 
+##
 ## # Reset color for command output
 ## # (this one is invoked every time before a command is executed):
 ## trap 'echo -ne "\e[0m"' DEBUG
 
 function prompt_command {
 
-    # create a $fill of all screen width minus the time string and a space and USER and a space:
-    name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
-    if [[ $name == "" ]] ; then
-        nameVar=""
-    else
-        nameVar="UN: $name | "
-    fi
-    pwdVar="DIR: $(pwd) | "
-    hostnameVar="HN: $(hostname) | "
-    let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
-    fill=""
-    while [ "$fillsize" -gt "0" ]
-    do
-        fill="-${fill}" # fill with underscores to work on 
-        let fillsize=${fillsize}-1
-    done    
-
-    NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
-    if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
-        let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}
-        fill=""
-        while [ "$fillsize" -gt "0" ]
-        do
-             fill="-${fill}" # fill with underscores to work 
-             let fillsize=${fillsize}-1
-        done
-        hostnameVar=""
-    fi
+	# create a $fill of all screen width minus the time string and a space and USER and a space:
+	name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
+	if [[ $name == "" ]] ; then
+		nameVar=""
+	else
+		nameVar="UN: $name | "
+	fi
+	pwdVar="DIR: $(pwd) | "
+	hostnameVar="HN: $(hostname) | "
+	let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
+	fill=""
+	while [ "$fillsize" -gt "0" ]
+	do
+		fill="-${fill}" # fill with underscores to work on 
+		let fillsize=${fillsize}-1
+	done
 	
-    # If this is an xterm set the title to user@host:dir
-    case "$TERM" in
-    xterm*|rxvt*)
-        bname=`basename "${PWD/$HOME/~}"`
-        echo -ne "\033]0;${bname}: ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
-        ;;
-    *)
-        ;;
-    esac
-  
+	NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+	if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
+		let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}
+		fill=""
+		while [ "$fillsize" -gt "0" ]
+		do
+			fill="-${fill}" # fill with underscores to work 
+			let fillsize=${fillsize}-1
+		done
+		hostnameVar=""
+	fi
+	
+	# If this is an xterm set the title to user@host:dir
+	case "$TERM" in
+		xterm*|rxvt*)
+			bname=`basename "${PWD/$HOME/~}"`
+			echo -ne "\033]0;${bname}: ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
+			;;
+		*)
+			;;
+	esac
 }
+
 OLD_PROMPT_COMMAND=PROMPT_COMMAND
 NEW_PROMPT_COMMAND=prompt_command
 if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
@@ -426,11 +426,11 @@ fi
 OLD_PS1="$PS1"
 NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t\n'
 ## if [[ ${#NEW_PS1} -gt $columns ]] ; then
-##     columns1=$columns
-##     NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
+## 	columns1=$columns
+## 	NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
 ## fi
 if [[ ! $PS1 == *'${nameVar}'* ]] ; then
-    PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
+	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
 fi
 
 # Reset color for command output
