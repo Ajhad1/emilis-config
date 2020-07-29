@@ -3,7 +3,7 @@
 ########### aliases ################
 ## command replacements ##
 ## alias cd='_cd' # replace cd with cd then ls
-alias cd='function _cd0 { \cd "$@"/; tree1 --noreport;}; _cd0' # replace cd with cd then ls
+## alias cd='function _cd0 { \cd "$1"/; tree1 --noreport;}; _cd0' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
 alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
@@ -226,7 +226,7 @@ function reloadbash
 }
 
 # Syntax: "repeat [X] [command]"
-function repeat      
+function repeat
 {
 	local i max
 	max=$1; shift;
@@ -251,7 +251,7 @@ function mycommon
 }
 
 ### list common commands ###
-function commonlist 
+function commonlist
 {
 	declare -a commandlist=(awk sed git pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
 	declare -a descriplist=()
@@ -266,7 +266,7 @@ function commonlist
 }
 
 ### calls appropriate extraction tool ###
-function extract 
+function extract
 {
 	if [ -z "$1" ]; then
 		# display usage if no parameters given
@@ -278,7 +278,7 @@ function extract
 		do
 			if [ -f "$n" ] ; then
 				case "${n%,}" in
-            *.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar) 
+            *.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar)
                          tar xvf "$n"       ;;
             *.lzma)      unlzma ./"$n"      ;;
             *.bz2)       bunzip2 ./"$n"     ;;
@@ -306,7 +306,7 @@ function extract
 
 ################## CLI completion/auto-complete? #############
 #### IP completion for connections ####
-function _complete_hosts 
+function _complete_hosts
 {
 	COMPREPLY=()
 	cur="${COMP_WORDS[COMP_CWORD]}"

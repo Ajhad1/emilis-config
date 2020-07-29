@@ -25,8 +25,8 @@ set tm=500
 
 " Properly disable sound on errors on MacVim
 " if has("gui_macvim")
-"     autocmd GUIEnter * set vb t_vb=
-"     endif
+" 	autocmd GUIEnter * set vb t_vb=
+" endif
 
 " Set to auto read when a file is changed from the outside
 " set autoread
@@ -75,7 +75,7 @@ set ruler
 syntax enable
 
 " Display command line’s tab complete options as a menu.
-set wildmenu
+" set wildmenu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -160,7 +160,7 @@ set linebreak
 set foldmethod=indent
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+" set foldcolumn=1
 
 "  Show tab bar
 set showtabline=2
@@ -257,8 +257,7 @@ nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
+" Opens a new tab with the current buffer's path - Super useful when editing files in the same directory
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
@@ -312,22 +311,22 @@ function! CmdLine(str)
 	feedkeys(":" . a:str)
 endfunction 
 
-function! VisualSelection(direction, extra_filter) range
-	let l:saved_reg = @"
-	execute "normal! vgvy"
-	
-	let l:pattern = escape(@", "\\/.*'$^~[]")
-	let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-	if a:direction == 'gv'
-		call CmdLine("Ack '" . l:pattern . "' " )
-	elseif a:direction == 'replace'
-		call CmdLine("%s" . '/'. l:pattern . '/')
-	endif
-	
-	let @/ = l:pattern
-	let @" = l:saved_reg
-endfunction
+" function! VisualSelection(direction, extra_filter) range
+" 	let l:saved_reg = @"
+" 	execute "normal! vgvy"
+"	
+"	let l:pattern = escape(@", "\\/.*'$^~[]")
+"	let l:pattern = substitute(l:pattern, "\n$", "", "")
+"
+"	if a:direction == 'gv'
+"		call CmdLine("Ack '" . l:pattern . "' " )
+"	elseif a:direction == 'replace'
+"		call CmdLine("%s" . '/'. l:pattern . '/')
+"	endif
+"	
+"	let @/ = l:pattern
+"	let @" = l:saved_reg
+" endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
