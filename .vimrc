@@ -18,10 +18,10 @@ set confirm
 " set spell
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
+" set noerrorbells
+" set novisualbell
+" set t_vb=
+" set tm=500
 
 " Properly disable sound on errors on MacVim
 " if has("gui_macvim")
@@ -80,9 +80,9 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
+	set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
 " Highlight the line currently under cursor.
@@ -115,7 +115,7 @@ set ignorecase
 set smartcase
 
 " Enable incremental search
-" set incsearch
+set incsearch
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -163,7 +163,7 @@ set foldmethod=indent
 " Add a bit extra margin to the left
 " set foldcolumn=1
 
-"  Show tab bar
+" Show tab bar
 set showtabline=2
 
 " Show matching brackets.
@@ -199,8 +199,8 @@ endfun
 " endif
 
 " Visual mode pressing * or # searches for the current selection (Super useful! From an idea by Michael Naumann)
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+" vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+" vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Mouse Stuff
