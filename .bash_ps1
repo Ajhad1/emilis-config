@@ -112,6 +112,7 @@ alias edit='vim -u ~/linux-config/.vimrc' # edit = vim
 alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias c='clear' # shortcut to clear screen
+alias v='vim'
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
