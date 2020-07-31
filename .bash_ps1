@@ -119,17 +119,17 @@ alias untar='tar -zxvf ' # shortcut to untar
 alias hists='history | grep ' # searches history
 
 ## cover my butt ##
-alias mkdir='mkdir -pv ' # always runs mkdir with create parent if needed
-alias rm='rm -I --preserve-root ' # do not delete / or prompt if deleting more than 3 files at a time #
+alias mkdir='mkdir -pv' # always runs mkdir with create parent if needed
+alias rm='rm -I --preserve-root' # do not delete / or prompt if deleting more than 3 files at a time #
 alias mv='mv -i ' # always runs in confirmation mode #
 alias cp='cp -i ' # always runs in confirmation mode #
 alias ln='ln -i ' # always runs in confirmation mode #
-alias chown='chown --preserve-root ' # Parenting changing perms on / #
-alias chmod='chmod --preserve-root ' # Parenting changing perms on / #
-alias chgrp='chgrp --preserve-root ' # Parenting changing perms on / #
+alias chown='chown --preserve-root' # Parenting changing perms on / #
+alias chmod='chmod --preserve-root' # Parenting changing perms on / #
+alias chgrp='chgrp --preserve-root' # Parenting changing perms on / #
 alias sudo='sudo ' # always checks commands after sudo for aliases
 alias yum='sudo yum ' # auto run yum with sudo
-alias apt-get='sudo apt-get ' # always runs apt-get as sudo
+alias apt-get='sudo apt-get' # always runs apt-get as sudo
 alias dnf='sudo dnf ' # always runs dnf as sudo
 
 
