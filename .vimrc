@@ -2,12 +2,13 @@
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helps force plug-ins to load correctly when it is turned back on below.
-" filetype off
+filetype off
 
 " Sets how many lines of history VIM has to remember
 setlocal history=50
 
 " For plug-ins to load correctly.
+execute pathogen#infect()
 filetype plugin on
 filetype indent on
 
@@ -365,6 +366,7 @@ endfunction
 " Toggle All Folds
 " Toggle All Folds => Command
 command! Fold call UnrolMe()
+command! FOLD call UnrolMe()
 " Toggle All Folds => Function
 let $unrol=0
 function! UnrolMe()
