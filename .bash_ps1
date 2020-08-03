@@ -94,6 +94,7 @@ alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/li
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
+alias editi='vim ~/linux-config/.install.sh' # starts editing install file
 alias vimp='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
 alias ports='netstat -tulanp ' # shows open ports
 # alias updatep='updatep' # making alias for updatep function
