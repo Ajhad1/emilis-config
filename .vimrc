@@ -1,6 +1,6 @@
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helps force plug-ins to load correctly when it is turned back on below.
 " filetype off
 
@@ -32,6 +32,24 @@ set confirm
 " set autoread
 " au FocusGained,BufEnter * checktime
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General => Search vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Highlight matching search patterns
+set hlsearch
+
+" Include matching uppercase words with lowercase search term
+set ignorecase
+
+" Include only uppercase words with uppercase search term
+set smartcase
+
+" Enable incremental search
+set incsearch
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General => Shortcuts vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " With a map leader it's possible to do extra key combinations like <leader>w saves the current file
 let mapleader = ","
 
@@ -50,15 +68,12 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Shortcuts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -95,9 +110,9 @@ set title
 set showmode
 set showcmd
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Status Line and Searching
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface => Status Line vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status Line
 set laststatus=2
 
@@ -106,39 +121,9 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 
-" Highlight matching search patterns
-set hlsearch
-
-" Include matching uppercase words with lowercase search term
-set ignorecase
-
-" Include only uppercase words with uppercase search term
-set smartcase
-
-" Enable incremental search
-set incsearch
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Number of undo levels
-set undolevels=100
-
-" Store info from no more than 100 files at a time, 9999 lines of text, 100kb
-" of data. Useful for copying large amounts of data between files.
-" set viminfo='100,<9999,s100
-
-" " Map the <Space> key to toggle a selected fold opened/closed.
-nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
-vnoremap <Space> zf
-
-" Automatically save and load folds
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview"
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface => Text, Tab, and Indent vvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Display different types of white spaces.
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
@@ -154,6 +139,18 @@ set smartindent
 
 " Enable smart-tabs
 set smarttab
+
+" Set Tab Length
+set tabstop=8
+
+" Shiftwidth
+set shiftwidth=0
+
+" SoftTabStop
+set softtabstop=-1
+
+" No Expand Tab
+set noexpandtab
 
 " Avoid wrapping a line in the middle of a word.
 set linebreak
@@ -177,17 +174,28 @@ set showmatch
 " Highlight matching pairs of brackets. Use the '%' character to jump between them.
 set matchpairs+=<:>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Files, backups, and undo vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Number of undo levels
+set undolevels=100
+
+" Store info from no more than 100 files at a time, 9999 lines of text, 100kb
+" of data. Useful for copying large amounts of data between files.
+" set viminfo='100,<9999,s100
+
+" " Map the <Space> key to toggle a selected fold opened/closed.
+nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
+vnoremap <Space> zf
+
+" Automatically save and load folds
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview"
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fixes
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Fixes common backspace problems
-set backspace=indent,eol,start
-set whichwrap+=<,>,h,l
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Mouse Stuff
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Mouse Stuff vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " set guicursor=n-v-c:block,o:hor50,i-ci:hor15,r-cr:hor30,sm:block,a:blinkon0
 
 " Enable mouse use in all modes
@@ -203,9 +211,9 @@ set ttymouse=xterm2
 " Display 5 lines above/below the cursor when scrolling with a mouse.
 set scrolloff=5
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Moving around tabs, windows, and buffers  vvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 " map <space> /
 map <C-space> ?
@@ -257,9 +265,9 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Helper Functions vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " " Returns true if paste mode is enabled
 function! HasPaste()
 	if &paste
@@ -312,58 +320,6 @@ function! VisualSelection(direction, extra_filter) range
 	let @" = l:saved_reg
 endfunction
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Experimental
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Delete trailing white space on save, useful for some filetypes ;)
-fun! CleanExtraSpaces()
-	let save_cursor = getpos(".")
-	let old_query = getreg('/')
-	silent! %s/\s\+$//e
-	call setpos('.', save_cursor)
-	call setreg('/', old_query)
-endfun
-
-" if has("autocmd")
-" 	autocmd BufWritePre
-" 	*.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call
-" 	CleanExtraSpaces()
-" endif
-
-" Visual mode pressing * or # searches for the current selection (Super useful! From an idea by Michael Naumann)
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Turn persistent undo on means that you can undo even when you close a buffer/VIM
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-try
-	set undodir=~/.vim_runtime/temp_dirs/undodir
-	set undofile
-catch
-endtry
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Parenthesis/bracket
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-" vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-" vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-" vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-" vnoremap $q <esc>`>a'<esc>`<i'<esc>
-" vnoremap $e <esc>`>a`<esc>`<i`<esc>
-"
-" " Map auto complete of (, ", ', [
-" inoremap $1 ()<esc>i
-" inoremap $2 []<esc>i
-" inoremap $3 {}<esc>i
-" inoremap $4 {<esc>o}<esc>O
-" inoremap $q ''<esc>i
-" inoremap $e ""<esc>i
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 func! DeleteTillSlash()
 	let g:cmd = getcmdline()
 	if has("win16") || has("win32")
@@ -385,7 +341,75 @@ func! CurrentFileDir(cmd)
 	return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+	let save_cursor = getpos(".")
+	let old_query = getreg('/')
+	silent! %s/\s\+$//e
+	call setpos('.', save_cursor)
+	call setreg('/', old_query)
+endfun
+
+" if has("autocmd")
+" 	autocmd BufWritePre
+" 	*.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call
+" 	CleanExtraSpaces()
+" endif
+
+" Visual mode pressing * or # searches for the current selection (Super useful! From an idea by Michael Naumann)
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => END
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental => Persistent undo (allows undo after closing file) vvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+try
+	set undodir=~/.vim_runtime/temp_dirs/undodir
+	set undofile
+catch
+endtry
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental => Parenthesis/Bracket vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vnoremap $1 <esc>`>a)<esc>`<i(<esc>
+" vnoremap $2 <esc>`>a]<esc>`<i[<esc>
+" vnoremap $3 <esc>`>a}<esc>`<i{<esc>
+" vnoremap $$ <esc>`>a"<esc>`<i"<esc>
+" vnoremap $q <esc>`>a'<esc>`<i'<esc>
+" vnoremap $e <esc>`>a`<esc>`<i`<esc>
+"
+" " Map auto complete of (, ", ', [
+" inoremap $1 ()<esc>i
+" inoremap $2 []<esc>i
+" inoremap $3 {}<esc>i
+" inoremap $4 {<esc>o}<esc>O
+" inoremap $q ''<esc>i
+" inoremap $e ""<esc>i
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Fixes vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Fixes common backspace problems
+set backspace=indent,eol,start
+set whichwrap+=<,>,h,l
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Filetype Specific Settings vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Example of autocmd setting tabstop to 4 for file type javascript
+" autocmd Filetype javascript setlocal tabstop=4
+
+" Set the tabstop  based on 'json' file extension, overriding value already set
+au BufRead,BufNewFile *.json setlocal tabstop=4
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ => Filetype Specific Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ => END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
