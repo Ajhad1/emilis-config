@@ -34,6 +34,7 @@ alias df='df -h' # makes df alwaysd human readable
 alias du='du -h' # makes du always human readable
 
 ## fix typos ##
+alias cd.='cd ../' # allows type to still work
 alias cd..='cd ../' # allows typo to still work
 alias cd~='cd ~' # allows typo to still work
 alias gittypull='gitttypull' # allows typo to still work
