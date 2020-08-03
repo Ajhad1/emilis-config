@@ -5,7 +5,7 @@
 " filetype off
 
 " Sets how many lines of history VIM has to remember
-set history=50
+setlocal history=50
 
 " For plug-ins to load correctly.
 filetype plugin on
@@ -15,28 +15,28 @@ filetype indent on
 set confirm
 
 " Enable spell-checking
-" set spell
+" setlocal spell
 
 " No annoying sound on errors
-" set noerrorbells
-" set novisualbell
-" set t_vb=
-" set tm=500
+" setlocal noerrorbells
+" setlocal novisualbell
+" setlocal t_vb=
+" setlocal tm=500
 
 " Properly disable sound on errors on MacVim
 " if has("gui_macvim")
-" 	autocmd GUIEnter * set vb t_vb=
+" 	autocmd GUIEnter * setlocal vb t_vb=
 " endif
 
 " Set to auto read when a file is changed from the outside
-" set autoread
-" au FocusGained,BufEnter * checktime
+set autoread
+au FocusGained,BufEnter * checktime
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General => Search vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Highlight matching search patterns
-set hlsearch
+setlocal hlsearch
 
 " Include matching uppercase words with lowercase search term
 set ignorecase
@@ -46,6 +46,10 @@ set smartcase
 
 " Enable incremental search
 set incsearch
+
+" Visual mode pressing * or # searches for the current selection (Super useful! From an idea by Michael Naumann)
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General => Shortcuts vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -59,9 +63,6 @@ nmap <leader>w :w!<cr>
 " :W sudo saves the file (useful for handling the permission-denied error)
 command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
 
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
 " Shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
@@ -71,14 +72,17 @@ map <leader>s? z=
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+setlocal so=7
 
 " Show line numbers
-set number
+setlocal number
 
 " change Vim color scheme
 colorscheme torte
@@ -114,10 +118,10 @@ set showcmd
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface => Status Line vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Status Line
-set laststatus=2
+setlocal laststatus=2
 
 " Set status line display
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c\ %{strftime('%c')}
+setlocal statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c\ %{strftime('%c')}
 " set statusline=%F%m%r%h%w\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 " set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l,%v][%p%%]\ [BUFFER=%n]\ %{strftime('%c')}
 
@@ -125,36 +129,48 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface => Text, Tab, and Indent vvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Display different types of white spaces.
-set list
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+setlocal list
+setlocal listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 
 " Automatically wrap text that extends beyond the screen length.
-set wrap
+setlocal wrap
 
 " Auto-indent new lines
 " set autoindent
 
 " Enable smart-indent
-set smartindent
+setlocal smartindent
 
 " Enable smart-tabs
-set smarttab
+setlocal smarttab
 
 " Set Tab Length
-set tabstop=8
+setlocal tabstop=8
 
 " Shiftwidth
-set shiftwidth=0
+setlocal shiftwidth=0
 
 " SoftTabStop
-set softtabstop=-1
+setlocal softtabstop=-1
 
 " No Expand Tab
-set noexpandtab
+setlocal noexpandtab
 
 " Avoid wrapping a line in the middle of a word.
-set linebreak
+setlocal linebreak
 
+" Show tab bar
+setlocal showtabline=2
+
+" Show matching brackets.
+set showmatch
+
+" Highlight matching pairs of brackets. Use the '%' character to jump between them.
+set matchpairs+=<:>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface => Text, Tab, and Indent vvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Fold based on indention levels and manual folds.
 augroup vimrc
 	au BufReadPre * setlocal foldmethod=indent
@@ -163,16 +179,15 @@ augroup END
 " set foldmethod=indent
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+setlocal foldcolumn=1
 
-" Show tab bar
-set showtabline=2
+" Map the <Space> key to toggle a selected fold opened/closed.
+nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
+vnoremap <Space> zf
 
-" Show matching brackets.
-set showmatch
-
-" Highlight matching pairs of brackets. Use the '%' character to jump between them.
-set matchpairs+=<:>
+" Automatically save and load folds
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Files, backups, and undo vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -182,16 +197,10 @@ set undolevels=100
 
 " Store info from no more than 100 files at a time, 9999 lines of text, 100kb
 " of data. Useful for copying large amounts of data between files.
-" set viminfo='100,<9999,s100
+set viminfo='100,<9999,s100
 
-" " Map the <Space> key to toggle a selected fold opened/closed.
-nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
-vnoremap <Space> zf
-
-" Automatically save and load folds
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview"
-
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Mouse Stuff vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -209,7 +218,7 @@ set ttymouse=xterm2
 " set virtualedit=all
 
 " Display 5 lines above/below the cursor when scrolling with a mouse.
-set scrolloff=5
+setlocal scrolloff=5
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Moving around tabs, windows, and buffers  vvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -248,7 +257,6 @@ let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-
 " Opens a new tab with the current buffer's path - Super useful when editing files in the same directory
 map <leader>te :tabedit <C-r>=expand("%:p:h")<cr>/
 
@@ -261,9 +269,6 @@ try
 	set stal=2
 catch
 endtry
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Helper Functions vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -299,8 +304,7 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 function! CmdLine(str)
-	call
-	feedkeys(":" . a:str)
+	call feedkeys(":" . a:str)
 endfunction 
 
 function! VisualSelection(direction, extra_filter) range
@@ -344,6 +348,43 @@ endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" attempt at retabbing file
+command! -nargs=1 Tabulate call TabulateFunc(<f-args>)
+
+function! TabulateFunc(currentSpacesToTab)
+	let oldTabStop=&tabstop
+	setlocal noexpandtab
+	execute "setlocal tabstop=".a:currentSpacesToTab
+	%retab!
+	execute "setlocal tabstop=".oldTabStop
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental => Toggle All Folds vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Toggle All Folds
+" Toggle All Folds => Command
+command! Fold call UnrolMe()
+" Toggle All Folds => Function
+let $unrol=0
+function! UnrolMe()
+	if $unrol==0
+		:exe "normal zR"
+		let $unrol=1
+	else
+		:exe "normal zM"
+		let $unrol=0
+	endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental => Remove Extra Spaces on Save vvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove Extra Spaces on Save
+if has("autocmd")
+	autocmd BufWritePre *.txt,*.js,*.json,*.py,*.wiki,*.sh,*.coffee :call CleanExtraSpaces()
+endif
+
 " Delete trailing white space on save, useful for some filetypes ;)
 fun! CleanExtraSpaces()
 	let save_cursor = getpos(".")
@@ -352,16 +393,6 @@ fun! CleanExtraSpaces()
 	call setpos('.', save_cursor)
 	call setreg('/', old_query)
 endfun
-
-" if has("autocmd")
-" 	autocmd BufWritePre
-" 	*.txt,*.js,*.py,*.wiki,*.sh,*.coffee :call
-" 	CleanExtraSpaces()
-" endif
-
-" Visual mode pressing * or # searches for the current selection (Super useful! From an idea by Michael Naumann)
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Experimental => Persistent undo (allows undo after closing file) vvv
@@ -404,7 +435,7 @@ set whichwrap+=<,>,h,l
 " autocmd Filetype javascript setlocal tabstop=4
 
 " Set the tabstop  based on 'json' file extension, overriding value already set
-au BufRead,BufNewFile *.json setlocal tabstop=4
+au BufRead,BufNewFile,BufEnter *.json setlocal tabstop=4
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ => Filetype Specific Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
