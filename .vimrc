@@ -77,6 +77,19 @@ map <leader>pp :setlocal paste!<cr>
 map <leader>ss :setlocal spell!<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General => Files, backups, and undo vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Number of undo levels
+set undolevels=100
+
+" Store info from no more than 100 files at a time, 9999 lines of text, 100kb
+" of data. Useful for copying large amounts of data between files.
+set viminfo='100,<9999,s100
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => VIM User Interface vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -190,18 +203,6 @@ vnoremap <Space> zf
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview"
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Files, backups, and undo vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Number of undo levels
-set undolevels=100
-
-" Store info from no more than 100 files at a time, 9999 lines of text, 100kb
-" of data. Useful for copying large amounts of data between files.
-set viminfo='100,<9999,s100
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Mouse Stuff vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
