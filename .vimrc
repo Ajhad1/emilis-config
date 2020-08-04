@@ -438,6 +438,7 @@ set whichwrap+=<,>,h,l
 
 " Set the tabstop  based on 'json' file extension, overriding value already set
 au BufRead,BufNewFile,BufEnter *.json setlocal tabstop=4
+au BufRead,BufNewFile *.json setlocal conceallevel=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ => Filetype Specific Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
