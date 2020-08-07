@@ -1,12 +1,10 @@
 # My Personal Configuration Files
+Using git I download my personal configuration files to the machines running linux and run a script to install and manage them.
+In this way, updating a configuration in one place will update my configurations in all places.
 
-Add the following to .bashrc to take affect
+# Run to Import Personal Configuration Files
+$ ~/linux-config/install.sh
 
-# Import Personal Configuration Files
-cat ~/linux-config/.bashrc >> ~/.bashrc
-
-Using git I download my personal configuration files to the machines running linux and update the .bashrc file to import it. 
-In this way, I can update all of my configurations in one place.
 
 ## Read more:
 
