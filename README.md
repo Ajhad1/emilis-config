@@ -4,6 +4,7 @@ In this way, updating a configuration in one place will update my configurations
 
 # Run to Import Personal Configuration Files
 $ git clone https://github.com/Ajhad1/linux-config.git
+
 $ ~/linux-config/install.sh
 
 
