@@ -8,6 +8,8 @@ filetype off
 setlocal history=50
 
 " For plug-ins to load correctly.
+set nocp
+" set rtp+=/path/to/rtp/that/included/pathogen/vim " if needed
 execute pathogen#infect()
 filetype plugin on
 filetype indent on
@@ -97,6 +99,7 @@ setlocal so=7
 
 " Show line numbers
 setlocal number
+setlocal numberwidth=4
 
 " change Vim color scheme
 colorscheme torte
