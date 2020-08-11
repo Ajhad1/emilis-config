@@ -80,6 +80,7 @@ alias nl2='nl -w2' # set nl number length to 2
 alias nl3='nl -w3' # set nl number length to 3
 alias nl4='nl -w4' # set nl number length to 4
 alias nl5='nl -w5' # set nl number length to 5
+alias contentdiff='diff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change' # content only diff ignores most formatting
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
