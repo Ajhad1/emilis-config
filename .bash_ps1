@@ -103,7 +103,7 @@ alias vimp='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
 alias ports='netstat -tulanp ' # shows open ports
 # alias updatep='updatep' # making alias for updatep function
 alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
-alias gdiff='git diff --color-word' # runs git diff the best way
+alias gdiff='git diff --color-words' # runs git diff the best way
 
 #### actual aliases ####
 alias prettyprint='jq' 
