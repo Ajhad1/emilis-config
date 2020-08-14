@@ -107,6 +107,7 @@ alias ports='netstat -tulanp ' # shows open ports
 alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
 alias gdiff='git diff --color-words' # runs git diff the best way
 alias gitvimdiff='git difftool --tool=vimdiff' # runs vimdiff for git diff
+alias gitdiff='git diff --color-words' # runs git diff the best way
 
 #### actual aliases ####
 alias prettyprint='jq' 
