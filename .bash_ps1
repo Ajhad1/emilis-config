@@ -83,6 +83,8 @@ alias nl4='nl -w4' # set nl number length to 4
 alias nl5='nl -w5' # set nl number length to 5
 alias contentdiff='diff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
 alias dirdiff='diff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
+alias gita='git add .' # shortcut for git add
+alias gits='git status' # shortcut for git status
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
