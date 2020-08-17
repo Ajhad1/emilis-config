@@ -27,7 +27,7 @@ alias nl='_nl_' # left justify and indent
 ## alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
 alias logout='_logout_' # save when logout
 alias exit='_exit_' # save when exiting
-# alias diff='diff --side-by-side --left-column --report-identical-files' # diff using side by side
+alias diff='colordiff --side-by-side --left-column --report-identical-files' # diff using side by side
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -81,8 +81,10 @@ alias nl2='nl -w2' # set nl number length to 2
 alias nl3='nl -w3' # set nl number length to 3
 alias nl4='nl -w4' # set nl number length to 4
 alias nl5='nl -w5' # set nl number length to 5
-alias contentdiff='diff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
-alias dirdiff='diff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
+alias contentdiff='colordiff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
+alias diffcontent='contentdiff' # alias for contentdiff
+alias dirdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
+alias diffdir='dirdiff' # alias for dirdiff
 alias gita='git add . && git status' # shortcut for git add
 alias gits='git status' # shortcut for git status
 
