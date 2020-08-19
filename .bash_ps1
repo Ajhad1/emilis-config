@@ -112,8 +112,8 @@ alias gitvimdiff='git difftool --tool=vimdiff' # runs vimdiff for git diff
 alias gitdiff='git diff --color-words' # runs git diff the best way
 alias gvimdiff='gitvimdiff' # runs vimdiff for git diff
 alias follow='tail -f' # tail -f alias
-alias follownl='function _follownl_ { follow $1; nl; }; _follownl_' # follow with numbered lines
-alias followjq='function _followjq_ { follow $1; jq; }; _followjq_' # follow with json formatting
+alias follownl='function _follownl_ { follow $1 | nl; }; _follownl_' # follow with numbered lines
+alias followjq='function _followjq_ { follow $1 | jq; }; _followjq_' # follow with json formatting
 
 #### actual aliases ####
 alias prettyprint='jq' 
