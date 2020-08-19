@@ -21,7 +21,8 @@ alias jq='jq -C --indent 4 .' # always use color and tabs
 alias highlight='highlight -O ansi --force -q' # always run highlight with color and default syntax
 alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
 alias view='vim -R' # changes view to vim -R
-alias fmt='fmt -t -w "$COLUMNS" -g 110' # line indentation
+alias fmt='fmt -t -w "$COLUMNS"' # line indentation
+# alias fmt='fmt -t -w "$COLUMNS" -g 110' # line indentation
 alias nl='_nl_' # left justify and indent
 ## alias nl='function _nl { \nl -ba -nrz -s " - " "$@" | fmt;}; _nl' # left justify and indent 
 ## alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
@@ -112,7 +113,11 @@ alias gitvimdiff='git difftool --tool=vimdiff' # runs vimdiff for git diff
 alias gitdiff='git diff --color-words' # runs git diff the best way
 alias gvimdiff='gitvimdiff' # runs vimdiff for git diff
 alias follow='tail -f' # tail -f alias
-alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | \fmt -t -w "$COLUMNS" -g 110; }; _follownl_' # follow with numbered lines
+alias followindent='function _followindent_ { follow $1 | fmt; }; _followindent_' # follow with numbered lines
+# alias follownl='function _follownl_ { follow $1 | nl; }; _follownl_' # follow with numbered lines
+alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - "; }; _follownl_' # follow with numbered lines
+# alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | fmt; }; _follownl_' # follow with numbered lines
+# alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | \fmt -t -w "$COLUMNS"; }; _follownl_' # follow with numbered lines
 alias followjq='function _followjq_ { follow $1 | jq; }; _followjq_' # follow with json formatting
 
 #### actual aliases ####
