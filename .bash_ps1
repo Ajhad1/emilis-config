@@ -69,6 +69,7 @@ alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
 alias mkdirf='function _mkdirf_ { mkdir $1; cd $1; }; _mkdirf_' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
 alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
+alias touchx='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
 alias tree1='tree -L 1' # Tree to the first level
 alias tree2='tree -L 2' # Tree to the second level
@@ -119,6 +120,7 @@ alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - "; }; _fol
 # alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | fmt; }; _follownl_' # follow with numbered lines
 # alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | \fmt -t -w "$COLUMNS"; }; _follownl_' # follow with numbered lines
 alias followjq='function _followjq_ { follow $1 | jq; }; _followjq_' # follow with json formatting
+alias mkexe='chmod a+x' # Make file executable
 
 #### actual aliases ####
 alias prettyprint='jq' 
