@@ -3,7 +3,7 @@ Using git I download my personal configuration files to the machines running lin
 In this way, updating a configuration in one place will update my configurations in all places.
 
 # Run to Import Personal Configuration Files
-$ cd ~ && git clone https://github.com/Ajhad1/linux-config.git && ~/linux-config/install.sh && source .bashrc
+$ cd ~ && git clone https://github.com/Ajhad1/linux-config.git && ~/linux-config/install.sh && source ~/.bashrc
 
 
 ## Read more:
