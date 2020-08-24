@@ -89,7 +89,7 @@ alias dirdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --i
 alias diffdir='dirdiff' # alias for dirdiff
 alias gita='git add . && git status' # shortcut for git add
 alias gits='git status' # shortcut for git status
-alias gitsas='git status && git add . && git status' # shortcut for git status+ add + status
+alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git status' # shortcut for git status+ add + status
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
