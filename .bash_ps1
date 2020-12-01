@@ -35,20 +35,6 @@ alias free='free -h' # makes free always human readable
 alias df='df -h' # makes df alwaysd human readable
 alias du='du -h' # makes du always human readable
 
-## fix typos ##
-alias cd.='cd ../' # allows type to still work
-alias cd..='cd ../' # allows typo to still work
-alias cd~='cd ~' # allows typo to still work
-alias gittypull='gitttypull' # allows typo to still work
-alias gittyadd='gitttyadd' # allows typo to still work
-alias gittycommit='gitttycommit' # allows typo to still work
-alias gittypush='gitttypush' # allows typo to still work
-alias gitttycomit='gitttycommit' # allows typo to still work
-alias gittycomit='gitttycommit' # allows typo to still work
-alias gitty='gittty' # allows typo to still work
-alias pretyprint='prettyprint' # allows typo to stil work
-alias printprety='printpretty' # allows typo to still work
-
 ## shortcuts built-in on other commands ##
 ## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
 alias ...='\cd ../../; tree1 --noreport' # shortcut for cd ../../
@@ -96,13 +82,22 @@ alias getip='curl -s ifconfig.me' # get public ip
 alias getlocal='hostname -I' # get local ip
 alias getpublic='curl -s ifconfig.me' # get public ip
 alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash_' # sends to trash instead of deleting
+
+alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 ## alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
 ## alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
-alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
+
+alias tfw='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/' # auto gets location of tfw file
+alias tfwpull='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ pull' # git pull tfw
+alias tfwadd='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ add -A .' # git add changes tfw
+alias tfwcommit='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m " " --allow-empty-message' # git commit tfw without message
+alias tfwcommitm='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m' # git commit tfw with message
+alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ push' # git push tfw
+
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 alias editi='vim ~/linux-config/.install.sh' # starts editing install file
@@ -124,7 +119,7 @@ alias followjq='function _followjq_ { follow $1 | jq; }; _followjq_' # follow wi
 alias mkexe='chmod a+x' # Make file executable
 
 #### actual aliases ####
-alias prettyprint='jq' 
+alias prettyprint='jq'
 alias printpretty='jq'
 alias pp='jq'
 alias t1='tree1'
@@ -138,6 +133,22 @@ alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias c='clear' # shortcut to clear screen
 alias v='vim'
+
+### fix typos ###
+alias cd.='cd ../' # allows type to still work
+alias cd..='cd ../' # allows typo to still work
+alias cd~='cd ~' # allows typo to still work
+alias gittypull='gitttypull' # allows typo to still work
+alias gittyadd='gitttyadd' # allows typo to still work
+alias gittycommit='gitttycommit' # allows typo to still work
+alias gittypush='gitttypush' # allows typo to still work
+alias gitttycomit='gitttycommit' # allows typo to still work
+alias gittycomit='gitttycommit' # allows typo to still work
+alias gitty='gittty' # allows typo to still work
+alias tfwcomit='tfwcommit' # allows typo to still work
+alias tfwcomitm='tfwcommitm' # allows typo to still work
+alias pretyprint='prettyprint' # allows typo to stil work
+alias printprety='printpretty' # allows typo to still work
 
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
