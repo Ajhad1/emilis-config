@@ -54,6 +54,7 @@ alias cati='function _cati_ { \cat "$@" | fmt;}; _cati_' # runs with indentation
 alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
 alias mkdirf='function _mkdirf_ { mkdir $1; cd $1; }; _mkdirf_' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
+alias cdtfw='cd /opt/idf/tfw/' # changes to tfw directory
 alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias touchx='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
