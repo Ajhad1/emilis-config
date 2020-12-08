@@ -87,7 +87,7 @@ alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv -
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
-alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
+alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message' # git commit tty
 ## alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
 alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
 ## alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
@@ -95,7 +95,7 @@ alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/li
 alias tfw='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/' # auto gets location of tfw file
 alias tfwpull='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ pull' # git pull tfw
 alias tfwadd='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ add -A .' # git add changes tfw
-alias tfwcommit='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m " " --allow-empty-message' # git commit tfw without message
+alias tfwcommit='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m "backup" --allow-empty-message' # git commit tfw without message
 alias tfwcommitm='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m' # git commit tfw with message
 alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ push' # git push tfw
 
