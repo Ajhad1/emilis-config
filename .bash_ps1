@@ -54,7 +54,7 @@ alias cati='function _cati_ { \cat "$@" | fmt;}; _cati_' # runs with indentation
 alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
 alias mkdirf='function _mkdirf_ { mkdir $1; cd $1; }; _mkdirf_' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
-alias cdtfw='cd /opt/idf/tfw/' # changes to tfw directory
+alias cdtfw='cd /opt/tfw/tfw-project/' # changes to tfw directory
 alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias touchx='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
@@ -92,12 +92,12 @@ alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.g
 alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
 ## alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
 
-alias tfw='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/' # auto gets location of tfw file
-alias tfwpull='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ pull' # git pull tfw
-alias tfwadd='git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ add -A .' # git add changes tfw
-alias tfwcommit='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m "backup" --allow-empty-message' # git commit tfw without message
-alias tfwcommitm='tfwadd && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ commit -m' # git commit tfw with message
-alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/idf/tfw/.git --work-tree=/opt/idf/tfw/ push' # git push tfw
+alias tfw='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/' # auto gets location of tfw file
+alias tfwpull='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ pull' # git pull tfw
+alias tfwadd='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ add -A .' # git add changes tfw
+alias tfwcommit='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m "backup" --allow-empty-message' # git commit tfw without message
+alias tfwcommitm='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m' # git commit tfw with message
+alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push' # git push tfw
 
 alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
