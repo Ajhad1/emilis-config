@@ -226,7 +226,7 @@ function getSystemInfo
 		terminalName="UNKNOWN"
 	fi
 	
-	if [[ $osInfo == *"ubunutu"* ]]; then
+	if [[ $osInfo == *"ubuntu"* ]]; then
 		osName="UBUNTU"
 	elif [[ $osInfo == *"centos"* ]]; then
 		osName="CENTOS"
@@ -409,21 +409,6 @@ fi
 prompt_style=$reset_style
 command_style=$reset_style'\[\033[1;29m\]' # bold black
 # Prompt variable:
-
-## OLD_PS1="$PS1"
-## NEW_PS1='$fill HN: $hostnameVar DIR: $pwdVar UN: $name \t \n'
-## if [[ ${#NEW_PS1} -gt ${COLUMNS} ]] ; then
-## 	columns=${COLUMNS}
-## 	NEW_PS1='$columns $fill DIR: $pwdVar UN: $name \t \n'
-## fi
-## if [[ ! $PS1 == *'$name'* ]] ; then
-## 	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
-## fi
-##
-## # Reset color for command output
-## # (this one is invoked every time before a command is executed):
-## trap 'echo -ne "\e[0m"' DEBUG
-
 function prompt_command {
 
 	# create a $fill of all screen width minus the time string and a space and USER and a space:
