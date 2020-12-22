@@ -223,13 +223,15 @@ function getSystemInfo
 	elif [[ $terminalNameRaw == *"sshd"* ]]; then
 		terminalName="SSH"
 	else
-		terminalName="UNKNOWN"
+		terminalName="UNKNOWN or $terminalNameRaw"
 	fi
 	
 	if [[ $osInfo == *"ubuntu"* ]]; then
 		osName="UBUNTU"
 	elif [[ $osInfo == *"centos"* ]]; then
 		osName="CENTOS"
+	elif [[ $osInfo == *"aws"* ]]; then
+		osName="AWS-linux"
 	else
 		osName="UNKNOWN"
 	fi
