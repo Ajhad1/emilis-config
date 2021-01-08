@@ -154,7 +154,7 @@ alias printprety='printpretty' # allows typo to still work
 ################ common trying out ##################
 alias untar='tar -zxvf ' # shortcut to untar
 alias hists='history | grep ' # searches history
-alias findlargefiles='sudo du -a / | sort -n -r | head -n 20' # sorts out the top 20 largest files on the system
+alias findlargefiles='sudo \du -a / | sort -n -r | head -n 20' # sorts out the top 20 largest files on the system
 alias freespace='df' #shows free storage
 
 ## cover my butt ##
