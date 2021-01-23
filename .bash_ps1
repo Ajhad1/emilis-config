@@ -516,7 +516,7 @@ tree1 --noreport
 ###### SSH AGENT AUTO START ######
 ###### LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458 ######
 SSH_ENV="$HOME/.ssh/agent-environment"
-mkdir $HOME/.ssh/agent-environment
+mkdir $HOME/.ssh/ > /dev/null
 
 function start_agent {
 	echo "Initialising new SSH agent..."
