@@ -5,7 +5,7 @@ In this way, updating a configuration in one place will update my configurations
 # Run to Import Personal Configuration Files
 $ cd ~ && git clone https://github.com/Ajhad1/linux-config.git && ~/linux-config/install.sh && source ~/.bashrc
 
-# Run to Fix origin bug
+## Run to Fix origin bug
 $ cd ~ && rm -rf linux-config && git clone https://github.com/Ajhad1/linux-config.git && ~/linux-config/install.sh && source ~/.bashrc
 
 ## Read more:
