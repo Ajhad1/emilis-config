@@ -86,6 +86,7 @@ alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git
 alias getip='curl -s ifconfig.me' # get public ip
 alias myip='getip' # real alias for getip
 alias getlocal='hostname -I' # get local ip
+alias mylocal='getlocal' # real alias for getlocal
 alias getpublic='curl -s ifconfig.me' # get public ip
 alias mypublic='getpublic' # real alias for getpublic
 alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash_' # sends to trash instead of deleting
