@@ -16,9 +16,9 @@ if [ ! -f "~/.vim/autoload/pathogen.vim" ] ; then
 fi
 ## if ! grep -q 'git' $HOME/.vim/bundle/vim-json 2> /dev/null; then
 if [ ! -f "~/.vim/bundle/vim-json/.git" ]; then
-	git --git-dir=$HOME/.vim/bundle/vim-json/.git --work-tree=$HOME/.vim/bundle/vim-json/ pull
-else
 	git clone https://github.com/Ajhad1/vim-json.git ~/.vim/bundle/vim-json
+else
+	git --git-dir=$HOME/.vim/bundle/vim-json/.git --work-tree=$HOME/.vim/bundle/vim-json/ pull
 fi
 rm ~/.bash_ps1 2> /dev/null
 source ~/.bashrc
