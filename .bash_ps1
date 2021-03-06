@@ -104,7 +104,8 @@ alias tfwcommitm='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=
 alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push' # git push tfw
 
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
-alias editi='vim ~/linux-config/.install.sh' # starts editing install file
+alias editi='vim ~/linux-config/install.sh' # starts editing install file
+alias editv='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
 alias vimp='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
 # alias updatep='updatep' # making alias for updatep function
 
