@@ -242,6 +242,8 @@ function getSystemInfo
 		osName="CENTOS"
 	elif [[ $osInfo == *"aws"* ]]; then
 		osName="AWS-linux"
+	elif [[ $osInfo == *"debian"* ]]; then
+		osName="Debian"
 	else
 		osName="UNKNOWN"
 	fi
