@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo "Loading..." # Notification so as to know something is happening
+
 ########### aliases ################
 ## command replacements ##
 alias cd='_cd_' # replace cd with cd then ls
