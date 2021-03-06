@@ -186,6 +186,7 @@ alias yum='sudo yum ' # auto run yum with sudo
 alias apt-get='sudo apt-get' # always runs apt-get as sudo
 alias dnf='sudo dnf ' # always runs dnf as sudo
 alias apt='sudo apt' # always run apt as sudo
+alias tcpdump='sudo tcpdump' # run tcpdump as sudo
 
 ################# functions #######################
 ###### commands turned into functions ###### --->
