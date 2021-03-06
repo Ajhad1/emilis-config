@@ -84,14 +84,9 @@ alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git
 
 ### new commands ###
 alias getip='curl -s ifconfig.me' # get public ip
-alias myip='getip' # real alias for getip
 alias getlocal='hostname -I' # get local ip
-alias mylocal='getlocal' # real alias for getlocal
 alias getprivate='hostname -I' # get local ip
-alias myprivate='getlocal' # real alias for getlocal
 alias getpublic='curl -s ifconfig.me' # get public ip
-alias mypublic='getpublic' # real alias for getpublic
-alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash_' # sends to trash instead of deleting
 
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ pull' # git pull tty
@@ -108,17 +103,16 @@ alias tfwcommit='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/
 alias tfwcommitm='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m' # git commit tfw with message
 alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push' # git push tfw
 
-alias common='commonlist | less' # outputs common commands into less
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 alias editi='vim ~/linux-config/.install.sh' # starts editing install file
 alias vimp='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
-alias ports='netstat -tulanp ' # shows open ports
 # alias updatep='updatep' # making alias for updatep function
-alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
+
 alias gdiff='git diff --color-words' # runs git diff the best way
 alias gitvimdiff='git difftool --tool=vimdiff' # runs vimdiff for git diff
 alias gitdiff='git diff --color-words' # runs git diff the best way
 alias gvimdiff='gitvimdiff' # runs vimdiff for git diff
+
 alias follow='tail -f' # tail -f alias
 alias followindent='function _followindent_ { follow $1 | fmt; }; _followindent_' # follow with numbered lines
 # alias follownl='function _follownl_ { follow $1 | nl; }; _follownl_' # follow with numbered lines
@@ -126,7 +120,12 @@ alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - "; }; _fol
 # alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | fmt; }; _follownl_' # follow with numbered lines
 # alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | \fmt -t -w "$COLUMNS"; }; _follownl_' # follow with numbered lines
 alias followjq='function _followjq_ { follow $1 | jq; }; _followjq_' # follow with json formatting
+
 alias mkexe='chmod a+x' # Make file executable
+alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash_' # sends to trash instead of deleting
+alias ports='netstat -tulanp ' # shows open ports
+alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
+alias common='commonlist | less' # outputs common commands into less
 
 #### actual aliases ####
 alias prettyprint='jq'
@@ -143,6 +142,10 @@ alias s='sudo ' # shortcut to sudo
 alias bashreload='reloadbash' # shortcut to shortcut to reload bash
 alias c='clear' # shortcut to clear screen
 alias v='vim'
+alias myip='getip' # real alias for getip
+alias mylocal='getlocal' # real alias for getlocal
+alias myprivate='getlocal' # real alias for getlocal
+alias mypublic='getpublic' # real alias for getpublic
 
 ### fix typos ###
 alias cd.='cd ../' # allows type to still work
@@ -179,15 +182,9 @@ alias sudo='sudo ' # always checks commands after sudo for aliases
 alias yum='sudo yum ' # auto run yum with sudo
 alias apt-get='sudo apt-get' # always runs apt-get as sudo
 alias dnf='sudo dnf ' # always runs dnf as sudo
-
+alias apt='sudo apt' # always run apt as sudo
 
 ################# functions #######################
-## get hosts file and list hosts ##
-function hosts
-{
-	cat /etc/hosts
-}
-
 ###### commands turned into functions ###### --->
 ## log out function ##
 function _logout_
@@ -222,8 +219,23 @@ function _nl_ { \nl -ba -nrz -s " - " "$@" | fmt;} #
 function _cd_ { \cd "$@"/ > /dev/null; tree1 --noreport;} # replace cd with cd then ls
 ###### commands turned into functions ###### <---
 
+## get hosts file and list hosts ##
+function hosts
+{
+	cat /etc/hosts
+}
 
-## get terminal name ##
+## restart on any machine ##
+function restart
+{
+	if [ -d "/usr/lib/systemd" ]; then
+		sudo shutdown -r now
+	else
+		sudo telinit 6
+	fi	
+}
+
+## get system info ##
 function getSystemInfo
 {
 	osInfo=$(cat /etc/*release)
