@@ -85,7 +85,7 @@ alias gits='git status' # shortcut for git status
 alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git status' # shortcut for git status+ add + status
 
 ### new commands ###
-alias getip='curl -s ifconfig.me' # get public ip
+alias getip='curl -s ifconfig.me && echo ""' # get public ip
 alias getlocal='hostname -I' # get local ip
 alias getprivate='hostname -I' # get local ip
 alias getpublic='curl -s ifconfig.me' # get public ip
