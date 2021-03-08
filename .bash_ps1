@@ -58,11 +58,11 @@ alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
 alias mkdirf='function _mkdirf_ { mkdir $1; cd $1; }; _mkdirf_' # makes directory and cds into it
 alias cdp='cd ~/linux-config/' # changes to linux config directory
 alias cdtfw='cd /opt/tfw/tfw-project/' # changes to tfw directory
-alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
+# alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
 alias touchx='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
-alias mkexe='function _mkexe_ { chmod a+x "$1";}; _mkexe_' # make file executable
-alias mkx='function _mkexe_ { chmod a+x "$1";}; _mkexe_' # make file executable
-alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
+# alias mkexe='function _mkexe_ { chmod a+x "$1";}; _mkexe_' # make file executable
+# alias mkx='function _mkexe_ { chmod a+x "$1";}; _mkexe_' # make file executable
+# alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
 alias tree1='tree -L 1' # Tree to the first level
 alias tree2='tree -L 2' # Tree to the second level
 alias tree3='tree -L 3' # Tree to the third level
@@ -207,7 +207,7 @@ function Sudo {
 			fi
 			count+=1
 		done
-		sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
 	elif [ $(type -t $firstArg) = alias ]; then
 		declare -i sudoCount+=1
 		# echo "sudoCount =$sudoCount"
@@ -304,6 +304,26 @@ function lessf
 {
 	fmt $1 | less
 }
+
+function touchs
+{
+	touch "$1"; chmod a+x "$1";
+} # create shell script and automatically make executable
+
+function touchx
+{
+	touch "$1"; chmod a+x "$1";
+} # create shell script and automatically make executable
+
+function mkexe
+{
+	chmod a+x "$1";
+} # make file executable
+
+function mkx
+{
+	chmod a+x "$1";
+} # make file executable
 
 ## restart on any machine ##
 function restart
