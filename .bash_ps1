@@ -198,7 +198,7 @@ function Sudo {
 	do
 		local firstArg=$arg
 		local sudoCommands=""
-		if [[ $(type $firstArg) == *function* ]]; then
+		if [[ $(type $arg) == *function* ]]; then
 			alias sudo='\sudo '
 			echo "trying to start sudo commands"
 			# shift && sudo -EHi $firstArg $*
@@ -210,10 +210,12 @@ function Sudo {
 			echo "shifted"
 			sudoCommand+='$(declare -f '$arg');'$arg' '$*
 			echo "command concatenated = $sudoCommand"
-		elif [ $(type -t $firstArg) = alias ]; then
+		elif [ $(type -t $arg) = alias ]; then
 			alias sudo='\sudo '
+			echo "I found an alias = $arg"
 			# eval "sudo $@"
 		else
+			echo "This was not an alias or function = $arg"
 			command sudo "$@"
 			exit 0
 		fi
