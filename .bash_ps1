@@ -216,7 +216,7 @@ function Sudo {
 			# sudoWasAliased=false
 			# echo "sudo is not aliased"
 		# fi
-		alias sudo='\sudo '
+		# alias sudo='\sudo '
 		eval "sudo $@"
 		# if [[ $sudoWasAliased == false ]]; then
 			# unalias sudo
