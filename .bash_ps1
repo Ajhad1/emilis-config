@@ -195,26 +195,26 @@ alias su='su -p' # run su with my env variables
 function Sudo {
 	local firstArg=$1
 	# echo "$firstArg"
-	if [[ "$firstArg"=='-EH' ]]; then
+	if [[ "$firstArg" == "-EH" ]]; then
 		# echo "$firstArg"
 		# echo "-E mathced"
 		:
 	elif [ $(type -t $firstArg) = function ]; then
 		declare -i sudoCount+=1
-		echo "sudoCount =$sudoCount"
+		# echo "sudoCount =$sudoCount"
 		declare -i count=1
 		while [[ $count<=$# ]]
 		do
 			shift
 			if [[ $count == 1 ]]; then
 				local restOfArgs=$*
-				echo "saving restOfArgs as $*"
+				# echo "saving restOfArgs as $*"
 			fi
 			count+=1
 		done
-		echo "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+		# echo "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
 		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
-		echo "errors before or affter"
+		# echo "errors before or affter"
 	elif [ $(type -t $firstArg) = alias ]; then
 		declare -i sudoCount+=1
 		# echo "sudoCount =$sudoCount"
@@ -297,8 +297,20 @@ function _exit_
 }
 
 function _nl_ { \nl -ba -nrz -s " - " "$@" | fmt;} #
-function _cd_ { \cd "$@"/ > /dev/null; tree1 --noreport;} # replace cd with cd then ls
+function _cd_ {
+	if [[ $1 != '-' ]]; then
+		local slash='/'
+	else
+		local slash=''
+	fi
+	\cd "$@"$slash > /dev/null; tree1 --noreport;
+} # replace cd with cd then ls
 ###### commands turned into functions ###### <---
+
+function functest
+{
+	echo $0
+}
 
 ## get hosts file and list hosts ##
 function hosts
@@ -314,12 +326,12 @@ function lessf
 
 function touchs
 {
-	touch "$1"; chmod a+x "$1";
+	touch "$1"; chmod a+x "$1"; ls .;
 } # create shell script and automatically make executable
 
 function touchx
 {
-	touch "$1"; chmod a+x "$1";
+	touch "$1"; chmod a+x "$1"; ls .;
 } # create shell script and automatically make executable
 
 function mkexe
