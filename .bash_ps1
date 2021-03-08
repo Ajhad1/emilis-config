@@ -679,9 +679,13 @@ if [ -f "${SSH_ENV}" ]; then
 		ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
 			start_agent;
 		}
+	else 
+		eval "$(ssh-agent -k)"
 	fi
 else
 	if [[ -f ~/.ssh/startagent ]]; then
 		start_agent;
+	else
+		eval "$(ssh-agent -k)"
 	fi
 fi
