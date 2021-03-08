@@ -193,34 +193,72 @@ alias su='su -p' # run su with my env variables
 ################# functions #######################
 ###### commands turned into functions ###### --->
 function Sudo {
-	local realFirstArg=$1
+	local firstArg=$1
+	declare -i sudoCount+=1
+	echo "sucoCount =$sudoCount"
+	if [ $(type -t $firstArg) = function ]
+	then
+		declare -i count=1
+		while [[ $count<=$# ]]
+		do
+			shift
+			if [[ $count == 1 ]]; then
+				local restOfArgs=$*
+				echo "saving restOfArgs as $*"
+			fi
+			count+=1
+		done
+		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+	elif [ $(type -t $firstArg) = alias ]
+	then
+		alias sudo='\sudo '
+		eval "sudo $@"
+	else
+		command sudo "$@"
+	fi
+}
+function Sudo1 {
+	local firstArg=$1
+	local count=1
 	for arg in $@
 	do
-		local firstArg=$arg
-		local sudoCommands=""
-		if [[ $(type $arg) == *function* ]]; then
-			alias sudo='\sudo '
-			echo "trying to start sudo commands"
-			# shift && sudo -EHi $firstArg $*
-			# shift && command sudo -EH sh -c "$(declare -f $firstArg);$firstArg $*"
-			echo "$(type -t $1)"
-			# while [ ! -z "$1" ] && [ $(type -t $1) = function ]
-			echo "sudoCommands = $sudoCommand"
-			shift
-			echo "shifted"
-			sudoCommand+='$(declare -f '$arg');'$arg' '$*
-			echo "command concatenated = $sudoCommand"
-		elif [ $(type -t $arg) = alias ]; then
-			alias sudo='\sudo '
-			echo "I found an alias = $arg"
-			# eval "sudo $@"
+		echo "Start loop $count"
+		local sudoCommand=""
+		local type=$(type -p $arg)
+		echo "$arg is = $type"
+		if [[ -z $type ]]; then
+			echo "$arg is something"
+			if [[ $(type -a $arg)=*function* ]]; then
+				alias sudo='\sudo '
+				declare -f $arg
+				# shift && sudo -EHi $firstArg $*
+				# shift && command sudo -EH sh -c "$(declare -f $firstArg);$firstArg $*"
+				echo "$arg is of type $(type -t $arg)"
+				# while [ ! -z "$1" ] && [ $(type -t $1) = function ]
+				# echo "sudoCommands = $sudoCommand"
+				# shift
+				# echo "shifted"
+				# sudoCommand+='$(declare -f '$arg');'$arg' '$*
+				# echo "command concatenated = $sudoCommand"
+			elif [[ $(type -t $arg) = alias ]]; then
+				alias sudo='\sudo '
+				echo "$arg is an alias"
+				# eval "sudo $@"
+			else
+				echo "Secondary if = $arg is not an alias or function"
+				# command sudo "$@"
+				# exit 0
+			fi
 		else
-			echo "This was not an alias or function = $arg"
-			command sudo "$@"
-			exit 0
+			echo "Main if = $arg is not an alias or function"
+			# command sudo "$@"
+			# exit 0
+
 		fi
+			echo "Ending loop $count"
+		count+=1
 	done
-	# command sudo -EH sh -c "$(declare -f $sudoCommand);$sudoCommand $*"
+	shift && command sudo -EH sh -c "eval $(declare -f $firstArg);$firstArg $*"
 }
 
 ## log out function ##
