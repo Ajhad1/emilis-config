@@ -194,8 +194,8 @@ alias tcpdump='sudo tcpdump' # run tcpdump as sudo
 function Sudo {
 	local firstArg=$1
 	if [[ $(type $firstArg) == *function* ]]; then
-		# alias sudo='\sudo '
-		shift && command sudo bash -c "$(declare -f $firstArg);$firstArg $*"
+		alias sudo='\sudo '
+		shift && command sudo --preserve-env=PATH -H bash -c "$(declare -f $firstArg);$firstArg $*"
 	elif [ $(type -t $firstArg) = alias ]; then
 		alias sudo='\sudo '
 		eval "sudo $@"
