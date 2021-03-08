@@ -32,6 +32,7 @@ alias logout='_logout_' # save when logout
 alias exit='_exit_' # save when exiting
 alias diff='colordiff --side-by-side --left-column --report-identical-files' # diff using side by side
 alias mank='man -k' # man -k shortcut
+alias ssh='ssh -XYA' # ssh with X11 forwarding on
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
