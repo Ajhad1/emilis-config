@@ -194,8 +194,9 @@ alias su='su -p' # run su with my env variables
 ###### commands turned into functions ###### --->
 function Sudo {
 	local firstArg=$1
-	if [ $1="-E" ]; then
-		:
+	if [ "$firstArg"='-E' ]; then
+		echo "$firstArg"
+		echo "-E mathced"
 	elif [ $(type -t $firstArg) = function ]; then
 		declare -i sudoCount+=1
 		echo "sudoCount =$sudoCount"
