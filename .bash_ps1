@@ -193,16 +193,32 @@ alias su='su -p' # run su with my env variables
 ################# functions #######################
 ###### commands turned into functions ###### --->
 function Sudo {
-	local firstArg=$1
-	if [[ $(type $firstArg) == *function* ]]; then
-		alias sudo='\sudo '
-		shift && command sudo --preserve-env=PATH,HOME -H bash -c "$(declare -f $firstArg);$firstArg $*"
-	elif [ $(type -t $firstArg) = alias ]; then
-		alias sudo='\sudo '
-		eval "sudo $@"
-	else
-		command sudo "$@"
-	fi
+	local realFirstArg=$1
+	for arg in $@
+	do
+		local firstArg=$arg
+		local sudoCommands=""
+		if [[ $(type $firstArg) == *function* ]]; then
+			alias sudo='\sudo '
+			echo "trying to start sudo commands"
+			# shift && sudo -EHi $firstArg $*
+			# shift && command sudo -EH sh -c "$(declare -f $firstArg);$firstArg $*"
+			echo "$(type -t $1)"
+			# while [ ! -z "$1" ] && [ $(type -t $1) = function ]
+			echo "sudoCommands = $sudoCommand"
+			shift
+			echo "shifted"
+			sudoCommand+='$(declare -f '$arg');'$arg' '$*
+			echo "command concatenated = $sudoCommand"
+		elif [ $(type -t $firstArg) = alias ]; then
+			alias sudo='\sudo '
+			# eval "sudo $@"
+		else
+			command sudo "$@"
+			exit 0
+		fi
+	done
+	# command sudo -EH sh -c "$(declare -f $sudoCommand);$sudoCommand $*"
 }
 
 ## log out function ##
