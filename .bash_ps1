@@ -194,20 +194,24 @@ alias su='su -p' # run su with my env variables
 ###### commands turned into functions ###### --->
 function Sudo {
 	local firstArg=$1
-	if [ $(type -t $firstArg) = function ]; then
+	if [ $1="-E" ]; then
+		:
+	elif [ $(type -t $firstArg) = function ]; then
 		declare -i sudoCount+=1
-		# echo "sudoCount =$sudoCount"
+		echo "sudoCount =$sudoCount"
 		declare -i count=1
 		while [[ $count<=$# ]]
 		do
 			shift
 			if [[ $count == 1 ]]; then
 				local restOfArgs=$*
-				# echo "saving restOfArgs as $*"
+				echo "saving restOfArgs as $*"
 			fi
 			count+=1
 		done
+		echo "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
 		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+		echo "errors before or affter"
 	elif [ $(type -t $firstArg) = alias ]; then
 		declare -i sudoCount+=1
 		# echo "sudoCount =$sudoCount"
