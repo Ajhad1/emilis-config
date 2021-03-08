@@ -212,16 +212,16 @@ function Sudo {
 	elif [ $(type -t $firstArg) = alias ]
 	then
 		local sudoWasAliased=true
-		if [[ $(alias sudo)="*not found*" ]]; then
+		# if [[ $(alias sudo)="*not found*" ]]; then
 			# sudoWasAliased=false
 			# echo "sudo is not aliased"
-		fi
+		# fi
 		alias sudo='\sudo '
 		eval "sudo $@"
-		if [[ $sudoWasAliased == false ]]; then
+		# if [[ $sudoWasAliased == false ]]; then
 			# unalias sudo
 			# echo "sudo was unaliased"
-		fi
+		# fi
 	else
 		command sudo "$@"
 	fi
