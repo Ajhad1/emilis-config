@@ -188,6 +188,7 @@ alias apt-get='sudo apt-get' # always runs apt-get as sudo
 alias dnf='sudo dnf' # always runs dnf as sudo
 alias apt='sudo apt' # always run apt as sudo
 alias tcpdump='sudo tcpdump' # run tcpdump as sudo
+alias su='su -p' # run su with my env variables
 
 ################# functions #######################
 ###### commands turned into functions ###### --->
@@ -195,7 +196,7 @@ function Sudo {
 	local firstArg=$1
 	if [[ $(type $firstArg) == *function* ]]; then
 		alias sudo='\sudo '
-		shift && command sudo --preserve-env=PATH -H bash -c "$(declare -f $firstArg);$firstArg $*"
+		shift && command sudo --preserve-env=PATH,HOME -H bash -c "$(declare -f $firstArg);$firstArg $*"
 	elif [ $(type -t $firstArg) = alias ]; then
 		alias sudo='\sudo '
 		eval "sudo $@"
