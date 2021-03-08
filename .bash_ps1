@@ -680,12 +680,12 @@ if [ -f "${SSH_ENV}" ]; then
 			start_agent;
 		}
 	else 
-		eval "$(ssh-agent -k)"
+		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
 else
 	if [[ -f ~/.ssh/startagent ]]; then
 		start_agent;
 	else
-		eval "$(ssh-agent -k)"
+		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
 fi
