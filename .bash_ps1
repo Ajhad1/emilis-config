@@ -674,7 +674,7 @@ function start_agent {
 
 if [ -f "${SSH_ENV}" ]; then
 	. "${SSH_ENV}" > /dev/null
-	if [[ -f ~/.ssh/startagent ]]; then
+	if [[ -f ~/.ssh/config ]]; then
 		#ps ${SSH_AGENT_PID} doesn't work under cywgin
 		ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
 			start_agent;
@@ -683,7 +683,7 @@ if [ -f "${SSH_ENV}" ]; then
 		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
 else
-	if [[ -f ~/.ssh/startagent ]]; then
+	if [[ -f ~/.ssh/config ]]; then
 		start_agent;
 	else
 		eval "$(ssh-agent -k 2>/dev/null)"
