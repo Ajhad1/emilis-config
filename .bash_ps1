@@ -632,7 +632,7 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 ####### load my newest personalization file on TTY load ##########
 getSystemInfo
 prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-echo "Pulling latest personalization file from remote repository.  "
+echo "Pulling latest personalization file from remote repository."
 printf "______Status:_____ " && printf "$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr -d \\n)" && echo "" # pull on load
 echo "Comparing local personalization file to remote in git."
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
