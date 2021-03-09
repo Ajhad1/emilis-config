@@ -635,7 +635,7 @@ mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-co
 getSystemInfo
 ~/linux-config/install.sh # runs the install script
 prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-echo "Pulling latest personalization file from remote repository. "
+echo "Pulling latest personalization file from remote repository.  "
 printf "______Status:_____ " && printf "$(echo $mergeOutput | tr \\n ' ')" && echo "" # pull on load
 echo "Comparing local personalization file to remote in git."
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
