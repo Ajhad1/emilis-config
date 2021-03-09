@@ -633,7 +633,7 @@ shopt -s checkwinsize     # check the window size after each command and, if nec
 getSystemInfo
 prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "Pulling latest personalization file from remote repository. "
-printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -q --stat # pull on load
+printf "______Status:_____ " && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -q --stat && echo "" # pull on load
 echo "Comparing local personalization file to remote in git."
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
 printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short) # get status on load
