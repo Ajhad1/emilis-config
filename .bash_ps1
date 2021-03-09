@@ -631,11 +631,12 @@ HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space 
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
 ####### load my newest personalization file on TTY load ##########
+mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
 getSystemInfo
 ~/linux-config/install.sh # runs the install script
 prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "Pulling latest personalization file from remote repository. "
-printf "______Status:_____ " && printf "$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n ' ')" && echo "" # pull on load
+printf "______Status:_____ " && printf "$(echo $mergeOutput | tr \\n ' ')" && echo "" # pull on load
 echo "Comparing local personalization file to remote in git."
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
 printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short) # get status on load
@@ -690,4 +691,9 @@ else
 	else
 		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
+fi
+if [ "$mergeOutput" != "Already up to date." ]; then
+	echo $mergeOutput
+	echo "Bashreloading"
+	bashreload
 fi
