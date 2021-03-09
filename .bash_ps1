@@ -653,7 +653,7 @@ prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T'
 ## echo "_____Current Directory:_____ $(pwd)"
 echo "$(pwd)"
 ## prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-tree1 --noreport
+tree1 --noreport | \tail -c +16
 ## ls -AhG --color=auto --group-directories-first --file-type
 
 ###### SSH AGENT AUTO START ######
