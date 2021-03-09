@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Starting install"
+# echo "Starting install"
 if ! grep -q '$HOME/linux-config' $HOME/.bashrc; then
 	cat $HOME/linux-config/.bashrc >> $HOME/.bashrc
 	echo "Installing personal file reference into bashrc"
@@ -29,9 +29,9 @@ if [ ! -d "$HOME/.vim/bundle/vim-json/.git" ]; then
 	echo "Installing vim-json for vim"
 	git clone -q https://github.com/Ajhad1/vim-json.git $HOME/.vim/bundle/vim-json
 else
-	git --git-dir=$HOME/.vim/bundle/vim-json/.git --work-tree=$HOME/.vim/bundle/vim-json/ pull
-	echo "vim-json is installed...Updating now"
+	git --git-dir=$HOME/.vim/bundle/vim-json/.git --work-tree=$HOME/.vim/bundle/vim-json/ pull -q
+	# echo "vim-json is installed...Updating now"
 fi
 rm ~/.bash_ps1 2> /dev/null
-echo "Sourcing bashrc"
+# echo "Sourcing bashrc"
 source ~/.bashrc
