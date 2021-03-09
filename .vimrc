@@ -162,7 +162,7 @@ setlocal smartindent
 setlocal smarttab
 
 " Set Tab Length
-setlocal tabstop=8
+setlocal tabstop=4
 
 " Shiftwidth
 setlocal shiftwidth=0
@@ -443,6 +443,9 @@ set whichwrap+=<,>,h,l
 " Set the tabstop  based on 'json' file extension, overriding value already set
 au BufRead,BufNewFile,BufEnter *.json setlocal tabstop=4
 au BufRead,BufNewFile *.json setlocal conceallevel=0
+
+" Set filetype for nginx files
+au BufRead,BufNewFile /etc/nginx/* set ft=nginx
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ => Filetype Specific Settings ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
