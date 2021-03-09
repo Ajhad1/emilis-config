@@ -546,8 +546,16 @@ fi
 # make less more friendly for non-text input files, see lesspipe(1)
 # [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
+####### pull newest personalization file on TTY load ##########
+mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+if [ "$mergeOutput" != "Already up to date." ]; then
+	# echo $mergeOutput
+	echo "Bashreloading"
+	bashreload
+	exit 0
+fi
 
-################### customization for the command prompt #################
+################### customization for the command prompt vvvvvvvvvvv #################
 
 #### code to input separator ####
 # Fill with minuses
@@ -624,14 +632,15 @@ fi
 # (this one is invoked every time before a command is executed):
 trap 'echo -ne "\e[0m"' DEBUG
 
+################### customization for the command prompt ^^^^^^^^^ #################
 
 ### my personal settings ###
 force_color_prompt=yes             # add color to terminals
 HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space in the history.
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
+
 ####### load my newest personalization file on TTY load ##########
-mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
 getSystemInfo
 ~/linux-config/install.sh # runs the install script
 prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
@@ -691,9 +700,4 @@ else
 	else
 		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
-fi
-if [ "$mergeOutput" != "Already up to date." ]; then
-	echo $mergeOutput
-	echo "Bashreloading"
-	bashreload
 fi
