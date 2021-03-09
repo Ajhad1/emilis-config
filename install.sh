@@ -11,16 +11,20 @@ if ! grep -q 'linux-config' $HOME/.vimrc 2> /dev/null; then
 fi
 mkdir -p ~/.vim/autoload
 mkdir -p ~/.vim/bundle
-mkdir -p ~/.vim/syntax
 mkdir -p ~/.vim_runtime/temp_dirs/undodir
-cp -Ru ~/linux-config/.vim/syntax/* ~/.vim/syntax
-echo "Installing syntax files for vim"
-## if ! grep -q 'pathogen.vim' $HOME/.vim/autoload/pathogen.vim 2> /dev/null; then
+
+if [ ! -d "$HOME/.vim/syntax" ]; then
+	ln -s $HOME/linux-config/.vim/syntax $HOME/.vim/syntax
+	echo "Installing syntax files for vim"
+fi
+if [ ! -f "$HOME/.vim/filetype.vim" ] ; then
+	ln -s ~/linux-config/.vim/filetype.vim ~/.vim/filetype.vim
+	echo "Installing filetype files for vim"
+fi
 if [ ! -f "$HOME/.vim/autoload/pathogen.vim" ] ; then
 	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 	echo "Installing pathogen for vim"
 fi
-## if ! grep -q 'git' $HOME/.vim/bundle/vim-json 2> /dev/null; then
 if [ ! -d "$HOME/.vim/bundle/vim-json/.git" ]; then
 	echo "Installing vim-json for vim"
 	git clone -q https://github.com/Ajhad1/vim-json.git $HOME/.vim/bundle/vim-json
