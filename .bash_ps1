@@ -550,7 +550,7 @@ fi
 mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
 if [ "$mergeOutput" != "Already up to date." ]; then
 	# echo $mergeOutput
-	echo "New version...Loading... "
+	echo "New version detected..."
 	bashreload
 	return 0 2>/dev/null || exit 0
 fi
