@@ -1,9 +1,11 @@
 " Vim syntax file
 " Language: nginx.conf
+" created by Evan Miller
+" https://www.vim.org/scripts/script.php?script_id=1886
 
 if exists("b:current_syntax")
   finish
-end
+endif
 
 setlocal iskeyword+=.
 setlocal iskeyword+=/
