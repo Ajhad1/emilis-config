@@ -97,7 +97,7 @@ alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message' # git commit tty
 ## alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
-alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q --progress && reloadbash' # git push tty
+alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash' # git push tty
 ## alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
 
 alias tfw='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/' # auto gets location of tfw file
@@ -105,7 +105,7 @@ alias tfwpull='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-
 alias tfwadd='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ add -A .' # git add changes tfw
 alias tfwcommit='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m "backup" --allow-empty-message' # git commit tfw without message
 alias tfwcommitm='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m' # git commit tfw with message
-alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push' # git push tfw
+alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push -q' # git push tfw
 
 alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
 alias editi='vim ~/linux-config/install.sh' # starts editing install file
