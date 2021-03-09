@@ -3,9 +3,9 @@
 " created by Evan Miller
 " https://www.vim.org/scripts/script.php?script_id=1886
 
-if exists("b:current_syntax")
-  finish
-end
+" if exists("b:current_syntax")
+" 	finish
+" endif
 
 setlocal iskeyword+=.
 setlocal iskeyword+=/
@@ -31,7 +31,7 @@ syn keyword ngxDirectiveBlock location     contained
 syn keyword ngxDirectiveBlock upstream     contained
 syn keyword ngxDirectiveBlock charset_map  contained
 syn keyword ngxDirectiveBlock limit_except contained
-syn keyword ngxDirectiveBlock if           contained
+" syn keyword ngxDirectiveBlock if           contained
 syn keyword ngxDirectiveBlock geo          contained
 syn keyword ngxDirectiveBlock map          contained
 
@@ -646,7 +646,6 @@ syn keyword ngxDirectiveThirdParty xss_input_types
 syn keyword ngxDirectiveThirdParty xss_output_type
 
 " highlight
-
 hi link ngxComment Comment
 hi link ngxVariable Identifier
 hi link ngxVariableBlock Identifier
@@ -663,4 +662,4 @@ hi link ngxDirectiveDeprecated Error
 hi link ngxDirective Identifier
 hi link ngxDirectiveThirdParty Special
 
-let b:current_syntax = "nginx"
+let b:current_syntax="nginx"
