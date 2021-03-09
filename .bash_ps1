@@ -552,7 +552,7 @@ if [ "$mergeOutput" != "Already up to date." ]; then
 	# echo $mergeOutput
 	echo "New version...Loading..."
 	bashreload
-	\exit 0
+	return 0 2>/dev/null || exit 0
 fi
 
 ################### customization for the command prompt vvvvvvvvvvv #################
