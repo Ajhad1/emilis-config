@@ -445,13 +445,5 @@ au BufRead,BufNewFile,BufEnter *.json setlocal tabstop=4
 au BufRead,BufNewFile *.json setlocal conceallevel=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Filetype Detection vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"augroup filetypedetect
-"	" set nginx filetype
-"	au BufRead,BufNewFile /etc/nginx/* set ft=nginx
-"augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ => END ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
