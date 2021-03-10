@@ -267,7 +267,7 @@ function _cd_ {
 
 function mosh
 {
-	MOSH_SERVER_NETWORK_TMOUT=259200 mosh "$@"
+	MOSH_SERVER_NETWORK_TMOUT=259200 mosh server_alias screen "$@"
 	[[ $? -ne 0 ]] && (echo; ssh "$@")
 } # add timeout to all mosh sessions
 
@@ -656,10 +656,17 @@ force_color_prompt=yes             # add color to terminals
 HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space in the history.
 shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
 
-
-####### load my newest personalization file on TTY load ##########
+###### Pull and setup system #####
 getSystemInfo
 ~/linux-config/install.sh # runs the install script
+
+###### Setup screen ######
+mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
+export SCREENDIR=$HOME/.screen
+
+####### load my newest personalization file on TTY load ##########
+function loadTTY
+{
 prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 echo "Pulling latest personalization file from remote repository.  "
 printf "______Status:_____ " && printf "$(echo $mergeOutput | tr \\n ' ')" && echo "" # pull on load
@@ -684,6 +691,8 @@ echo "$(pwd)"
 ## prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 tree1 --noreport | \tail -c +16
 ## ls -AhG --color=auto --group-directories-first --file-type
+}
+loadTTY
 
 ###### SSH AGENT AUTO START ######
 ###### LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458 ######
@@ -708,7 +717,7 @@ if [ -f "${SSH_ENV}" ]; then
 		ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
 			start_agent;
 		}
-	else 
+	else
 		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
 else
