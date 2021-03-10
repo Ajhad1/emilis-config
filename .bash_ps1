@@ -16,7 +16,7 @@ alias cd='_cd_' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
 # alias ls='_ls_' # replace ls with function
-alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
+alias ls='\ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
 alias ls0='\ls ' # allows ls to be used normally
 alias cat0='\cat ' # allows cat to be run normally
 alias egrep='egrep --color=auto ' # auto runs with color
@@ -680,13 +680,16 @@ mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
 export SCREENDIR=$HOME/.screen
 
 function showTree {
-	local treeLoad="$(tree1 --noreport|\tail -c +15)"
-	local treeLines=$($treeLoad|wc -l)
-
-	if [ $treeLines > $LINES ];then
+	treeLoad="$( tree1 --noreport | tail -c +15 )"
+	echo "beofre or after"
+	echo "treeLoad $treeLoad"
+	treeLines="$( $treeLoad | wc -l )"
+	echo "treeLines $treeLines"
+	echo "lines $LINES"
+	if [ "$treeLines" > "$LINES" ];then
 		prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-		echo $(pwd)
-		\ls -AhGs --color=auto --group-directories-first --file-type | \tail --lines=+2
+		echo "$(pwd)"
+		ls
 	else
 		printf "$(echo $(pwd))$treeLoad"
 	fi
@@ -713,7 +716,10 @@ echo "_____Private IP(s):_____ $privateIp"
 echo "_____FQDN(s):      _____ $fqdn"
 echo "_____OS:           _____ $osName"
 echo "_____Terminal:     _____ $terminalName"
+echo "before or after1"
 showTree
+echo "before or after2"
+
 ## echo "_____Current Directory:_____ $(pwd)"
 # echo "$(pwd)" && tree1 --noreport | \tail -c +16 | less
 ## ls -AhG --color=auto --group-directories-first --file-type
