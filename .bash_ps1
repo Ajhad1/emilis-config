@@ -130,6 +130,7 @@ alias ports='netstat -tulanp ' # shows open ports
 alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
 alias common='commonlist | less' # outputs common commands into less
 alias pinstall='~/linux-config/install.sh' # runs the install script
+alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh' # add timeout to all mosh sessions
 
 #### actual aliases ####
 alias prettyprint='jq'
