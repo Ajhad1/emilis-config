@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
 
+##### Initialization ######
 echo "Loading..." # Notification so as to know something is happening
+function getInfo {
+	publicIp=$(curl -s ifconfig.me && echo "")
+	privateIp=$(hostname -I)
+	fqdn=$(hostname -A)
+}
+(nohup getInfo > /dev/null 2>&1 &)
 
 ########### aliases ################
 ## command replacements ##
@@ -8,6 +15,7 @@ alias cd='_cd_' # replace cd with cd then ls
 	## alias cd='function _cd_ { \cd "$1"/; tree1 --noreport;}; _cd_' # replace cd with cd then ls
 alias cd0='/bin/cd ' # allow cd to be used normally
 alias cp0='/bin/cp ' # allows sp to be used normally
+# alias ls='_ls_' # replace ls with function
 alias ls='ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
 alias ls0='\ls ' # allows ls to be used normally
 alias cat0='\cat ' # allows cat to be run normally
@@ -196,6 +204,10 @@ alias su='su -p' # run su with my env variables
 
 ################# functions #######################
 ###### commands turned into functions ###### --->
+function _ls_ {
+	\ls -AhGs --color=auto --group-directories-first --file-type | \tail --lines=+2
+} # auto runs with color and removes the total
+
 function Sudo {
 	local firstArg=$1
 	# echo "$firstArg"
@@ -667,6 +679,19 @@ getSystemInfo
 mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
 export SCREENDIR=$HOME/.screen
 
+function showTree {
+	local treeLoad="$(tree1 --noreport|\tail -c +15)"
+	local treeLines=$($treeLoad|wc -l)
+
+	if [ $treeLines > $LINES ];then
+		prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+		echo $(pwd)
+		\ls -AhGs --color=auto --group-directories-first --file-type | \tail --lines=+2
+	else
+		printf "$(echo $(pwd))$treeLoad"
+	fi
+}
+
 ####### load my newest personalization file on TTY load ##########
 function loadTTY
 {
@@ -683,16 +708,14 @@ git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config -
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
 git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-echo "_____Public IP:    _____ $(getip)"
-echo "_____Private IP(s):_____ $(hostname -I)"
-echo "_____FQDN(s):      _____ $(hostname -A)"
+echo "_____Public IP:    _____ $publicIp"
+echo "_____Private IP(s):_____ $privateIp"
+echo "_____FQDN(s):      _____ $fqdn"
 echo "_____OS:           _____ $osName"
 echo "_____Terminal:     _____ $terminalName"
-prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+showTree
 ## echo "_____Current Directory:_____ $(pwd)"
-echo "$(pwd)"
-## prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-tree1 --noreport | \tail -c +16
+# echo "$(pwd)" && tree1 --noreport | \tail -c +16 | less
 ## ls -AhG --color=auto --group-directories-first --file-type
 }
 loadTTY
