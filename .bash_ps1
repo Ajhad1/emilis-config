@@ -31,8 +31,8 @@ alias nl='_nl_' # left justify and indent
 alias logout='_logout_' # save when logout
 alias exit='_exit_' # save when exiting
 alias diff='colordiff --side-by-side --left-column --report-identical-files' # diff using side by side
-alias mank='man -k' # man -k shortcut
-alias ssh='ssh -XYA' # ssh with X11 forwarding on
+alias ssh='ssh -XYA' # ssh with X11 forwarding on and agent forwarding
+# alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh' # add timeout to all mosh sessions
 
 ### Human readable ###
 alias free='free -h' # makes free always human readable
@@ -130,7 +130,7 @@ alias ports='netstat -tulanp ' # shows open ports
 alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
 alias common='commonlist | less' # outputs common commands into less
 alias pinstall='~/linux-config/install.sh' # runs the install script
-alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh' # add timeout to all mosh sessions
+alias mank='man -k' # man -k shortcut
 
 #### actual aliases ####
 alias prettyprint='jq'
@@ -263,6 +263,14 @@ function _cd_ {
 	fi
 	\cd "$@"$slash > /dev/null; tree1 --noreport;
 } # replace cd with cd then ls
+
+
+function mosh
+{
+	MOSH_SERVER_NETWORK_TMOUT=259200 mosh "$@"
+	[[ $? -ne 0 ]] && (echo; ssh "$@")
+} # add timeout to all mosh sessions
+
 ###### commands turned into functions ###### <---
 
 ##### new functions vvvvvv #####
