@@ -267,7 +267,7 @@ function _cd_ {
 
 function mosh
 {
-	MOSH_SERVER_NETWORK_TMOUT=259200 mosh server_alias screen "$@"
+	MOSH_SERVER_NETWORK_TMOUT=259200 mosh "$@"
 	[[ $? -ne 0 ]] && (echo; ssh "$@")
 } # add timeout to all mosh sessions
 
