@@ -1,82 +1,56 @@
 #!/usr/bin/env bash
 
-########## vv ########## Initialization ########## vv ##########
-
-export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): $(${FUNCNAME[0]:+${FUNCNAME[0]}(): }| fmt )'
+export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # export PS4='+(${BASH_SOURCE}:${LINENO})($(date "+%s.%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
-publicIp=$(curl -s ifconfig.me && echo "")
-mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
 
-echo "Loading..." # Notification so as to know something is happening
+# set -xv # turn on debugging
 
-## reload aliases from .bash_ps1 ##
-function reloadbash
-{
-	getSystemInfo
-	if [[ $osName == "UBUNTU" ]]; then
-		if [[ $terminalName == "GNOME" ]]; then
-			source ~/.bashrc
-		else
-			source ~/.bashrc
-		fi
-	elif [[ $osName == "CENTOS" ]]; then
-		if [[ $terminalName == "GNOME" ]]; then
-			gnome-terminal --tab --title=newTab
-			exit
-		else
-			source ~/.bashrc
-		fi
-	else
-		if [[ $terminalName == "GNOME" ]]; then
-			gnome-terminal --tab --title=newTab
-			exit
-		else
-			source ~/.bashrc
-		fi
-	fi
+########## vv ########## Initialization ########## vv ##########
+
+function intPublicIp {
+	# declare -g publicIp="$(curl -s ifconfig.me && echo '')"
+	echo "$(curl -s ifconfig.me)" > ~/.publicIp.txt
+	sleep 15
 }
+# export publicIp=$(sleep 5 && echo "$(curl -s ifconfig.me)" && sleep 5) &
+(intPublicIp &)
+intPublicIpPid=$!
 
-## get system info ##
-function getSystemInfo
-{
-	osInfo=$(cat /etc/*release)
-	shellName=$(ps -p $$ -o args | tail -n 1)
-	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 | sed -e 's/^[[:space:]]*//')
-	terminalNameRaw=$(ps -p "$terminalParentId" -o args | tail -n 1 )
-	
-	if [[ $terminalNameRaw == *"gnome-terminal"* ]]; then
-		terminalName="GNOME"
-	elif [[ $terminalNameRaw == *"tmux"* ]]; then
-		terminalName="TMUX"
-	elif [[ $terminalNameRaw == *"sshd"* ]]; then
-		terminalName="SSH"
-	else
-		terminalName="UNKNOWN or $terminalNameRaw"
-	fi
-	
-	if [[ $osInfo == *"ubuntu"* ]]; then
-		osName="UBUNTU"
-	elif [[ $osInfo == *"centos"* ]]; then
-		osName="CENTOS"
-	elif [[ $osInfo == *"aws"* ]]; then
-		osName="AWS-linux"
-	elif [[ $osInfo == *"debian"* ]]; then
-		osName="Debian"
-	else
-		osName="UNKNOWN"
-	fi
+function intMergeOutput1 {
+	# declare -g mergeOutput1="$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null)"
+	echo "$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null)" > ~/.mergeOutput1.txt
 }
+(intMergeOutput1 &)
+intMergeOutput1Pid=$!
 
-## pull newest personalization file on TTY load ##
-if [ "$mergeOutput" != "Already up to date." ]; then
-	# echo $mergeOutput
-	echo "New version detected..."
-	reloadbash
-	return 0 2>/dev/null || exit 0
-fi
+function intFqdn {
+	# declare -g fqdn="$(hostname -A)"
+	echo "$(hostname -A)" > ~/.fqdn.txt
+}
+(intFqdn &)
+intFqdnPid=$!
+########## turn off debugging
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+set +xv # turn off debugging
+
 
 ########## ^^ ########## Initialization ########## ^^ ##########
+
+echo "Loading..." # Notification so as to know something is happening
 
 ########## vv ########## Aliases ########## vv ##########
 
@@ -116,6 +90,10 @@ alias ls='\ls -AhGs --color=auto --group-directories-first --file-type'		# auto 
 	# alias ls='_ls_'		# replace ls with function
 alias diff='colordiff --side-by-side --left-column --report-identical-files'	# diff using side by side
 alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # always display colors
+manViewer='vim -c MANPAGER -'
+# manViewer='\less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr' # less for man
+# manViewer='\less -options X --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # less for man
+alias man='man --pager="$manViewer"' # setting man pager to less
 
 #### ^^ #### Command Replacements #### ^^ ####
 
@@ -396,7 +374,6 @@ function restart
 
 ##### ^^ ##### Commands turned into functions ##### ^^ #####
 
-
 ##### vv ##### New Functions ##### vv #####
 
 ## test function ##
@@ -510,8 +487,77 @@ function extract
 	fi
 }
 
+## reload aliases from .bash_ps1 ##
+function reloadbash
+{
+	set +xv # turn off debugging
+	getSystemInfo
+	if [[ $osName == "UBUNTU" ]]; then
+		if [[ $terminalName == "GNOME" ]]; then
+			set +xv # turn off debugging
+			source ~/.bashrc
+		else
+			set +xv # turn off debugging
+			source ~/.bashrc
+		fi
+	elif [[ $osName == "CENTOS" ]]; then
+		if [[ $terminalName == "GNOME" ]]; then
+			set +xv # turn off debugging
+			gnome-terminal --tab --title=newTab
+			exit
+		else
+			set +xv # turn off debugging
+			source ~/.bashrc
+		fi
+	else
+		if [[ $terminalName == "GNOME" ]]; then
+			set +xv # turn off debugging
+			gnome-terminal --tab --title=newTab
+			exit
+		else
+			set +xv # turn off debugging
+			source ~/.bashrc
+		fi
+	fi
+	# set -xv # turn on debugging
+}
+
+## get system info ##
+function getSystemInfo
+{
+	set +xv # turn off debugging
+	osInfo=$(cat /etc/*release)
+	shellName=$(ps -p $$ -o args | tail -n 1)
+	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 | sed -e 's/^[[:space:]]*//')
+	terminalNameRaw=$(ps -p "$terminalParentId" -o args | tail -n 1 )
+	
+	if [[ $terminalNameRaw == *"gnome-terminal"* ]]; then
+		terminalName="GNOME"
+	elif [[ $terminalNameRaw == *"tmux"* ]]; then
+		terminalName="TMUX"
+	elif [[ $terminalNameRaw == *"sshd"* ]]; then
+		terminalName="SSH"
+	else
+		terminalName="UNKNOWN or $terminalNameRaw"
+	fi
+	
+	if [[ $osInfo == *"ubuntu"* ]]; then
+		osName="UBUNTU"
+	elif [[ $osInfo == *"centos"* ]]; then
+		osName="CENTOS"
+	elif [[ $osInfo == *"aws"* ]]; then
+		osName="AWS-linux"
+	elif [[ $osInfo == *"debian"* ]]; then
+		osName="Debian"
+	else
+		osName="UNKNOWN"
+	fi
+	# set -xv # turn on debugging
+}
+
 ## show dir ##
 function showTree {
+	set +xv # turn off debugging
 	local treeLoad="$( tree1 --noreport )"
 	# echo "mergeOutput $mergeOutput"
 	if [ -z "$mergeOutput" ]; then
@@ -526,10 +572,11 @@ function showTree {
 	else
 		echo "$(pwd) $(tree1 --noreport)"
 	fi
+	# set -xv # turn on debugging
 }
 
 ## print start screen on TTY load ##
-function loadTTY
+function loadTTY1
 {
 	prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 	echo "Pulling latest personalization file from remote repository.  "
@@ -544,9 +591,16 @@ function loadTTY
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+}
+
+function loadTTY2 {
+	tail --pid=$intPublicIpPid -f /dev/null
+	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
 	echo "_____Public IP:    _____ $publicIp"
 	echo "_____Private IP(s):_____ $(hostname -I)"
-	echo "_____FQDN(s):      _____ $(hostname -A)"
+	tail --pid=$intFqdnPid -f /dev/null
+	fqdn="$(cat ~/.fqdn.txt)" && rm ~/.fqdn.txt
+	echo "_____FQDN(s):      _____ $fqdn"
 	echo "_____OS:           _____ $osName"
 	echo "_____Terminal:     _____ $terminalName"
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
@@ -631,7 +685,182 @@ function mkdirf
 
 ##### ^^ ##### Functions Built on functions/aliases ##### ^^ #####
 
-##### vv ##### CLI completion/auto-complete? ##### vv #####
+
+#### vv #### Experimental #### vv ####
+
+## make less more friendly for non-text input files, see lesspipe(1)
+# [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+#### ^^ #### Experimental #### ^^ ####
+
+######### ^^ ######### Functions ######### ^^ #########
+
+######### vv ######### Check to see if there is a new version of personalization file ######### vv #########
+
+# set -xv # turn on debugging
+
+tail --pid=$intMergeOutput1Pid -f /dev/null
+mergeOutput2=$(git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+mergeOutput1=$(cat ~/.mergeOutput1.txt) && rm ~/.mergeOutput1.txt
+mergeOutput="$mergeOutput1$mergeOutput2"
+# mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+
+## pull newest personalization file on TTY load ##
+if [ "$mergeOutput" != "Already up to date." ]; then
+	# echo $mergeOutput
+	echo "New version detected..."
+	set +xv # turn off debugging
+	reloadbash
+	# set -xv # turn on debugging
+	return 0 2>/dev/null || exit 0
+fi
+
+######### ^^ ######### Check to see if there is a new version of personalization file ######### ^^ #########
+
+######### vv ######### Customization for the command prompt ######### vv #########
+
+set +xv # turn off debugging
+
+## code to input separator ##
+# Fill with minuses
+# (this is recalculated every time the prompt is shown in function prompt_command):
+fill="--- "
+
+reset_style='\[\033[00m\]'
+if [ -z "$VIM" ];
+	then status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
+else status_style=$reset_style'\[\033[0;90;107m\]'
+fi
+prompt_style=$reset_style
+command_style=$reset_style'\[\033[1;29m\]' # bold black
+
+## Prompt variable: ##
+function prompt_command {
+	set +xv # turn off debugging
+	
+	# create a $fill of all screen width minus the time string and a space and USER and a space:
+	name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
+	if [[ $name == "" ]] ; then
+		nameVar=""
+	else
+		nameVar="UN: $name | "
+	fi
+	pwdVar="DIR: $(pwd) | "
+	hostnameVar="HN: $(hostname) | "
+	let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
+	fill=""
+	while [ "$fillsize" -gt "0" ]
+	do
+		fill="-${fill}" # fill with underscores to work on 
+		let fillsize=${fillsize}-1
+	done
+	
+	NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+	if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
+		let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}
+		fill=""
+		while [ "$fillsize" -gt "0" ]
+		do
+			fill="-${fill}" # fill with underscores to work 
+			let fillsize=${fillsize}-1
+		done
+		hostnameVar=""
+	fi
+	
+	# If this is an xterm set the title to user@host:dir
+	case "$TERM" in
+		xterm*|rxvt*)
+			bname=`basename "${PWD/$HOME/~}"`
+			echo -ne "\033]0;${bname}: ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
+			;;
+		*)
+			;;
+	esac
+	# set -xv # turn on debugging
+}
+
+OLD_PROMPT_COMMAND=PROMPT_COMMAND
+NEW_PROMPT_COMMAND=prompt_command
+if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
+	PROMPT_COMMAND=prompt_command
+fi
+
+OLD_PS1="$PS1"
+NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t\n'
+# if [[ ${#NEW_PS1} -gt $columns ]] ; then
+# 	columns1=$columns
+# 	NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
+# fi
+if [[ ! $PS1 == *'${nameVar}'* ]] ; then
+	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
+fi
+
+## Reset color for command output ##
+# (this one is invoked every time before a command is executed):
+trap 'echo -ne "\e[0m"' DEBUG
+
+# set -xv # turn on debugging
+######### ^^ ######### Customization for the command prompt ######### ^^ #########
+
+########## vv ########## Setup system ########## vv ##########
+
+## My personal settings ##
+force_color_prompt=yes	# add color to terminals
+HISTCONTROL=ignoreboth	# don't put duplicate lines or lines starting with space in the history.
+shopt -s checkwinsize	# check the window size after each command
+
+## Pull personalization files, get system info, and setup system ##
+getSystemInfo
+~/linux-config/install.sh # runs the install script
+
+## Setup screen command ##
+mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
+export SCREENDIR=$HOME/.screen
+
+## Load initial tty screen ##
+loadTTY1
+loadTTY2
+
+set +xv # turn off debugging
+
+#### vv #### SSH AGENT AUTO START #### vv ####
+# LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458
+
+SSH_ENV="$HOME/.ssh/agent-environment"
+mkdir $HOME/.ssh/ > /dev/null
+
+## Start Agent ##
+function start_agent {
+	echo "Initialising new SSH agent..."
+	/usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+	echo succeeded
+	chmod 600 "${SSH_ENV}"
+	. "${SSH_ENV}" > /dev/null
+	/usr/bin/ssh-add;
+}
+
+## Source SSH settings, if applicable ##
+if [ -f "${SSH_ENV}" ]; then
+	. "${SSH_ENV}" > /dev/null
+	if [[ -f ~/.ssh/config ]]; then
+		#ps ${SSH_AGENT_PID} doesn't work under cywgin
+		ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+			start_agent;
+		}
+	else
+		eval "$(ssh-agent -k 2>/dev/null)"
+	fi
+else
+	if [[ -f ~/.ssh/config ]]; then
+		start_agent;
+	else
+		eval "$(ssh-agent -k 2>/dev/null)"
+	fi
+fi
+
+#### ^^ #### SSH AGENT AUTO START #### ^^ ####
+
+#### vv #### CLI completion/auto-complete? #### vv ####
 
 ## builtin autocompletion ##
 # enable programmable completion features (you don't need to enable
@@ -680,150 +909,7 @@ if [ ! -z "$dspath" ] ; then
 	complete -W "$(_complete_ds)" dsconfig
 fi
 
-##### ^^ ##### CLI completion/auto-complete?  ##### ^^ #####
-
-#### vv #### Experimental #### vv ####
-
-## make less more friendly for non-text input files, see lesspipe(1)
-# [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-#### ^^ #### Experimental #### ^^ ####
-
-######### ^^ ######### Functions ######### ^^ #########
-
-######### vv ######### Customization for the command prompt ######### vv #########
-
-## code to input separator ##
-# Fill with minuses
-# (this is recalculated every time the prompt is shown in function prompt_command):
-fill="--- "
-
-reset_style='\[\033[00m\]'
-if [ -z "$VIM" ];
-	then status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
-else status_style=$reset_style'\[\033[0;90;107m\]'
-fi
-prompt_style=$reset_style
-command_style=$reset_style'\[\033[1;29m\]' # bold black
-
-## Prompt variable: ##
-function prompt_command {
-	# create a $fill of all screen width minus the time string and a space and USER and a space:
-	name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
-	if [[ $name == "" ]] ; then
-		nameVar=""
-	else
-		nameVar="UN: $name | "
-	fi
-	pwdVar="DIR: $(pwd) | "
-	hostnameVar="HN: $(hostname) | "
-	let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
-	fill=""
-	while [ "$fillsize" -gt "0" ]
-	do
-		fill="-${fill}" # fill with underscores to work on 
-		let fillsize=${fillsize}-1
-	done
-	
-	NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
-	if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
-		let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}
-		fill=""
-		while [ "$fillsize" -gt "0" ]
-		do
-			fill="-${fill}" # fill with underscores to work 
-			let fillsize=${fillsize}-1
-		done
-		hostnameVar=""
-	fi
-	
-	# If this is an xterm set the title to user@host:dir
-	case "$TERM" in
-		xterm*|rxvt*)
-			bname=`basename "${PWD/$HOME/~}"`
-			echo -ne "\033]0;${bname}: ${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"
-			;;
-		*)
-			;;
-	esac
-}
-
-OLD_PROMPT_COMMAND=PROMPT_COMMAND
-NEW_PROMPT_COMMAND=prompt_command
-if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
-	PROMPT_COMMAND=prompt_command
-fi
-
-OLD_PS1="$PS1"
-NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t\n'
-# if [[ ${#NEW_PS1} -gt $columns ]] ; then
-# 	columns1=$columns
-# 	NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
-# fi
-if [[ ! $PS1 == *'${nameVar}'* ]] ; then
-	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
-fi
-
-## Reset color for command output ##
-# (this one is invoked every time before a command is executed):
-trap 'echo -ne "\e[0m"' DEBUG
-
-######### ^^ ######### Customization for the command prompt ######### ^^ #########
-
-########## vv ########## Setup system ########## vv ##########
-
-## My personal settings ##
-force_color_prompt=yes	# add color to terminals
-HISTCONTROL=ignoreboth	# don't put duplicate lines or lines starting with space in the history.
-shopt -s checkwinsize	# check the window size after each command
-
-## Pull personalization files, get system info, and setup system ##
-getSystemInfo
-~/linux-config/install.sh # runs the install script
-
-## Setup screen command ##
-mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
-export SCREENDIR=$HOME/.screen
-
-## Load initial tty screen ##
-loadTTY
-
-#### vv #### SSH AGENT AUTO START #### vv ####
-# LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458
-
-SSH_ENV="$HOME/.ssh/agent-environment"
-mkdir $HOME/.ssh/ > /dev/null
-
-## Start Agent ##
-function start_agent {
-	echo "Initialising new SSH agent..."
-	/usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-	echo succeeded
-	chmod 600 "${SSH_ENV}"
-	. "${SSH_ENV}" > /dev/null
-	/usr/bin/ssh-add;
-}
-
-## Source SSH settings, if applicable ##
-if [ -f "${SSH_ENV}" ]; then
-	. "${SSH_ENV}" > /dev/null
-	if [[ -f ~/.ssh/config ]]; then
-		#ps ${SSH_AGENT_PID} doesn't work under cywgin
-		ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-			start_agent;
-		}
-	else
-		eval "$(ssh-agent -k 2>/dev/null)"
-	fi
-else
-	if [[ -f ~/.ssh/config ]]; then
-		start_agent;
-	else
-		eval "$(ssh-agent -k 2>/dev/null)"
-	fi
-fi
-
-#### ^^ #### SSH AGENT AUTO START #### ^^ ####
+#### ^^ #### CLI completion/auto-complete?  #### ^^ ####
 
 ## Unset variables that need to be unset ##
 declare -a varList=(publicIp mergeOutput sudoCount count)
