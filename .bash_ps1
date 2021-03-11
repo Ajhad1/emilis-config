@@ -1,391 +1,35 @@
 #!/usr/bin/env bash
 
-##### Initialization ######
+########## vv ########## Initialization ########## vv ##########
+
 echo "Loading..." # Notification so as to know something is happening
-function getInfo {
-	publicIp=$(curl -s ifconfig.me && echo "")
-	privateIp=$(hostname -I)
-	fqdn=$(hostname -A)
-}
-(nohup getInfo > /dev/null 2>&1 &)
+publicIp=$(curl -s ifconfig.me && echo "")
 
-########### aliases ################
-## command replacements ##
-alias cd='_cd_' # replace cd with cd then ls
-	## alias cd='function _cd_ { \cd "$1"/; tree1 --noreport;}; _cd_' # replace cd with cd then ls
-alias cd0='/bin/cd ' # allow cd to be used normally
-alias cp0='/bin/cp ' # allows sp to be used normally
-# alias ls='_ls_' # replace ls with function
-alias ls='\ls -AhGs --color=auto --group-directories-first --file-type' # auto runs with color
-alias ls0='\ls ' # allows ls to be used normally
-alias cat0='\cat ' # allows cat to be run normally
-alias egrep='egrep --color=auto ' # auto runs with color
-alias fgrep='fgrep --color=auto ' # auto runs with color
-alias grep='grep --color=auto ' # auto runs with color
-alias wget='wget -c ' # auto runs with -c
-alias vi='vim ' # always use vim instead of vi
-alias view='view -c"set number" -c"colorscheme torte"' # always run view with line numbers and colors
-	# alias view='vim -R' # changes view to vim -R
-alias aspell='aspell --dont-backup' # always run in don't backup mode
-alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # always display colors
-	# alias less='less --LINE-NUMBERS --quit-if-one-screen --status-column --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?fCurrent File\: %f	.?E%E .?lbLine %lb\/%L	.?Pb%Pb\%.?x Next File\: %x	File\:%i\/%m."' # always display colors
-	# alias less='less --LINE-NUMBERS --quit-if-one-screen --status-column --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?f%f ?E%E ?BSize(%B) ?lbLine#(%lb) ?Pb%Pb ?xNextFile(%x)"' # always display colors
-alias jq='jq -C --indent 4' # always use color and tabs
-alias highlight='highlight -O ansi --force -q' # always run highlight with color and default syntax
-alias tree='tree -ChaDF --du --dirsfirst' # always colorize Tree
-alias fmt='fmt -t -w "$COLUMNS"' # line indentation
-	# alias fmt='fmt -t -w "$COLUMNS" -g 110' # line indentation
-alias nl='_nl_' # left justify and indent
-	## alias nl='function _nl { \nl -ba -nrz -s " - " "$@" | fmt;}; _nl' # left justify and indent 
-	## alias nl='nl -ba -nrz -s " - "' # nl dont use tab and left justify
-alias logout='_logout_' # save when logout
-alias exit='_exit_' # save when exiting
-alias diff='colordiff --side-by-side --left-column --report-identical-files' # diff using side by side
-alias ssh='ssh -XYA' # ssh with X11 forwarding on and agent forwarding
-# alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh' # add timeout to all mosh sessions
-
-### Human readable ###
-alias free='free -h' # makes free always human readable
-alias df='df -h' # makes df alwaysd human readable
-alias du='du -h' # makes du always human readable
-
-## shortcuts built-in on other commands ##
-	## alias ..='\cd ../; ls' # allows shortcut for cd ../ ## caused issues
-alias ...='\cd ../../; tree1 --noreport' # shortcut for cd ../../
-alias ....='\cd ../../../; tree1 --noreport' # shortcut for cd ../../../
-alias cdp='cd ~/linux-config/' # changes to linux config directory
-alias cdtfw='cd /opt/tfw/tfw-project/' # changes to tfw directory
-alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
-alias cpp1='rsync -ahr --progress' # Legacy use rsync instead of cp for its progress
-alias ll='tree1 -pu' # shortcut for long list with tree
-	# alias ll='ls -lA ' # short cut for long list
-alias lstest='ls -Alhf --color=auto' # supposed to be a good ls
-	# alias mkdirf='function _mkdirf_ { mkdir $1; cd $1; }; _mkdirf_' # makes directory and cds into it
-alias cath='highlight ' # runs highlight instead of cat
-alias catj='jq' # runs jq instead of cat
-alias catv='vim -R' # runs vim -R
-alias catn='cat -n' # runs cat with line numbering
-	# alias touchs='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
-	# alias touchx='function _touchs_ { touch "$1"; chmod a+x "$1";}; _touchs_' # create shell script and automatically make executable
-	# alias mkexe='function _mkexe_ { chmod a+x "$1";}; _mkexe_' # make file executable
-	# alias mkx='function _mkexe_ { chmod a+x "$1";}; _mkexe_' # make file executable
-	# alias aspellc='aspell --dont-backup check -C' # always run aspellc with no backup and Camel case
-alias treelimit='tree --filelimit ' # runs tree expecting filelimit
-alias tree1='tree -L 1' # Tree to the first level
-alias tree2='tree -L 2' # Tree to the second level
-alias tree3='tree -L 3' # Tree to the third level
-alias tree4='tree -L 4' # Tree to the fourth level
-alias tree5='tree -L 5' # Tree to the fifth level
-
-alias psgrep='ps -ef | grep -v grep | grep' # use grep on ps without showing grep
-alias grepps='ps -ef | grep -v grep | grep' # use grep on ps without showing grep
-alias grepp='ps -ef | grep -v grep | grep' # use grep on ps without showing grep
-
-alias vims='vim -c"syntax on"' # add syntax highlighting to VIM
-
-alias nl1='nl -w1' # set nl number length to 1
-alias nl2='nl -w2' # set nl number length to 2
-alias nl3='nl -w3' # set nl number length to 3
-alias nl4='nl -w4' # set nl number length to 4
-alias nl5='nl -w5' # set nl number length to 5
-
-alias contentdiff='colordiff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
-alias diffcontent='contentdiff' # alias for contentdiff
-alias dirdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
-alias diffdir='dirdiff' # alias for dirdiff
-
-alias gita='git add . && git status' # shortcut for git add
-alias gits='git status' # shortcut for git status
-alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git status' # shortcut for git status+ add + status
-
-### new commands ###
-alias getip='curl -s ifconfig.me && echo ""' # get public ip
-alias getlocal='hostname -I' # get local ip
-alias getprivate='hostname -I' # get local ip
-alias getpublic='curl -s ifconfig.me' # get public ip
-
-alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
-alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch -q && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n " "' # git pull tty
-alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
-alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message' # git commit tty
-	## alias gitttycommit='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message' # git commit tty
-alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash' # git push tty
-	## alias gitttypush='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push && reloadbash' # git push tty
-
-alias tfw='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/' # auto gets location of tfw file
-alias tfwpull='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ pull' # git pull tfw
-alias tfwadd='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ add -A .' # git add changes tfw
-alias tfwcommit='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m "backup" --allow-empty-message' # git commit tfw without message
-alias tfwcommitm='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m' # git commit tfw with message
-alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push -q' # git push tfw
-
-alias editp='vim ~/linux-config/.bash_ps1' # starts editing personlization file
-alias editi='vim ~/linux-config/install.sh' # starts editing install file
-alias editv='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
-alias vimp='vim ~/linux-config/.vimrc' # starts editing VIM personalization file
-	# alias updatep='updatep' # making alias for updatep function
-
-alias gdiff='git diff --color-words' # runs git diff the best way
-alias gitvimdiff='git difftool --tool=vimdiff' # runs vimdiff for git diff
-alias gitdiff='git diff --color-words' # runs git diff the best way
-alias gvimdiff='gitvimdiff' # runs vimdiff for git diff
-
-alias follow='tail -f' # tail -f alias
-	# alias follownl='function _follownl_ { follow $1 | nl; }; _follownl_' # follow with numbered lines
-	# alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | fmt; }; _follownl_' # follow with numbered lines
-	# alias follownl='function _follownl_ { follow $1 | \nl -ba -nrz -s " - " | \fmt -t -w "$COLUMNS"; }; _follownl_' # follow with numbered lines
-
-alias mkexe='chmod a+x' # Make file executable
-	# alias trash='function _trash_ { mkdir --parents ~/.local/share/Trash/files; mv --force -t ~/.local/share/Trash/files "$@"; echo "\"$@\" has been moved to the Trash.";}; _trash_' # sends to trash instead of deleting
-alias ports='netstat -tulanp ' # shows open ports
-alias rmviews='rm -R -f ~/.vim/view/~*' # remove all saved vim views
-alias common='commonlist | less' # outputs common commands into less
-alias pinstall='~/linux-config/install.sh' # runs the install script
-alias mank='man -k' # man -k shortcut
-
-#### actual aliases ####
-alias prettyprint='jq'
-alias printpretty='jq'
-alias pp='jq'
-alias t1='tree1'
-alias t2='tree2'
-alias t3='tree3'
-alias t4='tree4'
-alias t5='tree5'
-alias exits='exit' # save before exiting
-alias edit='vim -u ~/linux-config/.vimrc' # edit = vim
-alias s='sudo ' # shortcut to sudo
-alias bashreload='reloadbash' # shortcut to shortcut to reload bash
-alias c='clear' # shortcut to clear screen
-alias v='vim'
-alias myip='getip' # real alias for getip
-alias mylocal='getlocal' # real alias for getlocal
-alias myprivate='getlocal' # real alias for getlocal
-alias mypublic='getpublic' # real alias for getpublic
-
-### fix typos ###
-alias cd.='cd ../' # allows type to still work
-alias cd..='cd ../' # allows typo to still work
-alias cd~='cd ~' # allows typo to still work
-alias gittypull='gitttypull' # allows typo to still work
-alias gittyadd='gitttyadd' # allows typo to still work
-alias gittycommit='gitttycommit' # allows typo to still work
-alias gittypush='gitttypush' # allows typo to still work
-alias gitttycomit='gitttycommit' # allows typo to still work
-alias gittycomit='gitttycommit' # allows typo to still work
-alias gitty='gittty' # allows typo to still work
-alias tfwcomit='tfwcommit' # allows typo to still work
-alias tfwcomitm='tfwcommitm' # allows typo to still work
-alias pretyprint='prettyprint' # allows typo to stil work
-alias printprety='printpretty' # allows typo to still work
-
-################ common trying out ##################
-alias untar='tar -zxvf' # shortcut to untar
-alias hists='history | grep' # searches history
-alias findlargefiles='sudo \du -a / | sort -n -r | head -n 20' # sorts out the top 20 largest files on the system
-alias freespace='df' #shows free storage
-
-## cover my butt ##
-alias mkdir='mkdir -pv' # always runs mkdir with create parent if needed
-alias rm='rm -I --preserve-root' # do not delete / or prompt if deleting more than 3 files at a time #
-alias mv='mv -i' # always runs in confirmation mode #
-alias cp='cp -i' # always runs in confirmation mode #
-alias ln='ln -i' # always runs in confirmation mode #
-alias chown='chown --preserve-root' # Parenting changing perms on / #
-alias chmod='chmod --preserve-root' # Parenting changing perms on / #
-alias chgrp='chgrp --preserve-root' # Parenting changing perms on / #
-alias sudo='Sudo ' # always checks commands after sudo for aliases
-alias yum='sudo yum' # auto run yum with sudo
-alias apt-get='sudo apt-get' # always runs apt-get as sudo
-alias dnf='sudo dnf' # always runs dnf as sudo
-alias apt='sudo apt' # always run apt as sudo
-alias tcpdump='sudo tcpdump' # run tcpdump as sudo
-alias su='su -p' # run su with my env variables
-
-################# functions #######################
-###### commands turned into functions ###### --->
-function _ls_ {
-	\ls -AhGs --color=auto --group-directories-first --file-type | \tail --lines=+2
-} # auto runs with color and removes the total
-
-function Sudo {
-	local firstArg=$1
-	# echo "$firstArg"
-	if [[ "$firstArg" == "-EH" ]]; then
-		# echo "$firstArg"
-		# echo "-E mathced"
-		:
-	elif [ $(type -t $firstArg) = function ]; then
-		declare -i sudoCount+=1
-		# echo "sudoCount =$sudoCount"
-		declare -i count=1
-		while [[ $count<=$# ]]
-		do
-			shift
-			if [[ $count == 1 ]]; then
-				local restOfArgs=$*
-				# echo "saving restOfArgs as $*"
-			fi
-			count+=1
-		done
-		# echo "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
-		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
-		# echo "errors before or affter"
-	elif [ $(type -t $firstArg) = alias ]; then
-		declare -i sudoCount+=1
-		# echo "sudoCount =$sudoCount"
-		command sudo -EH "$@"
+## reload aliases from .bash_ps1 ##
+function reloadbash
+{
+	getSystemInfo
+	if [[ $osName == "UBUNTU" ]]; then
+		if [[ $terminalName == "GNOME" ]]; then
+			source ~/.bashrc
+		else
+			source ~/.bashrc
+		fi
+	elif [[ $osName == "CENTOS" ]]; then
+		if [[ $terminalName == "GNOME" ]]; then
+			gnome-terminal --tab --title=newTab
+			exit
+		else
+			source ~/.bashrc
+		fi
 	else
-		command sudo -EH "$@"
+		if [[ $terminalName == "GNOME" ]]; then
+			gnome-terminal --tab --title=newTab
+			exit
+		else
+			source ~/.bashrc
+		fi
 	fi
-}
-
-## log out function ##
-function _logout_
-{
-	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
-	echo "$commitVar"
-	if [[ -z $commitVar ]]; then
-		ssh-add -D
-		ssh-agent -k
-		\logout
-	else
-		gitttypush
-		ssh-add -D
-		ssh-agent -k
-		\logout
-	fi
-}
-
-function _exit_
-{
-	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
-	echo "$commitVar"
-	if [[ -z $commitVar ]]; then
-		\exit
-	else
-		gitttypush
-		\exit
-	fi
-}
-
-function _nl_ { \nl -ba -nrz -s " - " "$@" | fmt;} #
-function _cd_ {
-	if [[ $1 != '-' ]]; then
-		local slash='/'
-	else
-		local slash=''
-	fi
-	\cd "$@"$slash > /dev/null; tree1 --noreport;
-} # replace cd with cd then ls
-
-
-function mosh
-{
-	MOSH_SERVER_NETWORK_TMOUT=259200 mosh "$@"
-	[[ $? -ne 0 ]] && (echo; ssh "$@")
-} # add timeout to all mosh sessions
-
-###### commands turned into functions ###### <---
-
-##### new functions vvvvvv #####
-function functest
-{
-	echo $0
-}
-
-function cdl
-{
-	\cd "$@"/; ls;
-} # cd then ls
-
-function cdt
-{
-	\cd "$@"/; tree1 --noreport;
-} # cd then tree1
-
-function mvf
-{
-	mv $@; cd $2;
-} # moves files and cds into it
-
-function cati
-{
-	\cat "$@" | fmt;
-} # runs with indentation
-
-function followindent
-{
-	follow $1 | fmt;
-} # follow with numbered lines
-
-function follownl
-{
-	follow $1 | \nl -ba -nrz -s " - ";
-} # follow with numbered lines
-
-function followjq
-{
-	follow $1 | jq;
-} # follow with json formatting
-
-function trash
-{
-	mkdir --parents ~/.local/share/Trash/files;
-	mv --force -t ~/.local/share/Trash/files "$@";
-	echo "\"$@\" has been moved to the Trash.";
-} # sends to trash instead of deleting
-
-## get hosts file and list hosts ##
-function hosts
-{
-	cat /etc/hosts
-}
-
-## add indent to less ##
-function lessf
-{
-	fmt $1 | less
-}
-
-function touchs
-{
-	touch "$1"; chmod a+x "$1"; ls .;
-} # create shell script and automatically make executable
-
-function touchx
-{
-	touch "$1"; chmod a+x "$1"; ls .;
-} # create shell script and automatically make executable
-
-function touchf
-{
-	touch $1; vim $1;
-} # makes directory and cds into it
-
-function mkdirf
-{
-	mkdir $1; cd $1;
-} # makes directory and cds into it
-
-function mkexe
-{
-	chmod a+x "$1";
-} # make file executable
-
-function mkx
-{
-	chmod a+x "$1";
-} # make file executable
-
-## restart on any machine ##
-function restart
-{
-	if [ -d "/usr/lib/systemd" ]; then
-		sudo shutdown -r now
-	else
-		sudo telinit 6
-	fi	
 }
 
 ## get system info ##
@@ -419,34 +63,371 @@ function getSystemInfo
 	fi
 }
 
-## reload aliases from .bash_ps1##
-function reloadbash
-{
-	getSystemInfo
-	if [[ $osName == "UBUNTU" ]]; then
-		if [[ $terminalName == "GNOME" ]]; then
-			source ~/.bashrc
-		else
-			source ~/.bashrc
-		fi
-	elif [[ $osName == "CENTOS" ]]; then
-		if [[ $terminalName == "GNOME" ]]; then
-			gnome-terminal --tab --title=newTab
-			exit
-		else
-			source ~/.bashrc
-		fi
+## pull newest personalization file on TTY load ##
+mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+if [ "$mergeOutput" != "Already up to date." ]; then
+	# echo $mergeOutput
+	echo "New version detected..."
+	reloadbash
+	return 0 2>/dev/null || exit 0
+fi
+
+########## ^^ ########## Initialization ########## ^^ ##########
+
+########## vv ########## Aliases ########## vv ##########
+
+#### vv #### Command Replacements #### vv ####
+
+alias sudo='Sudo '	# Replaced with custom sudo and always checks commands after sudo for aliases
+alias cd='_cd_'		# replace cd with cd then ls
+alias cd0='/bin/cd '	# allow cd to be used normally
+alias cp0='/bin/cp '	# allows sp to be used normally
+alias wget='wget -c '	# auto runs with -c
+alias vi='vim '		# always use vim instead of vi
+alias ssh='ssh -XYA'	# ssh with X11 forwarding on and agent forwarding
+alias free='free -h'	# makes free always human readable
+alias df='df -h'	# makes df alwaysd human readable
+alias du='du -h'	# makes du always human readable
+alias nl='_nl_'		# left justify and indent
+alias logout='_logout_'	# save when logout
+alias exit='_exit_'	# save when exiting
+
+alias ls0='\ls '			# allows ls to be used normally
+alias cat0='\cat '			# allows cat to be run normally
+alias egrep='egrep --color=auto '	# auto runs with color
+alias fgrep='fgrep --color=auto '	# auto runs with color
+alias grep='grep --color=auto '		# auto runs with color
+alias aspell='aspell --dont-backup'	# always run in don't backup mode
+alias jq='jq -C --indent 4'		# always use color and tabs
+alias fmt='fmt -t -w "$COLUMNS"'	# line indentation
+	# alias fmt='fmt -t -w "$COLUMNS" -g 110' # line indentation
+
+	alias highlight='highlight -O ansi --force -q'		# always run highlight with color and default syntax
+alias tree='tree -ChaDF --du --dirsfirst'		# always colorize Tree
+alias view='view -c"set number" -c"colorscheme torte"'	# always run view with line numbers and colors
+	# alias view='vim -R'	# changes view to vim -R
+# alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh'	# add timeout to all mosh sessions
+
+alias ls='\ls -AhGs --color=auto --group-directories-first --file-type'		# auto runs with color
+	# alias ls='_ls_'		# replace ls with function
+alias diff='colordiff --side-by-side --left-column --report-identical-files'	# diff using side by side
+alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # always display colors
+
+#### ^^ #### Command Replacements #### ^^ ####
+
+#### vv #### Shortcuts built on top of other commands #### vv ####
+
+alias catj='jq'		# runs jq instead of cat
+alias catv='vim -R'	# runs vim -R
+alias catn='cat -n'	# runs cat with line numbering
+alias exits='exit'	# save before exiting
+alias ll='tree1 -pu'	# shortcut for long list with tree
+	# alias ll='ls -lA '	# short cut for long list
+alias cath='highlight '	# runs highlight instead of cat
+	# alias ..='\cd ../; ls'	# allows shortcut for cd ../ ## caused issues
+
+alias ...='\cd ../../; showTree'	# shortcut for cd ../../
+alias ....='\cd ../../../; showTree'	# shortcut for cd ../../../
+alias cdp='cd ~/linux-config/'		# changes to linux config directory
+alias cdtfw='cd /opt/tfw/tfw-project/'	# changes to tfw directory
+alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
+alias cpp1='rsync -ahr --progress'	# Legacy use rsync instead of cp for its progress
+alias lstest='ls -Alhf --color=auto'	# supposed to be a good ls
+
+alias nl1='nl -w1'	# set nl number length to 1
+alias nl2='nl -w2'	# set nl number length to 2
+alias nl3='nl -w3'	# set nl number length to 3
+alias nl4='nl -w4'	# set nl number length to 4
+alias nl5='nl -w5'	# set nl number length to 5
+
+alias treelimit='tree --filelimit '	# runs tree expecting filelimit
+alias tree1='tree -L 1'		# Tree to the first level
+alias tree2='tree -L 2'		# Tree to the second level
+alias tree3='tree -L 3'		# Tree to the third level
+alias tree4='tree -L 4'		# Tree to the fourth level
+alias tree5='tree -L 5'		# Tree to the fifth level
+
+alias mank='man -k'			# man -k shortcut
+alias vimp='vim ~/linux-config/.vimrc'	# starts editing VIM personalization file
+alias vims='vim -c"syntax on"'		# add syntax highlighting to VIM
+
+alias psgrep='ps -ef | grep -v grep | grep'	# use grep on ps without showing grep
+alias grepps='ps -ef | grep -v grep | grep'	# use grep on ps without showing grep
+alias grepp='ps -ef | grep -v grep | grep'	# use grep on ps without showing grep
+
+alias gita='git add . && git status'		# shortcut for git add
+alias gits='git status'				# shortcut for git status
+alias gdiff='git diff --color-words'		# runs git diff the best way
+alias gitvimdiff='git difftool --tool=vimdiff'	# runs vimdiff for git diff
+alias gitdiff='git diff --color-words'		# runs git diff the best way
+alias gvimdiff='gitvimdiff'			# runs vimdiff for git diff
+alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git status' # shortcut for git status+ add + status
+
+alias contentdiff='colordiff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
+alias dirdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
+
+#### ^^ #### Shortcuts built on top of other commands #### ^^ ####
+
+#### vv #### New commands #### vv ####
+
+alias getlocal='hostname -I'		# get local ip
+alias getprivate='hostname -I'		# get local ip
+alias getpublic='curl -s ifconfig.me'	# get public ip
+alias follow='tail -f'			# tail -f alias
+alias mkexe='chmod a+x'			# Make file executable
+alias ports='netstat -tulanp '		# shows open ports
+alias rmviews='rm -R -f ~/.vim/view/~*'	# remove all saved vim views
+alias common='commonlist | less'	# outputs common commands into less
+
+alias pinstall='~/linux-config/install.sh'	# runs the install script
+alias getip='curl -s ifconfig.me && echo ""'	# get public ip
+
+## Edit = Vim ##
+alias edit='vim -u ~/linux-config/.vimrc'	# edit = vim
+alias editp='vim ~/linux-config/.bash_ps1'	# starts editing personlization file
+alias editi='vim ~/linux-config/install.sh'	# starts editing install file
+alias editv='vim ~/linux-config/.vimrc'		# starts editing VIM personalization file
+
+## gittty calls git for linux config ##
+alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
+alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch -q && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n " "' # git pull tty
+alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
+alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message'	# git commit tty
+alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash'		# git push tty
+
+## tfw calls git on tfw ##
+alias tfw='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/' # auto gets location of tfw file
+alias tfwpull='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ pull' # git pull tfw
+alias tfwadd='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ add -A .' # git add changes tfw
+alias tfwcommit='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m "backup" --allow-empty-message' # git commit tfw without message
+alias tfwcommitm='tfwadd && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ commit -m' # git commit tfw with message
+alias tfwpush='tfwadd && tfwcommit && git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/ push -q' # git push tfw
+
+#### ^^ #### New commands #### ^^ ####
+
+#### vv #### Actual Aliases #### vv ####
+
+alias c='clear'	# shortcut to clear screen
+alias v='vim'	# shortcut for vim
+alias s='sudo '	# shortcut to sudo
+
+alias pp='jq'		# real alias for jq
+alias prettyprint='jq'	# real alias for jq
+alias printpretty='jq'	# real alias for jq
+alias t1='tree1'	# real alias for tree1
+alias t2='tree2'	# real alias for tree2
+alias t3='tree3'	# real alias for tree3
+alias t4='tree4'	# real alias for tree4
+alias t5='tree5'	# real alias for tree5
+
+alias bashreload='reloadbash'	# shortcut to shortcut to reload bash
+alias myip='getip'		# real alias for getip
+alias mylocal='getlocal'	# real alias for getlocal
+alias myprivate='getlocal'	# real alias for getlocal
+alias mypublic='getpublic'	# real alias for getpublic
+alias diffcontent='contentdiff' # real alias for contentdiff
+alias diffdir='dirdiff'		# real alias for dirdiff
+
+alias cd...='\cd ../../; showTree'		# shortcut for cd ../../
+alias cd....='\cd ../../../; showTree'		# shortcut for cd ../../../
+alias cd.....='\cd ../../../../; showTree'	# shortcut for cd ../../../../
+alias cd......='\cd ../../../../../; showTree'	# shortcut for cd ../../../../../
+
+#### ^^ #### Actual Aliases #### ^^ ####
+
+#### vv #### Catch Typos #### vv ####
+
+alias cd.='cd ../'	# allows type to still work
+alias cd..='cd ../'	# allows typo to still work
+alias cd~='cd ~'	# allows typo to still work
+alias gitty='gittty'	# allows typo to still work
+
+alias gittypull='gitttypull'	# allows typo to still work
+alias gittyadd='gitttyadd'	# allows typo to still work
+alias gittypush='gitttypush'	# allows typo to still work
+alias gittycomit='gitttycommit'	# allows typo to still work
+alias gitttycomit='gitttycommit' # allows typo to still work
+alias gittycommit='gitttycommit' # allows typo to still work
+alias tfwcomit='tfwcommit'	# allows typo to still work
+alias tfwcomitm='tfwcommitm'	# allows typo to still work
+alias pretyprint='prettyprint'	# allows typo to stil work
+alias printprety='printpretty'	# allows typo to still work
+
+#### ^^ #### Catch Typos #### ^^ ####
+
+#### vv #### Common aliases I am trying out #### vv ####
+
+alias untar='tar -zxvf'		# shortcut to untar
+alias hists='history | grep'	# searches history
+alias freespace='df'		# shows free storage
+
+alias findlargefiles='sudo \du -a / | sort -n -r | head -n 20' # sorts out the top 20 largest files on the system
+
+#### ^^ #### Common aliases I am trying out #### ^^ ####
+
+#### vv #### Cover my butt #### vv ####
+
+alias mkdir='mkdir -pv'	# always runs mkdir with create parent if needed
+alias mv='mv -i'	# always runs in confirmation mode #
+alias cp='cp -i'	# always runs in confirmation mode #
+alias ln='ln -i'	# always runs in confirmation mode #
+alias yum='sudo yum'	# auto run yum with sudo
+alias dnf='sudo dnf'	# always runs dnf as sudo
+alias apt='sudo apt'	# always run apt as sudo
+alias su='su -p'	# run su with my env variables
+
+alias apt-get='sudo apt-get'	# always runs apt-get as sudo
+alias tcpdump='sudo tcpdump'	# run tcpdump as sudo
+
+alias rm='rm -I --preserve-root'	# do not delete / or prompt if deleting more than 3 files at a time #
+alias chown='chown --preserve-root'	# Parenting changing perms on / #
+alias chmod='chmod --preserve-root'	# Parenting changing perms on / #
+alias chgrp='chgrp --preserve-root'	# Parenting changing perms on / #
+
+#### ^^ #### Cover my butt #### ^^ ####
+
+########## ^^ ########## Aliases ########## ^^ ##########
+
+########## vv ########## Functions ########## vv ##########
+
+##### vv ##### Commands turned into functions ##### vv #####
+
+## Replace ls to auto run with color and remove the total ##
+function _ls_ {
+	echo "$(pwd) == \ls -AhGs --color=auto --group-directories-first --file-type"
+}
+
+## Replace sudo with something that works with aliases ##
+function Sudo {
+	local firstArg=$1
+	# echo "$firstArg"
+	if [[ "$firstArg" == "-EH" ]]; then
+		# echo "$firstArg"
+		# echo "-E mathced"
+		:
+	elif [ $(type -t $firstArg) = function ]; then
+		declare -i sudoCount+=1
+		# echo "sudoCount =$sudoCount"
+		declare -i count=1
+		while [[ $count<=$# ]]
+		do
+			shift
+			if [[ $count == 1 ]]; then
+				local restOfArgs=$*
+				# echo "saving restOfArgs as $*"
+			fi
+			count+=1
+		done
+		# echo "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+		# echo "errors before or affter"
+	elif [ $(type -t $firstArg) = alias ]; then
+		declare -i sudoCount+=1
+		# echo "sudoCount =$sudoCount"
+		command sudo -EH "$@"
 	else
-		if [[ $terminalName == "GNOME" ]]; then
-			gnome-terminal --tab --title=newTab
-			exit
-		else
-			source ~/.bashrc
-		fi
+		command sudo -EH "$@"
 	fi
 }
 
-# Syntax: "repeat [X] [command]"
+## Replace log out to save first ##
+function _logout_ {
+	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
+	echo "$commitVar"
+	if [[ -z $commitVar ]]; then
+		ssh-add -D
+		ssh-agent -k
+		\logout
+	else
+		gitttypush
+		ssh-add -D
+		ssh-agent -k
+		\logout
+	fi
+}
+
+## Replace exit to save first ##
+function _exit_ {
+	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
+	echo "$commitVar"
+	if [[ -z $commitVar ]]; then
+		\exit
+	else
+		gitttypush
+		\exit
+	fi
+}
+
+## Replace nl to indent as well ##
+function _nl_ {
+	\nl -ba -nrz -s " - " "$@" | fmt;
+}
+
+## Replace cd to print dir after cd ##
+function _cd_ {
+	if [[ $1 != '-' ]]; then
+		local slash='/'
+	else
+		local slash=''
+	fi
+	\cd "$@"$slash > /dev/null; showTree;
+}
+
+## Replace mosh to add timeout to all mosh sessions ##
+function mosh
+{
+	MOSH_SERVER_NETWORK_TMOUT=259200 mosh "$@"
+	[[ $? -ne 0 ]] && (echo; ssh "$@")
+}
+
+## restart on any machine ##
+function restart
+{
+	if [ -d "/usr/lib/systemd" ]; then
+		sudo shutdown -r now
+	else
+		sudo telinit 6
+	fi	
+}
+
+##### ^^ ##### Commands turned into functions ##### ^^ #####
+
+
+##### vv ##### New Functions ##### vv #####
+
+## test function ##
+function functest
+{
+	echo $0
+}
+
+## sends to trash instead of deleting ##
+function trash
+{
+	mkdir --parents ~/.local/share/Trash/files;
+	mv --force -t ~/.local/share/Trash/files "$@";
+	echo "\"$@\" has been moved to the Trash.";
+}
+
+## get hosts file and list hosts ##
+function hosts
+{
+	cat /etc/hosts
+}
+
+## make file executable ##
+function mkexe
+{
+	chmod a+x "$1";
+} # make file executable
+
+## make file executable ##
+function mkx
+{
+	chmod a+x "$1";
+}
+
+## Syntax: "repeat [X] [command]" ##
 function repeat
 {
 	local i max
@@ -456,7 +437,7 @@ function repeat
 	done
 }
 
-###### updates personal git stuff ######
+## updates personal git stuff ##
 function updatep
 {
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
@@ -466,13 +447,13 @@ function updatep
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 }
 
-### returns my most common commands ###
+## returns my most common commands ##
 function mycommon
 {
 	history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
 }
 
-### list common commands ###
+## list common commands ##
 function commonlist
 {
 	declare -a commandlist=(awk sed git pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
@@ -487,7 +468,7 @@ function commonlist
 	echo -e "!! (1)\n\t- Copy complete last command line.;";
 }
 
-### calls appropriate extraction tool ###
+## calls appropriate extraction tool ##
 function extract
 {
 	if [ -z "$1" ]; then
@@ -525,8 +506,129 @@ function extract
 	fi
 }
 
+## show dir ##
+function showTree {
+	local treeLoad="$( tree1 --noreport )"
+	# echo "mergeOutput $mergeOutput"
+	if [ -z "$mergeOutput" ]; then
+		# echo "is bashreload"
+		declare -i treeLines=$( echo $treeLoad | grep -o '├' | wc -l )+14
+	else
+		# echo "not bashreload"
+		declare -i treeLines=$( echo $treeLoad | grep -o '├' | wc -l )
+	fi
+	if [[ "$treeLines" > "$LINES" ]]; then
+		printf "$(pwd) == " && ls
+	else
+		echo "$(pwd) $(tree1 --noreport)"
+	fi
+}
 
-################## CLI completion/auto-complete? #############
+## print start screen on TTY load ##
+function loadTTY
+{
+	prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+	echo "Pulling latest personalization file from remote repository.  "
+	printf "______Status:_____ " && printf "$(echo $mergeOutput | tr \\n ' ')" && echo "" # pull on load
+	echo "Comparing local personalization file to remote in git."
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
+	printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short) # get status on load
+	echo "If local changes push using gitttypush"
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
+	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+	echo "_____Public IP:    _____ $publicIp"
+	echo "_____Private IP(s):_____ $(hostname -I)"
+	echo "_____FQDN(s):      _____ $(hostname -A)"
+	echo "_____OS:           _____ $osName"
+	echo "_____Terminal:     _____ $terminalName"
+	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+	showTree
+}
+
+##### ^^ ##### New Functions ##### ^^ #####
+
+##### vv ##### Functions Built on functions/aliases ##### vv #####
+
+## cd then ls after ##
+function cdl
+{
+	\cd "$@"/; ls;
+}
+
+## cd then tree1 after ##
+function cdt
+{
+	\cd "$@"/; tree1;
+}
+
+## move file then cd into it ##
+function mvf
+{
+	mv $@; cd $2;
+}
+
+## cat with indentation ##
+function cati
+{
+	\cat "$@" | fmt;
+}
+
+## follow with indented lines ##
+function followindent
+{
+	follow $1 | fmt;
+}
+
+## follow numbered lines ##
+function follownl
+{
+	follow $1 | \nl -ba -nrz -s " - ";
+}
+
+## follow with json formatting ##
+function followjq
+{
+	follow $1 | jq;
+}
+
+## less with added indentation ##
+function lessf
+{
+	fmt $1 | less
+}
+
+## makes file then makes it executable ##
+function touchs
+{
+	touch "$1"; chmod a+x "$1"; ls .;
+}
+
+## makes file then makes it executable ##
+function touchx
+{
+	touch "$1"; chmod a+x "$1"; ls .;
+}
+
+## makes file and vims into it ##
+function touchf
+{
+	touch $1; vim $1;
+}
+
+## makes directory then cds into it ##
+function mkdirf
+{
+	mkdir $1; cd $1;
+}
+
+##### ^^ ##### Functions Built on functions/aliases ##### ^^ #####
+
+##### vv ##### CLI completion/auto-complete? ##### vv #####
+
 ## builtin autocompletion ##
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -535,7 +637,7 @@ if [ -f /etc/bash_completion ]; then
 	. /etc/bash_completion
 fi
 
-#### IP completion for connections ####
+## IP completion for connections ##
 function _complete_hosts
 {
 	COMPREPLY=()
@@ -561,35 +663,33 @@ complete -F _complete_hosts ping
 function _complete_ds
 {
 	dspath=$(find / -name "dsconfig" -mount 2>/dev/null | tail -n 1)
-	## dspath=$(locate /bin/dsconfig | tail -n 1)
+		# dspath=$(locate /bin/dsconfig | tail -n 1)
 	if [ ! -z "$dspath" ] ; then
 		commandlist=$($dspath --help-all | grep '^[a-z].*')
 		printf "$commandlist"
 		return 0
 	fi
 }
-## dspath=$(locate /bin/dsconfig | tail -n 1)
 dspath=$(find / -name "dsconfig" -mount 2>/dev/null | tail -n 1)
+	# dspath=$(locate /bin/dsconfig | tail -n 1)
 if [ ! -z "$dspath" ] ; then
 	complete -W "$(_complete_ds)" dsconfig
 fi
 
-###################### Experimental ########################
-# make less more friendly for non-text input files, see lesspipe(1)
+##### ^^ ##### CLI completion/auto-complete?  ##### ^^ #####
+
+#### vv #### Experimental #### vv ####
+
+## make less more friendly for non-text input files, see lesspipe(1)
 # [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-####### pull newest personalization file on TTY load ##########
-mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
-if [ "$mergeOutput" != "Already up to date." ]; then
-	# echo $mergeOutput
-	echo "New version detected..."
-	bashreload
-	return 0 2>/dev/null || exit 0
-fi
+#### ^^ #### Experimental #### ^^ ####
 
-################### customization for the command prompt vvvvvvvvvvv #################
+######### ^^ ######### Functions ######### ^^ #########
 
-#### code to input separator ####
+######### vv ######### Customization for the command prompt ######### vv #########
+
+## code to input separator ##
 # Fill with minuses
 # (this is recalculated every time the prompt is shown in function prompt_command):
 fill="--- "
@@ -601,9 +701,9 @@ else status_style=$reset_style'\[\033[0;90;107m\]'
 fi
 prompt_style=$reset_style
 command_style=$reset_style'\[\033[1;29m\]' # bold black
-# Prompt variable:
-function prompt_command {
 
+## Prompt variable: ##
+function prompt_command {
 	# create a $fill of all screen width minus the time string and a space and USER and a space:
 	name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
 	if [[ $name == "" ]] ; then
@@ -652,85 +752,45 @@ fi
 
 OLD_PS1="$PS1"
 NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t\n'
-## if [[ ${#NEW_PS1} -gt $columns ]] ; then
-## 	columns1=$columns
-## 	NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
-## fi
+# if [[ ${#NEW_PS1} -gt $columns ]] ; then
+# 	columns1=$columns
+# 	NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
+# fi
 if [[ ! $PS1 == *'${nameVar}'* ]] ; then
 	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
 fi
 
-# Reset color for command output
+## Reset color for command output ##
 # (this one is invoked every time before a command is executed):
 trap 'echo -ne "\e[0m"' DEBUG
 
-################### customization for the command prompt ^^^^^^^^^ #################
+######### ^^ ######### Customization for the command prompt ######### ^^ #########
 
-### my personal settings ###
-force_color_prompt=yes             # add color to terminals
-HISTCONTROL=ignoreboth # don't put duplicate lines or lines starting with space in the history.
-shopt -s checkwinsize     # check the window size after each command and, if necessary, update the values of LINES and COLUMNS.
+########## vv ########## Setup system ########## vv ##########
 
-###### Pull and setup system #####
+## My personal settings ##
+force_color_prompt=yes	# add color to terminals
+HISTCONTROL=ignoreboth	# don't put duplicate lines or lines starting with space in the history.
+shopt -s checkwinsize	# check the window size after each command
+
+## Pull personalization files, get system info, and setup system ##
 getSystemInfo
 ~/linux-config/install.sh # runs the install script
 
-###### Setup screen ######
+## Setup screen command ##
 mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
 export SCREENDIR=$HOME/.screen
 
-function showTree {
-	treeLoad="$( tree1 --noreport | tail -c +15 )"
-	echo "beofre or after"
-	echo "treeLoad $treeLoad"
-	treeLines="$( $treeLoad | wc -l )"
-	echo "treeLines $treeLines"
-	echo "lines $LINES"
-	if [ "$treeLines" > "$LINES" ];then
-		prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-		echo "$(pwd)"
-		ls
-	else
-		printf "$(echo $(pwd))$treeLoad"
-	fi
-}
-
-####### load my newest personalization file on TTY load ##########
-function loadTTY
-{
-prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-echo "Pulling latest personalization file from remote repository.  "
-printf "______Status:_____ " && printf "$(echo $mergeOutput | tr \\n ' ')" && echo "" # pull on load
-echo "Comparing local personalization file to remote in git."
-git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
-printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short) # get status on load
-echo "If local changes push using gitttypush"
-git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
-git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
-git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
-git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
-git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
-prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-echo "_____Public IP:    _____ $publicIp"
-echo "_____Private IP(s):_____ $privateIp"
-echo "_____FQDN(s):      _____ $fqdn"
-echo "_____OS:           _____ $osName"
-echo "_____Terminal:     _____ $terminalName"
-echo "before or after1"
-showTree
-echo "before or after2"
-
-## echo "_____Current Directory:_____ $(pwd)"
-# echo "$(pwd)" && tree1 --noreport | \tail -c +16 | less
-## ls -AhG --color=auto --group-directories-first --file-type
-}
+## Load initial tty screen ##
 loadTTY
 
-###### SSH AGENT AUTO START ######
-###### LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458 ######
+#### vv #### SSH AGENT AUTO START #### vv ####
+# LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458
+
 SSH_ENV="$HOME/.ssh/agent-environment"
 mkdir $HOME/.ssh/ > /dev/null
 
+## Start Agent ##
 function start_agent {
 	echo "Initialising new SSH agent..."
 	/usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
@@ -740,8 +800,7 @@ function start_agent {
 	/usr/bin/ssh-add;
 }
 
-# Source SSH settings, if applicable
-
+## Source SSH settings, if applicable ##
 if [ -f "${SSH_ENV}" ]; then
 	. "${SSH_ENV}" > /dev/null
 	if [[ -f ~/.ssh/config ]]; then
@@ -759,3 +818,14 @@ else
 		eval "$(ssh-agent -k 2>/dev/null)"
 	fi
 fi
+
+#### ^^ #### SSH AGENT AUTO START #### ^^ ####
+
+## Unset variables that need to be unset ##
+declare -a varList=(publicIp mergeOutput sudoCount count)
+for var in "${varList[@]}"
+do
+	unset $var
+done
+
+########### ^^ ########## Setup system ########## ^^ ##########
