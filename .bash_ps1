@@ -2,8 +2,13 @@
 
 ########## vv ########## Initialization ########## vv ##########
 
-echo "Loading..." # Notification so as to know something is happening
+export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): $(${FUNCNAME[0]:+${FUNCNAME[0]}(): }| fmt )'
+# export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
+# export PS4='+(${BASH_SOURCE}:${LINENO})($(date "+%s.%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 publicIp=$(curl -s ifconfig.me && echo "")
+mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+
+echo "Loading..." # Notification so as to know something is happening
 
 ## reload aliases from .bash_ps1 ##
 function reloadbash
@@ -64,7 +69,6 @@ function getSystemInfo
 }
 
 ## pull newest personalization file on TTY load ##
-mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
 if [ "$mergeOutput" != "Already up to date." ]; then
 	# echo $mergeOutput
 	echo "New version detected..."
