@@ -11,39 +11,26 @@ export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(
 function intPublicIp {
 	# declare -g publicIp="$(curl -s ifconfig.me && echo '')"
 	echo "$(curl -s ifconfig.me)" > ~/.publicIp.txt
-	sleep 15
+	# sleep 15
 }
-# export publicIp=$(sleep 5 && echo "$(curl -s ifconfig.me)" && sleep 5) &
-(intPublicIp &)
+$(intPublicIp) &
 intPublicIpPid=$!
 
 function intMergeOutput1 {
 	# declare -g mergeOutput1="$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null)"
 	echo "$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null)" > ~/.mergeOutput1.txt
 }
-(intMergeOutput1 &)
+$(intMergeOutput1) &
 intMergeOutput1Pid=$!
 
 function intFqdn {
 	# declare -g fqdn="$(hostname -A)"
 	echo "$(hostname -A)" > ~/.fqdn.txt
 }
-(intFqdn &)
+$(intFqdn) &
 intFqdnPid=$!
-########## turn off debugging
 
-
-
-
-
-
-
-
-
-
-
-
-
+disown -r
 
 set +xv # turn off debugging
 
@@ -90,9 +77,9 @@ alias ls='\ls -AhGs --color=auto --group-directories-first --file-type'		# auto 
 	# alias ls='_ls_'		# replace ls with function
 alias diff='colordiff --side-by-side --left-column --report-identical-files'	# diff using side by side
 alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # always display colors
-manViewer='vim -c MANPAGER -'
-# manViewer='\less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr' # less for man
-# manViewer='\less -options X --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # less for man
+manViewer='vim -c MANPAGER -' # use vim to read man pages
+	# manViewer='\less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr' # less for man
+	# manViewer='\less -options X --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # less for man
 alias man='man --pager="$manViewer"' # setting man pager to less
 
 #### ^^ #### Command Replacements #### ^^ ####
@@ -695,27 +682,6 @@ function mkdirf
 
 ######### ^^ ######### Functions ######### ^^ #########
 
-######### vv ######### Check to see if there is a new version of personalization file ######### vv #########
-
-# set -xv # turn on debugging
-
-tail --pid=$intMergeOutput1Pid -f /dev/null
-mergeOutput2=$(git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
-mergeOutput1=$(cat ~/.mergeOutput1.txt) && rm ~/.mergeOutput1.txt
-mergeOutput="$mergeOutput1$mergeOutput2"
-# mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
-
-## pull newest personalization file on TTY load ##
-if [ "$mergeOutput" != "Already up to date." ]; then
-	# echo $mergeOutput
-	echo "New version detected..."
-	set +xv # turn off debugging
-	reloadbash
-	# set -xv # turn on debugging
-	return 0 2>/dev/null || exit 0
-fi
-
-######### ^^ ######### Check to see if there is a new version of personalization file ######### ^^ #########
 
 ######### vv ######### Customization for the command prompt ######### vv #########
 
@@ -816,6 +782,29 @@ getSystemInfo
 ## Setup screen command ##
 mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
 export SCREENDIR=$HOME/.screen
+
+
+######### vv ######### Check to see if there is a new version of personalization file ######### vv #########
+
+# set -xv # turn on debugging
+
+tail --pid=$intMergeOutput1Pid -f /dev/null
+mergeOutput2=$(git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+mergeOutput1=$(cat ~/.mergeOutput1.txt) && rm ~/.mergeOutput1.txt
+mergeOutput="$mergeOutput1$mergeOutput2"
+# mergeOutput=$(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ fetch -q 2>/dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
+
+## pull newest personalization file on TTY load ##
+if [ "$mergeOutput" != "Already up to date." ]; then
+	# echo $mergeOutput
+	echo "New version detected..."
+	set +xv # turn off debugging
+	reloadbash
+	# set -xv # turn on debugging
+	return 0 2>/dev/null || exit 0
+fi
+
+######### ^^ ######### Check to see if there is a new version of personalization file ######### ^^ #########
 
 ## Load initial tty screen ##
 loadTTY1
