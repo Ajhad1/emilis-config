@@ -8,6 +8,7 @@ export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(
 
 ########## vv ########## Initialization ########## vv ##########
 
+
 function intPublicIp {
 	# declare -g publicIp="$(curl -s ifconfig.me && echo '')"
 	echo "$(curl -s ifconfig.me)" > ~/.publicIp.txt
@@ -73,10 +74,11 @@ alias view='view -c"set number" -c"colorscheme torte"'	# always run view with li
 	# alias view='vim -R'	# changes view to vim -R
 # alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh'	# add timeout to all mosh sessions
 
-alias ls='\ls -AhGs --color=auto --group-directories-first --file-type'		# auto runs with color
+alias ls='\ls -AhGs --color=always --group-directories-first --file-type'		# auto runs with color
+alias ls2='\ls -AhGs --color=always --group-directories-first --file-type'		# auto runs with color
 	# alias ls='_ls_'		# replace ls with function
 alias diff='colordiff --side-by-side --left-column --report-identical-files'	# diff using side by side
-alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # always display colors
+alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.?f:     PWD\: $PWD."' # always display colors
 manViewer='vim -c MANPAGER -' # use vim to read man pages
 	# manViewer='\less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr' # less for man
 	# manViewer='\less -options X --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # less for man
@@ -95,8 +97,8 @@ alias ll='tree1 -pu'	# shortcut for long list with tree
 alias cath='highlight '	# runs highlight instead of cat
 	# alias ..='\cd ../; ls'	# allows shortcut for cd ../ ## caused issues
 
-alias ...='\cd ../../; showTree'	# shortcut for cd ../../
-alias ....='\cd ../../../; showTree'	# shortcut for cd ../../../
+alias ...='\cd ../../; showDir'	# shortcut for cd ../../
+alias ....='\cd ../../../; showDir'	# shortcut for cd ../../../
 alias cdp='cd ~/linux-config/'		# changes to linux config directory
 alias cdtfw='cd /opt/tfw/tfw-project/'	# changes to tfw directory
 alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
@@ -125,12 +127,16 @@ alias grepps='ps -ef | grep -v grep | grep'	# use grep on ps without showing gre
 alias grepp='ps -ef | grep -v grep | grep'	# use grep on ps without showing grep
 
 alias gita='git add . && git status'		# shortcut for git add
+alias gitpush='git push'			# shortcut for git push
+alias gitpull='git pull'			# shortcut for git pull
 alias gits='git status'				# shortcut for git status
+alias gituser='git user.name "Alejandro Colon"'	# shortcut for git add username
+alias gitemail='git user.email'			# shortcut for git add email
 alias gdiff='git diff --color-words'		# runs git diff the best way
 alias gitvimdiff='git difftool --tool=vimdiff'	# runs vimdiff for git diff
 alias gitdiff='git diff --color-words'		# runs git diff the best way
 alias gvimdiff='gitvimdiff'			# runs vimdiff for git diff
-alias gitsas='cd /opt/projects/git/subscribers && git status && git add . && git status' # shortcut for git status+ add + status
+alias gitsas='git status && git add . && git status' # shortcut for git status+ add + status
 
 alias contentdiff='colordiff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
 alias dirdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
@@ -180,6 +186,7 @@ alias c='clear'	# shortcut to clear screen
 alias v='vim'	# shortcut for vim
 alias s='sudo '	# shortcut to sudo
 
+alias showdir='showDir'	# real alias for showDir
 alias pp='jq'		# real alias for jq
 alias prettyprint='jq'	# real alias for jq
 alias printpretty='jq'	# real alias for jq
@@ -190,6 +197,7 @@ alias t4='tree4'	# real alias for tree4
 alias t5='tree5'	# real alias for tree5
 
 alias bashreload='reloadbash'	# shortcut to shortcut to reload bash
+alias reload='reloadbash'	# shortcut to shortcut to reload bash
 alias myip='getip'		# real alias for getip
 alias mylocal='getlocal'	# real alias for getlocal
 alias myprivate='getlocal'	# real alias for getlocal
@@ -197,10 +205,10 @@ alias mypublic='getpublic'	# real alias for getpublic
 alias diffcontent='contentdiff' # real alias for contentdiff
 alias diffdir='dirdiff'		# real alias for dirdiff
 
-alias cd...='\cd ../../; showTree'		# shortcut for cd ../../
-alias cd....='\cd ../../../; showTree'		# shortcut for cd ../../../
-alias cd.....='\cd ../../../../; showTree'	# shortcut for cd ../../../../
-alias cd......='\cd ../../../../../; showTree'	# shortcut for cd ../../../../../
+alias cd...='\cd ../../; showDir'		# shortcut for cd ../../
+alias cd....='\cd ../../../; showDir'		# shortcut for cd ../../../
+alias cd.....='\cd ../../../../; showDir'	# shortcut for cd ../../../../
+alias cd......='\cd ../../../../../; showDir'	# shortcut for cd ../../../../../
 
 #### ^^ #### Actual Aliases #### ^^ ####
 
@@ -248,7 +256,8 @@ alias su='su -p'	# run su with my env variables
 alias apt-get='sudo apt-get'	# always runs apt-get as sudo
 alias tcpdump='sudo tcpdump'	# run tcpdump as sudo
 
-alias rm='rm -I --preserve-root'	# do not delete / or prompt if deleting more than 3 files at a time #
+alias rm='_rm_'				# do not delete / or prompt if deleting more than 3 files at a time #
+# alias rm='rm -I --preserve-root'	# do not delete / or prompt if deleting more than 3 files at a time #
 alias chown='chown --preserve-root'	# Parenting changing perms on / #
 alias chmod='chmod --preserve-root'	# Parenting changing perms on / #
 alias chgrp='chgrp --preserve-root'	# Parenting changing perms on / #
@@ -260,6 +269,27 @@ alias chgrp='chgrp --preserve-root'	# Parenting changing perms on / #
 ########## vv ########## Functions ########## vv ##########
 
 ##### vv ##### Commands turned into functions ##### vv #####
+
+## Replace rm to auto ls after ##
+function _rm_ {
+	local flag=false
+	for arg
+	do
+		# echo "pwd\$arg = $(pwd)/$arg"
+		if [[ -f "$(pwd)/$arg" ]]; then
+			flag=true
+			# echo "$(pwd)/$arg"
+		fi
+	done
+	
+	# do not delete / or prompt if deleting more than 3 files at a time #
+	\rm -I --preserve-root $@
+	
+	# echo "flag = $flag"
+	if ("$flag"); then
+		showDir
+	fi
+}
 
 ## Replace ls to auto run with color and remove the total ##
 function _ls_ {
@@ -339,7 +369,7 @@ function _cd_ {
 	else
 		local slash=''
 	fi
-	\cd "$@"$slash > /dev/null; showTree;
+	\cd "$@"$slash > /dev/null; showDir;
 }
 
 ## Replace mosh to add timeout to all mosh sessions ##
@@ -372,8 +402,24 @@ function functest
 ## sends to trash instead of deleting ##
 function trash
 {
+	local flag=false
+	for arg
+	do
+		# echo "pwd\$arg = $(pwd)/$arg"
+		if [[ -f "$(pwd)/$arg" ]]; then
+			flag=true
+			# echo "$(pwd)/$arg"
+		fi
+	done
+	
 	mkdir --parents ~/.local/share/Trash/files;
 	mv --force -t ~/.local/share/Trash/files "$@";
+	
+	# echo "flag = $flag"
+	if ("$flag"); then
+		showDir
+	fi
+	
 	echo "\"$@\" has been moved to the Trash.";
 }
 
@@ -408,6 +454,12 @@ function repeat
 ## updates personal git stuff ##
 function updatep
 {
+	git config --global color.ui always
+	git config --global color.branch auto
+	git config --global color.interactive always
+	git config --global color.status always
+	git config --global color.pager true
+	git config --global color.diff always
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
@@ -543,44 +595,52 @@ function getSystemInfo
 }
 
 ## show dir ##
-function showTree {
-	set +xv # turn off debugging
-	local treeLoad="$( tree1 --noreport )"
+# compare dir representation to amount of lines on screen #
+# pick dir output that fits the screen #
+function showDir {
+	# set -xv # turn on debugging
+	# set +xv # turn off debugging
+
+	## Instantiate variables ##
+	local treeVar="$(tree1 --noreport)"
+	local -i treeLines="$(echo $treeVar | grep -o '├' | wc -l)"
+	local -i ttyRows=$LINES-5
+	local dirVar="$(pwd)"
+	# echo "$startScreenLines"
 	# echo "mergeOutput $mergeOutput"
-	if [ -z "$mergeOutput" ]; then
-		# echo "is bashreload"
-		declare -i treeLines=$( echo $treeLoad | grep -o '├' | wc -l )+14
-	else
-		# echo "not bashreload"
-		declare -i treeLines=$( echo $treeLoad | grep -o '├' | wc -l )
+
+	# If start screen is printing add the rows to the tree rows
+	if [ -n "$mergeOutput" ]; then
+		local -i section1Lines=$(echo "$loadSection1var" | wc -l)
+		local -i section2Lines=$(echo "$loadSection2var" | wc -l)
+		local -i startSectionsLines=$section1Lines+$section2Lines
+		treeLines=$treeLines+$startSectionsLines
 	fi
-	if [[ "$treeLines" > "$LINES" ]]; then
-		printf "$(pwd) == " && ls
+
+	## Check if tree will fit or if there are no files. If not then use ls ##
+	if [[ "$treeLines" > "$ttyRows" ]] || [[ "$treeLines" == "$startSectionsLines" ]] || [[ "$treeLines" < "1" ]]; then
+		echo -n "$dirVar == " && ls
 	else
-		echo "$(pwd) $(tree1 --noreport)"
+		echo "$dirVar $treeVar"
 	fi
 	# set -xv # turn on debugging
+	set +xv # turn off debugging
 }
 
 ## print start screen on TTY load ##
-function loadTTY1
+function loadSection1
 {
 	prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 	echo "Pulling latest personalization file from remote repository.  "
-	printf "______Status:_____ " && printf "$(echo $mergeOutput | tr \\n ' ')" && echo "" # pull on load
-	echo "Comparing local personalization file to remote in git."
+	printf "______Status:_____ " && echo "$(echo $mergeOutput | tr \\n ' ')"  # pull on load
+	# echo "Comparing local personalization file to remote in git."
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
-	printf "_____Changes:_____ " && echo -e $(git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short) # get status on load
+	printf "_____Changes:_____ " && git --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short # get status on load
 	echo "If local changes push using gitttypush"
-	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
-	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
-	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
-	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
-	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 }
 
-function loadTTY2 {
+function loadSection2 {
 	tail --pid=$intPublicIpPid -f /dev/null
 	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
 	echo "_____Public IP:    _____ $publicIp"
@@ -591,7 +651,7 @@ function loadTTY2 {
 	echo "_____OS:           _____ $osName"
 	echo "_____Terminal:     _____ $terminalName"
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-	showTree
+	# showDir
 }
 
 ##### ^^ ##### New Functions ##### ^^ #####
@@ -670,6 +730,12 @@ function mkdirf
 	mkdir $1; cd $1;
 }
 
+## Shortcut for git commit ##
+function gitc
+{
+	git commit -m "$*"
+}
+
 ##### ^^ ##### Functions Built on functions/aliases ##### ^^ #####
 
 
@@ -685,55 +751,87 @@ function mkdirf
 
 ######### vv ######### Customization for the command prompt ######### vv #########
 
-set +xv # turn off debugging
+### Code to input separator and other information into prompt ###
+# (this is recalculated every time the prompt is shown in function prompt_command): #
 
-## code to input separator ##
-# Fill with minuses
-# (this is recalculated every time the prompt is shown in function prompt_command):
-fill="--- "
-
-reset_style='\[\033[00m\]'
-if [ -z "$VIM" ];
-	then status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
-else status_style=$reset_style'\[\033[0;90;107m\]'
-fi
+## Initialize styling variables ##
+reset_style='\[\033[00m\]' # code to reset text style
 prompt_style=$reset_style
 command_style=$reset_style'\[\033[1;29m\]' # bold black
 
-## Prompt variable: ##
+# grabs current style
+if [ -z "$VIM" ]; then
+	status_style=$reset_style'\[\033[0;90m\]' # gray color; use 0;37m for lighter color
+else
+	status_style=$reset_style'\[\033[0;90;107m\]'
+fi
+
+# Generate tty prompt: Once generated calculate the fillsize and remove items if necessary to fit #
 function prompt_command {
-	set +xv # turn off debugging
-	
-	# create a $fill of all screen width minus the time string and a space and USER and a space:
+	### Setup variables ###
+
+	## Figure out who is running the command ##
 	name=$(fc -l -1 | awk -v u="$USER" '{if ($2=="sudo") { if ($3=="-u") u=$4; else u="root"; }; printf "%s",u}')
 	if [[ $name == "" ]] ; then
 		nameVar=""
 	else
 		nameVar="UN: $name | "
 	fi
-	pwdVar="DIR: $(pwd) | "
-	hostnameVar="HN: $(hostname) | "
-	let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}-${#hostnameVar}
-	fill=""
-	while [ "$fillsize" -gt "0" ]
-	do
-		fill="-${fill}" # fill with underscores to work on 
-		let fillsize=${fillsize}-1
-	done
 	
-	NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
-	if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
-		let fillsize=${COLUMNS}-11-${#nameVar}-${#pwdVar}
+	pwdVar="DIR: $(pwd) | " # Figure out the working dir
+	hostnameVar="HN: $(hostname) | " # Figure out the hostname
+	fill="--- " # something to start off with incase something goes wrong
+
+	# Calculate fillsize #
+	function findFillSize {
+		# Fill size is the width of the screen minus the number of characters
+		# for time, hostname, current dir, and name
+		let fillsize=${COLUMNS}-11-${#hostnameVar}-${#pwdVar}-${#nameVar}
 		fill=""
 		while [ "$fillsize" -gt "0" ]
 		do
-			fill="-${fill}" # fill with underscores to work 
+			fill="-${fill}" # fill with underscores to work on
 			let fillsize=${fillsize}-1
 		done
-		hostnameVar=""
+	}
+	
+	### Calculate fillsize for screen and adjust accordingly ###
+	
+	## Generate largest prompt and calculate fillsize for largest version ##
+	findFillSize
+	NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+	
+	# If prompt is too large remove vars until it fits #
+	if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
+		# If current dir is bigger than half the screen then remove it first
+		# otherwise remove hostname first
+		if [[ ${#pwdVar} -gt ${COLUMNS}/2 ]] ; then
+			pwdVar=""
+			findFillSize
+			NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+			
+			# if prompt is too large remove $hostnameVar and recalculate fillsize
+			if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
+				hostnameVar=""
+				findFillSize
+				NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+			fi
+
+		else
+			hostnameVar=""
+			findFillSize
+			NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+
+			# if prompt is too large remove $pwdVar and recalculate fillsize
+			if [[ ${#NEW_NEW_PS1} -gt ${COLUMNS} ]] ; then
+				pwdVar=""
+				findFillSize
+				NEW_NEW_PS1="${fill} ${hostnameVar}${pwdVar}${nameVar}XX:XX:XX"
+			fi
+		fi
 	fi
 	
-	# If this is an xterm set the title to user@host:dir
+	# If this is an xterm set the title to user@host:dir #
 	case "$TERM" in
 		xterm*|rxvt*)
 			bname=`basename "${PWD/$HOME/~}"`
@@ -742,30 +840,30 @@ function prompt_command {
 		*)
 			;;
 	esac
-	# set -xv # turn on debugging
 }
 
-OLD_PROMPT_COMMAND=PROMPT_COMMAND
-NEW_PROMPT_COMMAND=prompt_command
+## Sets up new prompt command if needed ##
+OLD_PROMPT_COMMAND=PROMPT_COMMAND # grabs current prompt
+NEW_PROMPT_COMMAND=prompt_command # grabs prompt from code
+
+# Changes prompt command only if different
 if [[ ! $OLD_PROMPT_COMMAND == $NEW_PROMPT_COMMAND ]] ; then
 	PROMPT_COMMAND=prompt_command
 fi
 
+## Sets up new prompt
 OLD_PS1="$PS1"
 NEW_PS1='${fill} ${hostnameVar}${pwdVar}${nameVar}\t\n'
-# if [[ ${#NEW_PS1} -gt $columns ]] ; then
-# 	columns1=$columns
-# 	NEW_PS1='$columns1 $fill DIR: $pwdVar UN: $name \t \n'
-# fi
+
+# Not sure exactly
 if [[ ! $PS1 == *'${nameVar}'* ]] ; then
 	PS1="$status_style""$NEW_PS1""$prompt_style$OLD_PS1$command_style"
 fi
 
 ## Reset color for command output ##
-# (this one is invoked every time before a command is executed):
+# (this one is invoked every time before a command is executed): #
 trap 'echo -ne "\e[0m"' DEBUG
 
-# set -xv # turn on debugging
 ######### ^^ ######### Customization for the command prompt ######### ^^ #########
 
 ########## vv ########## Setup system ########## vv ##########
@@ -777,12 +875,13 @@ shopt -s checkwinsize	# check the window size after each command
 
 ## Pull personalization files, get system info, and setup system ##
 getSystemInfo
-~/linux-config/install.sh # runs the install script
+if [ "$mergeOutput" != "Already up to date." ]; then
+	~/linux-config/install.sh # runs the install script
+fi
 
 ## Setup screen command ##
 mkdir ~/.screen >/dev/null && chmod 700 ~/.screen
 export SCREENDIR=$HOME/.screen
-
 
 ######### vv ######### Check to see if there is a new version of personalization file ######### vv #########
 
@@ -806,9 +905,12 @@ fi
 
 ######### ^^ ######### Check to see if there is a new version of personalization file ######### ^^ #########
 
-## Load initial tty screen ##
-loadTTY1
-loadTTY2
+## Load initial start screen ##
+export loadSection1var=$(loadSection1)
+echo "$loadSection1var"
+export loadSection2var=$(loadSection2)
+echo "$loadSection2var"
+showDir
 
 set +xv # turn off debugging
 

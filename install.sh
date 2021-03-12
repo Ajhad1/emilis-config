@@ -9,6 +9,19 @@ if ! grep -q 'linux-config' $HOME/.vimrc 2> /dev/null; then
 	cat $HOME/linux-config/.vimrc_config >> $HOME/.vimrc
 	echo "Installing personal file reference into vimrc"
 fi
+
+git config --global color.ui always
+git config --global color.branch auto
+git config --global color.interactive always
+git config --global color.status always
+git config --global color.pager true
+git config --global color.diff always
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
+git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
+
 mkdir -p ~/.vim/autoload
 mkdir -p ~/.vim/bundle
 mkdir -p ~/.vim_runtime/temp_dirs/undodir
