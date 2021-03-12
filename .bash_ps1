@@ -606,7 +606,6 @@ function showDir {
 	local -i ttyRows=$LINES-5
 	local dirVar="$(pwd)"
 	local -i startSectionsLines=0
-	# echo "$startScreenLines"
 	# echo "mergeOutput $mergeOutput"
 
 	# If start screen is printing add the rows to the tree rows
