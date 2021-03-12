@@ -34,7 +34,7 @@ intFqdnPid=$!
 
 disown -r
 
-set +xv # turn off debugging
+# set +xv # turn off debugging
 
 
 ########## ^^ ########## Initialization ########## ^^ ##########
@@ -528,32 +528,32 @@ function extract
 ## reload aliases from .bash_ps1 ##
 function reloadbash
 {
-	set +xv # turn off debugging
+	# set +xv # turn off debugging
 	getSystemInfo
 	if [[ $osName == "UBUNTU" ]]; then
 		if [[ $terminalName == "GNOME" ]]; then
-			set +xv # turn off debugging
+			# set +xv # turn off debugging
 			source ~/.bashrc
 		else
-			set +xv # turn off debugging
+			# set +xv # turn off debugging
 			source ~/.bashrc
 		fi
 	elif [[ $osName == "CENTOS" ]]; then
 		if [[ $terminalName == "GNOME" ]]; then
-			set +xv # turn off debugging
+			# set +xv # turn off debugging
 			gnome-terminal --tab --title=newTab
 			exit
 		else
-			set +xv # turn off debugging
+			# set +xv # turn off debugging
 			source ~/.bashrc
 		fi
 	else
 		if [[ $terminalName == "GNOME" ]]; then
-			set +xv # turn off debugging
+			# set +xv # turn off debugging
 			gnome-terminal --tab --title=newTab
 			exit
 		else
-			set +xv # turn off debugging
+			# set +xv # turn off debugging
 			source ~/.bashrc
 		fi
 	fi
@@ -563,7 +563,7 @@ function reloadbash
 ## get system info ##
 function getSystemInfo
 {
-	set +xv # turn off debugging
+	# set +xv # turn off debugging
 	osInfo=$(cat /etc/*release)
 	shellName=$(ps -p $$ -o args | tail -n 1)
 	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 | sed -e 's/^[[:space:]]*//')
@@ -623,7 +623,7 @@ function showDir {
 		echo "$dirVar $treeVar"
 	fi
 	# set -xv # turn on debugging
-	set +xv # turn off debugging
+	# set +xv # turn off debugging
 }
 
 ## print start screen on TTY load ##
@@ -648,18 +648,16 @@ function loadSection2 {
 	# echo "_____Private IP(s):_____ $(tput setaf 2)$(hostname -I)$(tput sgr 0)"
 	
 	tail --pid=$intFqdnPid -f /dev/null
-	fqdn="$(cat ~/.fqdn.txt)" && rm ~/.fqdn.txt
+	fqdn="$(cat ~/.fqdn.txt | xargs)" && rm ~/.fqdn.txt
 	if [[ -n "$fqdn" ]] ; then
 		echo "FQDN(s): ($(tput setaf 2)$fqdn$(tput sgr 0))"
 	fi
 	# set -xv # turn on debugging
-	local hostnameVar1="$(hostname -I | xargs)"
+	hostnameVar1="$(hostname -I | awk '{print $1;}')"
 	tail --pid=$intPublicIpPid -f /dev/null
 	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
 	echo -n "Terminal: ($(tput setaf 2)$terminalName$(tput sgr 0)) || OS: ($(tput setaf 2)$osName$(tput sgr 0)) || Public IP: ($(tput setaf 2)$publicIp$(tput sgr 0)) || Private IP(s): ($(tput setaf 2)$hostnameVar1$(tput sgr 0))" | \fmt -w $(($COLUMNS+54))
-	# echo "_____Public IP:    _____ $(tput setaf 2)$publicIp$(tput sgr 0) || _____Private IP(s):_____ $(tput setaf 2)$(hostname -I)$(tput sgr 0)"
-	# echo "_____OS:_____ $(tput setaf 2)$osName$(tput sgr 0) || _____Terminal:_____ $(tput setaf 2)$terminalName$(tput sgr 0) || "
-	set +xv # turn off debugging
+	# set +xv # turn off debugging
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 }
 
@@ -906,7 +904,7 @@ mergeOutput="$mergeOutput1$mergeOutput2"
 if [ "$mergeOutput" != "Already up to date." ]; then
 	# echo $mergeOutput
 	echo "New version detected..."
-	set +xv # turn off debugging
+	# set +xv # turn off debugging
 	reloadbash
 	# set -xv # turn on debugging
 	return 0 2>/dev/null || exit 0
@@ -921,7 +919,7 @@ export loadSection2var=$(loadSection2)
 echo "$loadSection2var"
 showDir
 
-set +xv # turn off debugging
+# set +xv # turn off debugging
 
 #### vv #### SSH AGENT AUTO START #### vv ####
 # LINK: http://mah.everybody.org/docs/ssh https://stackoverflow.com/a/18915067/382458
