@@ -8,6 +8,7 @@ export PS4='+(Line: ${LINENO})(\t:$(date "+%N")): ${FUNCNAME[0]:+${FUNCNAME[0]}(
 
 ########## vv ########## Initialization ########## vv ##########
 
+echo -n "Pulling latest personalization file from remote repository... "
 
 function intPublicIp {
 	# declare -g publicIp="$(curl -s ifconfig.me && echo '')"
@@ -37,8 +38,6 @@ set +xv # turn off debugging
 
 
 ########## ^^ ########## Initialization ########## ^^ ##########
-
-echo "Loading..." # Notification so as to know something is happening
 
 ########## vv ########## Aliases ########## vv ##########
 
@@ -606,19 +605,20 @@ function showDir {
 	local -i treeLines="$(echo $treeVar | grep -o '├' | wc -l)"
 	local -i ttyRows=$LINES-5
 	local dirVar="$(pwd)"
+	local -i startSectionsLines=0
 	# echo "$startScreenLines"
 	# echo "mergeOutput $mergeOutput"
 
 	# If start screen is printing add the rows to the tree rows
 	if [ -n "$mergeOutput" ]; then
-		local -i section1Lines=$(echo "$loadSection1var" | wc -l)
-		local -i section2Lines=$(echo "$loadSection2var" | wc -l)
-		local -i startSectionsLines=$section1Lines+$section2Lines
+		local -i section1Lines="$(echo "$loadSection1var" | wc -l)"
+		local -i section2Lines="$(echo "$loadSection2var" | wc -l)"
+		local -i startSectionsLines=$section1Lines+$section2Lines-2
 		treeLines=$treeLines+$startSectionsLines
 	fi
 
 	## Check if tree will fit or if there are no files. If not then use ls ##
-	if [[ "$treeLines" > "$ttyRows" ]] || [[ "$treeLines" == "$startSectionsLines" ]] || [[ "$treeLines" < "1" ]]; then
+	if [[ "$treeLines" > "$ttyRows" ]] || [[ "$treeLines" < "1" ]] || [[ "$treeLines" == "$startSectionsLines" ]] ; then
 		echo -n "$dirVar == " && ls
 	else
 		echo "$dirVar $treeVar"
@@ -630,28 +630,34 @@ function showDir {
 ## print start screen on TTY load ##
 function loadSection1
 {
-	prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-	echo "Pulling latest personalization file from remote repository.  "
-	printf "______Status:_____ " && echo "$(echo $mergeOutput | tr \\n ' ')"  # pull on load
+	# prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+	echo "$(echo $mergeOutput | tr \\n ' ')"  # pull on load
+	# echo -n "______Status:_____ " && echo "$(echo $mergeOutput | tr \\n ' ')"  # pull on load
+
+	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message --short > /dev/null # adds and commits any changes
+	export gitStatus="$(git --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short)" # get status on load
+
 	# echo "Comparing local personalization file to remote in git."
-	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ add . > /dev/null && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short > /dev/null # adds and commits any changes
-	printf "_____Changes:_____ " && git --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ status --short # get status on load
-	echo "If local changes push using gitttypush"
-	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
+	# echo -n "_____Changes:_____ " && echo "$gitStatus"
+	if [[ -n "$gitStatus" ]]; then
+		echo "$(tput setaf 1)Local changes made. Push using gitttypush$(tput sgr 0)"
+	fi
+	prompt_command && prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 }
 
 function loadSection2 {
-	tail --pid=$intPublicIpPid -f /dev/null
-	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
-	echo "_____Public IP:    _____ $publicIp"
 	echo "_____Private IP(s):_____ $(hostname -I)"
+	
 	tail --pid=$intFqdnPid -f /dev/null
 	fqdn="$(cat ~/.fqdn.txt)" && rm ~/.fqdn.txt
 	echo "_____FQDN(s):      _____ $fqdn"
-	echo "_____OS:           _____ $osName"
-	echo "_____Terminal:     _____ $terminalName"
+	
+	tail --pid=$intPublicIpPid -f /dev/null
+	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
+	echo "_____Public IP:    _____ $publicIp"
+	
+	echo "_____OS:           _____ $osName		||	_____Terminal:_____ $terminalName"
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
-	# showDir
 }
 
 ##### ^^ ##### New Functions ##### ^^ #####
