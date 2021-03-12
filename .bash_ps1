@@ -597,7 +597,7 @@ function getSystemInfo
 # compare dir representation to amount of lines on screen #
 # pick dir output that fits the screen #
 function showDir {
-	set -xv # turn on debugging
+	# set -xv # turn on debugging
 	# set +xv # turn off debugging
 
 	## Instantiate variables ##
