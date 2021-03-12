@@ -645,17 +645,21 @@ function loadSection1
 }
 
 function loadSection2 {
-	echo "_____Private IP(s):_____ $(hostname -I)"
+	# echo "_____Private IP(s):_____ $(tput setaf 2)$(hostname -I)$(tput sgr 0)"
 	
 	tail --pid=$intFqdnPid -f /dev/null
 	fqdn="$(cat ~/.fqdn.txt)" && rm ~/.fqdn.txt
-	echo "_____FQDN(s):      _____ $fqdn"
-	
+	if [[ -n "$fqdn" ]] ; then
+		echo "FQDN(s): ($(tput setaf 2)$fqdn$(tput sgr 0))"
+	fi
+	# set -xv # turn on debugging
+	local hostnameVar1="$(hostname -I | xargs)"
 	tail --pid=$intPublicIpPid -f /dev/null
 	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
-	echo "_____Public IP:    _____ $publicIp"
-	
-	echo "_____OS:           _____ $osName		||	_____Terminal:_____ $terminalName"
+	echo -n "Terminal: ($(tput setaf 2)$terminalName$(tput sgr 0)) || OS: ($(tput setaf 2)$osName$(tput sgr 0)) || Public IP: ($(tput setaf 2)$publicIp$(tput sgr 0)) || Private IP(s): ($(tput setaf 2)$hostnameVar1$(tput sgr 0))" | \fmt -w $(($COLUMNS+54))
+	# echo "_____Public IP:    _____ $(tput setaf 2)$publicIp$(tput sgr 0) || _____Private IP(s):_____ $(tput setaf 2)$(hostname -I)$(tput sgr 0)"
+	# echo "_____OS:_____ $(tput setaf 2)$osName$(tput sgr 0) || _____Terminal:_____ $(tput setaf 2)$terminalName$(tput sgr 0) || "
+	set +xv # turn off debugging
 	prompt_command && echo -e "${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')"
 }
 
