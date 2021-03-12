@@ -612,7 +612,7 @@ function showDir {
 	if [ -n "$mergeOutput" ]; then
 		local -i section1Lines="$(echo "$loadSection1var" | wc -l)"
 		local -i section2Lines="$(echo "$loadSection2var" | wc -l)"
-		local -i startSectionsLines=$section1Lines+$section2Lines-3
+		local -i startSectionsLines=$section1Lines+$section2Lines-2
 		treeLines=$treeLines+$startSectionsLines
 	fi
 
