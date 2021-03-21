@@ -129,8 +129,8 @@ alias gita='git add . && git status'		# shortcut for git add
 alias gitpush='git push'			# shortcut for git push
 alias gitpull='git pull'			# shortcut for git pull
 alias gits='git status'				# shortcut for git status
-alias gituser='git user.name "Alejandro Colon"'	# shortcut for git add username
-alias gitemail='git user.email'			# shortcut for git add email
+alias gituser='git config user.name "Alejandro Colon"'	# shortcut for git add username
+alias gitemail='git config user.email'			# shortcut for git add email
 alias gdiff='git diff --color-words'		# runs git diff the best way
 alias gitvimdiff='git difftool --tool=vimdiff'	# runs vimdiff for git diff
 alias gitdiff='git diff --color-words'		# runs git diff the best way
@@ -567,7 +567,7 @@ function getSystemInfo
 	osInfo=$(cat /etc/*release)
 	shellName=$(ps -p $$ -o args | tail -n 1)
 	terminalParentId=$(ps -p $$ -o ppid | tail -n 1 | sed -e 's/^[[:space:]]*//')
-	terminalNameRaw=$(ps -p "$terminalParentId" -o args | tail -n 1 )
+	terminalNameRaw=$(ps -p "$terminalParentId" -o args | tail -n 1)
 	
 	if [[ $terminalNameRaw == *"gnome-terminal"* ]]; then
 		terminalName="GNOME"
@@ -575,6 +575,8 @@ function getSystemInfo
 		terminalName="TMUX"
 	elif [[ $terminalNameRaw == *"sshd"* ]]; then
 		terminalName="SSH"
+	elif [[ $terminalNameRaw == *"init"* ]]; then
+		terminalName="SYSTEMD"
 	else
 		terminalName="UNKNOWN or $terminalNameRaw"
 	fi
