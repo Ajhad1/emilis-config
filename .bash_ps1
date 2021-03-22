@@ -489,7 +489,7 @@ function gitttypush {
 		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q --repo='git@github.com:Ajhad1/linux-config.git' && set +xv && reloadbash && set -xv
 		# git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
 	fi
-	set +xv # turn off debugging
+	set +xv # turn off debugging 
 }
 
 ## returns my most common commands ##
