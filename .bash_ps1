@@ -480,7 +480,7 @@ function updatep
 function gitttypush {
 	updatep
 	gitttyadd
-	gitttycommit >/dev/null
+	gitttycommit 2>/dev/null
 	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
 }
 
