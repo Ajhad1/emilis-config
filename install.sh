@@ -34,6 +34,10 @@ if [ ! -f "$HOME/.vim/filetype.vim" ] ; then
 	ln -s ~/linux-config/.vim/filetype.vim ~/.vim/filetype.vim
 	echo "Installing filetype files for vim"
 fi
+if [ ! -f "$HOME/.vim/scripts.vim" ] ; then
+	ln -s ~/linux-config/.vim/scripts.vim ~/.vim/scripts.vim
+	echo "Installing scripts files for vim"
+fi
 if [ ! -f "$HOME/.vim/autoload/pathogen.vim" ] ; then
 	curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
 	echo "Installing pathogen for vim"

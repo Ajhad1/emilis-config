@@ -57,6 +57,9 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => General => Shortcuts vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" allow quit via single keypress (Q)
+map q :qa<CR>
+
 " With a map leader it's possible to do extra key combinations like <leader>w saves the current file
 let mapleader = ","
 
@@ -310,7 +313,7 @@ endfunction
 
 function! CmdLine(str)
 	call feedkeys(":" . a:str)
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
  	let l:saved_reg = @"

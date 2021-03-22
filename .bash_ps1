@@ -34,9 +34,6 @@ intFqdnPid=$!
 
 disown -r
 
-# set +xv # turn off debugging
-
-
 ########## ^^ ########## Initialization ########## ^^ ##########
 
 ########## vv ########## Aliases ########## vv ##########
@@ -69,7 +66,7 @@ alias fmt='fmt -t -w "$COLUMNS"'	# line indentation
 
 	alias highlight='highlight -O ansi --force -q'		# always run highlight with color and default syntax
 alias tree='tree -ChaDF --du --dirsfirst'		# always colorize Tree
-alias view='view -c"set number" -c"colorscheme torte"'	# always run view with line numbers and colors
+alias view='view -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable"'	# always run view with line numbers and colors
 	# alias view='vim -R'	# changes view to vim -R
 # alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh'	# add timeout to all mosh sessions
 
@@ -77,11 +74,9 @@ alias ls='\ls -AhGs --color=always --group-directories-first --file-type'		# aut
 alias ls2='\ls -AhGs --color=always --group-directories-first --file-type'		# auto runs with color
 	# alias ls='_ls_'		# replace ls with function
 alias diff='colordiff --side-by-side --left-column --report-identical-files'	# diff using side by side
-alias less='less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.?f:     PWD\: $PWD."' # always display colors
-manViewer='vim -c MANPAGER -' # use vim to read man pages
-	# manViewer='\less --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr' # less for man
-	# manViewer='\less -options X --quit-if-one-screen --quiet --raw-control-chars --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.     PWD\: $PWD"' # less for man
-alias man='man --pager="$manViewer"' # setting man pager to less
+alias less='_less_' # turns less into function
+export manViewer='view -c MANPAGER -' # use vim to read man pages
+alias man='man --pager="$manViewer"' # setting man pager to view
 
 #### ^^ #### Command Replacements #### ^^ ####
 
@@ -305,6 +300,22 @@ function _ls_ {
 	echo "$(pwd) == \ls -AhGs --color=always --group-directories-first --file-type"
 }
 
+## Replace less to always display colors and other cool things ##
+function _less_ {
+	if [[ -n $2 ]]; then
+		\less --quiet --RAW-CONTROL-CHARS --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.?f:     PWD\: $PWD." $@
+	else
+		local -i size="$(\cat $1 | wc -l)"
+		if [[ $size -gt $LINES ]]; then
+			view $@
+			# \less --quit-if-one-screen --quiet --RAW-CONTROL-CHARS --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.?f:     PWD\: $PWD." $@
+		else
+			cath $@
+			# \less --quit-if-one-screen --quiet --no-init --RAW-CONTROL-CHARS --squeeze-blank-lines --quit-on-intr -M -PM"?lbLine\: %lb.?L\/%L.?Pb     Complete\: %Pb\%.?f     Current File\: %f.?x     Next File\: %x     File\:%i\/%m.?f:     PWD\: $PWD." $@
+		fi
+	fi
+}
+
 ## Replace sudo with something that works with aliases ##
 function Sudo {
 	# set -xv # turn on debugging
@@ -483,6 +494,10 @@ function updatep
 	git config --global color.status always
 	git config --global color.pager true
 	git config --global color.diff always
+	git config --global man.viewer view
+	git config --global man.view.cmd "man --pager='view -c MANPAGER -'"
+	# git config --global help.format man
+	# git config --global man.viewer man
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.email "Alejandro@alejandroc.com"
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
@@ -947,6 +962,7 @@ export SCREENDIR=$HOME/.screen
 
 # set -xv # turn on debugging
 
+updatep
 tail --pid=$intMergeOutput1Pid -f /dev/null
 mergeOutput2=$(git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n) # save mergeOutput into variable
 mergeOutput1=$(cat ~/.mergeOutput1.txt) && rm ~/.mergeOutput1.txt
