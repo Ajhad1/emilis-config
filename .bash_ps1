@@ -167,7 +167,7 @@ alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch -q && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n " "' # git pull tty
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message'	# git commit tty
-alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash'		# git push tty
+# alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash'		# git push tty
 
 ## tfw calls git on tfw ##
 alias tfw='git --git-dir=/opt/tfw/tfw-project/.git --work-tree=/opt/tfw/tfw-project/' # auto gets location of tfw file
@@ -474,6 +474,14 @@ function updatep
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config --global push.default matching
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote add origin https://ajhad1@github.com/Ajhad1/linux-config.git 2>/dev/null
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ remote set-url origin https://ajhad1@github.com/Ajhad1/linux-config.git
+}
+
+## git push tty ##
+function gitttypush {
+	updatep
+	gitttyadd
+	gitttycommit
+	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
 }
 
 ## returns my most common commands ##
