@@ -166,7 +166,7 @@ alias editv='vim ~/linux-config/.vimrc'		# starts editing VIM personalization fi
 alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch -q && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n " "' # git pull tty
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
-alias gitttycommit='updatep && gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message'	# git commit tty
+alias gitttycommit='gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message'	# git commit tty
 # alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash'		# git push tty
 
 ## tfw calls git on tfw ##
@@ -479,13 +479,14 @@ function updatep
 ## git push tty ##
 function gitttypush {
 	# set -xv # turn on debugging
-	updatep
 	gitttyadd
 	local gitstatus=$(gittty status)
 	if [[ ! $gitstatus == *'nothing to commit'* ]]; then
-		gitttycommit 2>/dev/null
+		gitttycommit
 	fi
-	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
+	if [[ ! $gitstatus == *'up to date'* ]]; then
+		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
+	fi
 	# set +xv # turn off debugging 
 }
 
