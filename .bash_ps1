@@ -343,13 +343,17 @@ function _logout_ {
 	commitVar=$(updatep > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add . > /dev/null && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ commit -m " " --allow-empty-message --short)
 	echo "$commitVar"
 	if [[ -z $commitVar ]]; then
-		ssh-add -D
-		ssh-agent -k
+		if [[ -f ~/.ssh/config ]]; then
+			ssh-add -D
+			ssh-agent -k
+		fi
 		\logout
 	else
 		gitttypush
-		ssh-add -D
-		ssh-agent -k
+		if [[ -f ~/.ssh/config ]]; then
+			ssh-add -D
+			ssh-agent -k
+		fi
 		\logout
 	fi
 }
@@ -969,8 +973,7 @@ mkdir $HOME/.ssh/ > /dev/null
 ## Start Agent ##
 function start_agent {
 	echo "Initialising new SSH agent..."
-	/usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-	echo succeeded
+	/usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}" && echo "Succeeded"
 	chmod 600 "${SSH_ENV}"
 	. "${SSH_ENV}" > /dev/null
 	/usr/bin/ssh-add;
