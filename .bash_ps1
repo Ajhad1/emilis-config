@@ -479,9 +479,9 @@ function updatep
 ## git push tty ##
 function gitttypush {
 	set -xv # turn on debugging
+	local gitstatus=$(gittty status)
 	gitttyadd
 	# gittty status
-	local gitstatus=$(gittty status)
 	if [[ ! $gitstatus == *'nothing to commit'* ]]; then
 		gitttycommit
 	fi
