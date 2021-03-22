@@ -478,9 +478,9 @@ function updatep
 
 ## git push tty ##
 function gitttypush {
-	# set -xv # turn on debugging
+	set -xv # turn on debugging
 	gitttyadd
-	gittty status
+	# gittty status
 	local gitstatus=$(gittty status)
 	if [[ ! $gitstatus == *'nothing to commit'* ]]; then
 		gitttycommit
@@ -489,7 +489,7 @@ function gitttypush {
 		git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q --repo='git@github.com:Ajhad1/linux-config.git' && reloadbash
 		# git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
 	fi
-	# set +xv # turn off debugging
+	set +xv # turn off debugging
 }
 
 ## returns my most common commands ##
