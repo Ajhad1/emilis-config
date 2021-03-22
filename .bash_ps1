@@ -569,6 +569,7 @@ function reloadbash
 	elif [[ $osName == "CENTOS" ]]; then
 		if [[ $terminalName == "GNOME" ]]; then
 			# set +xv # turn off debugging
+			source ~/.bashrc
 			gnome-terminal --tab --title=newTab
 			exit
 		else
@@ -578,6 +579,7 @@ function reloadbash
 	else
 		if [[ $terminalName == "GNOME" ]]; then
 			# set +xv # turn off debugging
+			source ~/.bashrc
 			gnome-terminal --tab --title=newTab
 			exit
 		else
