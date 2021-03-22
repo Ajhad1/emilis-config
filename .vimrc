@@ -60,6 +60,9 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " allow quit via single keypress (Q)
 map q :qa<CR>
 
+" allow quit via single keypress (Q)
+map Q :wqa<CR>
+
 " With a map leader it's possible to do extra key combinations like <leader>w saves the current file
 let mapleader = ","
 
