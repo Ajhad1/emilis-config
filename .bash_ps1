@@ -120,6 +120,8 @@ alias tree5='tree -L 5'		# Tree to the fifth level
 alias mank='man -k'			# man -k shortcut
 alias vimp='vim ~/linux-config/.vimrc'	# starts editing VIM personalization file
 alias vims='vim -c"syntax on"'		# add syntax highlighting to VIM
+alias catp='cat ~/linux-config/.bash_ps1'	# cat personalization file
+alias lessp='less ~/linux-config/.bash_ps1'	# cat personalization file
 
 alias psgrep='ps -ef | grep -v grep | grep'	# use grep on ps without showing grep
 alias grepps='ps -ef | grep -v grep | grep'	# use grep on ps without showing grep
@@ -988,22 +990,18 @@ function start_agent {
 }
 
 ## Source SSH settings, if applicable ##
-if [ -f "${SSH_ENV}" ]; then
-	. "${SSH_ENV}" > /dev/null
-	if [[ -f ~/.ssh/config ]]; then
-		#ps ${SSH_AGENT_PID} doesn't work under cywgin
-		ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-			start_agent;
-		}
+if [[ -f ~/.ssh/config ]]; then
+	if [ -f "${SSH_ENV}" ]; then
+		. "${SSH_ENV}" > /dev/null
+			#ps ${SSH_AGENT_PID} doesn't work under cywgin
+			ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+				start_agent;
+			}
 	else
-		eval "$(ssh-agent -k 2>/dev/null)"
+		start_agent;
 	fi
 else
-	if [[ -f ~/.ssh/config ]]; then
-		start_agent;
-	else
-		eval "$(ssh-agent -k 2>/dev/null)"
-	fi
+	eval "$(ssh-agent -k 2>/dev/null)"
 fi
 
 #### ^^ #### SSH AGENT AUTO START #### ^^ ####
