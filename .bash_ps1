@@ -44,7 +44,7 @@ disown -r
 #### vv #### Command Replacements #### vv ####
 
 alias sudo='Sudo '	# Replaced with custom sudo and always checks commands after sudo for aliases
-alias cd='_cd_'		# replace cd with cd then ls
+alias cd='_cd_'		# replace cd with cd then showDir
 alias cd0='/bin/cd '	# allow cd to be used normally
 alias cp0='/bin/cp '	# allows sp to be used normally
 alias wget='wget -c '	# auto runs with -c
@@ -94,7 +94,7 @@ alias exits='exit'	# save before exiting
 alias ll='tree1 -pu'	# shortcut for long list with tree
 	# alias ll='ls -lA '	# short cut for long list
 alias cath='highlight '	# runs highlight instead of cat
-	# alias ..='\cd ../; ls'	# allows shortcut for cd ../ ## caused issues
+	# alias ..='\cd ../; showDir'	# allows shortcut for cd ../ ## caused issues
 
 alias ...='\cd ../../; showDir'	# shortcut for cd ../../
 alias ....='\cd ../../../; showDir'	# shortcut for cd ../../../
@@ -269,7 +269,7 @@ alias chgrp='chgrp --preserve-root'	# Parenting changing perms on / #
 
 ##### vv ##### Commands turned into functions ##### vv #####
 
-## Replace rm to auto ls after ##
+## Replace rm to auto showDir after ##
 function _rm_ {
 	local flag=false
 	for arg
