@@ -164,7 +164,9 @@ alias editv='vim ~/linux-config/.vimrc'		# starts editing VIM personalization fi
 
 ## gittty calls git for linux config ##
 alias gittty='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
+alias gitttystatus='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ status' # git status tty file
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch -q && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n " "' # git pull tty
+alias gitttyfetch='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch' # git fetch tty
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message'	# git commit tty
 # alias gitttypush='updatep && gitttyadd && gitttycommit && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash'		# git push tty
@@ -203,6 +205,9 @@ alias myprivate='getlocal'	# real alias for getlocal
 alias mypublic='getpublic'	# real alias for getpublic
 alias diffcontent='contentdiff' # real alias for contentdiff
 alias diffdir='dirdiff'		# real alias for dirdiff
+alias gitttys='gitttystatus'	# real alias for gitttystatus
+alias gitttya='gitttyadd'	# real alias for gitttyadd
+alias gitttyc='gitttycommit'	# real alias for gitttycommit
 
 alias cd...='\cd ../../; showDir'		# shortcut for cd ../../
 alias cd....='\cd ../../../; showDir'		# shortcut for cd ../../../
@@ -221,6 +226,9 @@ alias gitty='gittty'	# allows typo to still work
 alias gittypull='gitttypull'	# allows typo to still work
 alias gittyadd='gitttyadd'	# allows typo to still work
 alias gittypush='gitttypush'	# allows typo to still work
+alias gittys='gitttystatus'	# allows typo to still work
+alias gittya='gitttyadd'	# allows typo to still work
+alias gittyc='gitttycommit'	# allows typo to still work
 alias gittycomit='gitttycommit'	# allows typo to still work
 alias gitttycomit='gitttycommit' # allows typo to still work
 alias gittycommit='gitttycommit' # allows typo to still work
