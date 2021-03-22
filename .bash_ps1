@@ -492,7 +492,7 @@ function gitttypush {
 		#set -xv # turn on debugging
 		# git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
 	else
-		echo "Remote repository matches local repository."
+		echo "Everything up-to-date"
 	fi
 	set +xv # turn off debugging 
 }
