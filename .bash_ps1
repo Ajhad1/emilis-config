@@ -163,7 +163,7 @@ alias editi='vim ~/linux-config/install.sh'	# starts editing install file
 alias editv='vim ~/linux-config/.vimrc'		# starts editing VIM personalization file
 
 ## gittty calls git for linux config ##
-alias gittty='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
+alias gittty='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/' # auto gets location of tty file
 alias gitttypull='git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ fetch -q && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ merge -n | tr \\n " "' # git pull tty
 alias gitttyadd='updatep && git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ add -A .' # git add changes tty
 alias gitttycommit='gitttyadd && git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ commit -m "backup" --allow-empty-message'	# git commit tty
