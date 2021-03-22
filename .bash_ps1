@@ -478,7 +478,7 @@ function updatep
 
 ## git push tty ##
 function gitttypush {
-	# set -xv # turn on debugging
+	set -xv # turn on debugging
 	local gitstatus=$(gittty status)
 	gitttyadd
 	# gittty status
