@@ -59,9 +59,9 @@ alias exit='_exit_'	# save when exiting
 
 alias ls0='\ls '			# allows ls to be used normally
 alias cat0='\cat '			# allows cat to be run normally
-alias egrep='egrep --color=auto '	# auto runs with color
-alias fgrep='fgrep --color=auto '	# auto runs with color
-alias grep='grep --color=auto '		# auto runs with color
+alias egrep='egrep --color=always '	# auto runs with color
+alias fgrep='fgrep --color=always '	# auto runs with color
+alias grep='grep --color=always '		# auto runs with color
 alias aspell='aspell --dont-backup'	# always run in don't backup mode
 alias jq='jq -C --indent 4'		# always use color and tabs
 alias fmt='fmt -t -w "$COLUMNS"'	# line indentation
@@ -102,7 +102,7 @@ alias cdp='cd ~/linux-config/'		# changes to linux config directory
 alias cdtfw='cd /opt/tfw/tfw-project/'	# changes to tfw directory
 alias cpp='rsync -ahr --info=progress2 ' # use rsync instead of cp for its progress
 alias cpp1='rsync -ahr --progress'	# Legacy use rsync instead of cp for its progress
-alias lstest='ls -Alhf --color=auto'	# supposed to be a good ls
+alias lstest='ls -Alhf --color=always'	# supposed to be a good ls
 
 alias nl1='nl -w1'	# set nl number length to 1
 alias nl2='nl -w2'	# set nl number length to 2
@@ -137,7 +137,7 @@ alias gitdiff='git diff --color-words'		# runs git diff the best way
 alias gvimdiff='gitvimdiff'			# runs vimdiff for git diff
 alias gitsas='git status && git add . && git status' # shortcut for git status+ add + status
 
-alias contentdiff='colordiff  --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
+alias contentdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr' # content only diff ignores most formatting
 alias dirdiff='colordiff --side-by-side --left-column --ignore-tab-expansion --ignore-trailing-space --ignore-space-change --ignore-all-space --strip-trailing-cr --suppress-common-lines --report-identical-files' # compares directories
 
 #### ^^ #### Shortcuts built on top of other commands #### ^^ ####
@@ -292,22 +292,32 @@ function _rm_ {
 
 ## Replace ls to auto run with color and remove the total ##
 function _ls_ {
-	echo "$(pwd) == \ls -AhGs --color=auto --group-directories-first --file-type"
+	echo "$(pwd) == \ls -AhGs --color=always --group-directories-first --file-type"
 }
 
 ## Replace sudo with something that works with aliases ##
 function Sudo {
-	local firstArg=$1
+	# set -xv # turn on debugging
 	# echo "$firstArg"
-	if [[ "$firstArg" == "-EH" ]]; then
-		# echo "$firstArg"
-		# echo "-E mathced"
-		:
-	elif [ $(type -t $firstArg) = function ]; then
-		declare -i sudoCount+=1
-		# echo "sudoCount =$sudoCount"
+	
+	while [[ $1 == -EH ]] || [[ $1 == sudo ]] || [[ $1 == Sudo ]]
+	do
+		shift
+	done
+	# if [[ $1 == -EH ]]; then
+	# 	shift
+	# fi
+	# if [[ $1 == sudo ]] || [[ $1 == Sudo ]]; then
+	# 	shift
+	# fi
+	
+	local firstArg=$1
+	local firstArgType=$(type -t $firstArg)
+	if [[ $firstArg == "-"* ]]; then
+		command \sudo -EH "$@"
+	elif [[ $firstArgType == function ]]; then
 		declare -i count=1
-		while [[ $count<=$# ]]
+		while [ $count -lt $# ]
 		do
 			shift
 			if [[ $count == 1 ]]; then
@@ -317,15 +327,15 @@ function Sudo {
 			count+=1
 		done
 		# echo "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
-		eval sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
-		# echo "errors before or affter"
-	elif [ $(type -t $firstArg) = alias ]; then
-		declare -i sudoCount+=1
-		# echo "sudoCount =$sudoCount"
-		command sudo -EH "$@"
+		eval \sudo -EH bash -c "\"$(declare -f $firstArg)\";$firstArg $restOfArgs"
+	elif [[ $firstArgType == alias ]]; then
+		command \sudo -EH "$@"
+	elif [[ $firstArgType == file ]]; then
+		command \sudo -EH "$@"
 	else
-		command sudo -EH "$@"
+		echo "Error Parsing Arguments."
 	fi
+	# set +xv # turn off debugging
 }
 
 ## Replace log out to save first ##
@@ -431,13 +441,13 @@ function hosts
 ## make file executable ##
 function mkexe
 {
-	chmod a+x "$1";
+	chmod a+x "$1"; showDir;
 } # make file executable
 
 ## make file executable ##
 function mkx
 {
-	chmod a+x "$1";
+	chmod a+x "$1"; showDir;
 }
 
 ## Syntax: "repeat [X] [command]" ##
@@ -454,7 +464,7 @@ function repeat
 function updatep
 {
 	git config --global color.ui always
-	git config --global color.branch auto
+	git config --global color.branch always
 	git config --global color.interactive always
 	git config --global color.status always
 	git config --global color.pager true
@@ -682,7 +692,7 @@ function cdt
 ## move file then cd into it ##
 function mvf
 {
-	mv $@; cd $2;
+	mv $@ && cd $2;
 }
 
 ## cat with indentation ##
@@ -718,25 +728,31 @@ function lessf
 ## makes file then makes it executable ##
 function touchs
 {
-	touch "$1"; chmod a+x "$1"; ls .;
+	touch "$1" && chmod a+x "$1"; showDir;
+}
+
+## makes file then makes it executable and vims it ##
+function touchsf
+{
+	touch "$1" && chmod a+x "$1" && vim "$1"; showDir;
 }
 
 ## makes file then makes it executable ##
 function touchx
 {
-	touch "$1"; chmod a+x "$1"; ls .;
+	touch "$1" && chmod a+x "$1"; showDir;
 }
 
 ## makes file and vims into it ##
 function touchf
 {
-	touch $1; vim $1;
+	touch $1 && vim $1; showDir;
 }
 
 ## makes directory then cds into it ##
 function mkdirf
 {
-	mkdir $1; cd $1;
+	mkdir $1 && cd $1;
 }
 
 ## Shortcut for git commit ##

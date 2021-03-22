@@ -223,7 +223,7 @@ set ttymouse=xterm2
 " set virtualedit=all
 
 " Display 5 lines above/below the cursor when scrolling with a mouse.
-setlocal scrolloff=5
+setlocal scrolloff=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vvvvvvvvvvvvvvvvvvvvvvvvvvvvv => Moving around tabs, windows, and buffers  vvvvvvvvvvvvvvvvvvvvvvvvvv
