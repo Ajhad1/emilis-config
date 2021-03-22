@@ -480,6 +480,7 @@ function updatep
 function gitttypush {
 	# set -xv # turn on debugging
 	gitttyadd
+	gittty status
 	local gitstatus=$(gittty status)
 	if [[ ! $gitstatus == *'nothing to commit'* ]]; then
 		gitttycommit
