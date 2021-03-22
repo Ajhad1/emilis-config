@@ -44,7 +44,7 @@ disown -r
 #### vv #### Command Replacements #### vv ####
 
 alias sudo='Sudo '	# Replaced with custom sudo and always checks commands after sudo for aliases
-alias cd='_cd_'		# replace cd with cd then ls
+alias cd='_cd_'		# replace cd with cd then showDir
 alias cd0='/bin/cd '	# allow cd to be used normally
 alias cp0='/bin/cp '	# allows sp to be used normally
 alias wget='wget -c '	# auto runs with -c
@@ -94,7 +94,7 @@ alias exits='exit'	# save before exiting
 alias ll='tree1 -pu'	# shortcut for long list with tree
 	# alias ll='ls -lA '	# short cut for long list
 alias cath='highlight '	# runs highlight instead of cat
-	# alias ..='\cd ../; ls'	# allows shortcut for cd ../ ## caused issues
+	# alias ..='\cd ../; showDir'	# allows shortcut for cd ../ ## caused issues
 
 alias ...='\cd ../../; showDir'	# shortcut for cd ../../
 alias ....='\cd ../../../; showDir'	# shortcut for cd ../../../
@@ -269,7 +269,7 @@ alias chgrp='chgrp --preserve-root'	# Parenting changing perms on / #
 
 ##### vv ##### Commands turned into functions ##### vv #####
 
-## Replace rm to auto ls after ##
+## Replace rm to auto showDir after ##
 function _rm_ {
 	local flag=false
 	for arg
@@ -505,7 +505,7 @@ function mycommon
 	history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
 }
 
-## list common commands ##
+## list common commands ## 
 function commonlist
 {
 	declare -a commandlist=(awk sed git pwd ls cat cp mv mkdir rmdir rm touch find grep sudo df du head tail diff tar chmod chown chgrp kill ping wget uname top history man echo zip unzip hostname useradd userdel)
