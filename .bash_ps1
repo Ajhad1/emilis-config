@@ -690,7 +690,6 @@ function loadSection2 {
 	tail --pid=$intPublicIpPid -f /dev/null
 	publicIp="$(cat ~/.publicIp.txt)" && rm ~/.publicIp.txt
 	echo -n "Terminal: ($(tput setaf 2)$terminalName$(tput sgr 0)) || OS: ($(tput setaf 2)$osName$(tput sgr 0)) || Public IP: ($(tput setaf 2)$publicIp$(tput sgr 0)) || Private IP(s): ($(tput setaf 2)$hostnameVar1$(tput sgr 0))" | \fmt -w $(($COLUMNS+54))
-	echo -n "Terminal: ($(tput setaf 2)$terminalName$(tput sgr 0)) || OS: ($(tput setaf 2)$osName$(tput sgr 0)) || Public IP: ($(tput setaf 2)$publicIp$(tput sgr 0)) || Private IP(s): ($(tput setaf 2)$hostnameVar1$(tput sgr 0))" | \fmt -w $(($COLUMNS+54))
 	# set +xv # turn off debugging
 	prompt_command && prompt_command && echo -e "\033[0;90m${fill} ${hostnameVar}${pwdVar}${nameVar}$(date +'%T')\033[00m"
 }
