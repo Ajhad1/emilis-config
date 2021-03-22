@@ -486,7 +486,7 @@ function gitttypush {
 		gitttycommit 2>/dev/null
 	fi
 	git --git-dir=$HOME/linux-config/.git --work-tree=$HOME/linux-config/ push -q && reloadbash
-	set +xv # turn off debugging
+	set +xv # turn off debugging 
 }
 
 ## returns my most common commands ##
