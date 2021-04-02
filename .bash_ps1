@@ -496,6 +496,7 @@ function updatep
 	git config --global color.diff always
 	git config --global man.viewer view
 	git config --global man.view.cmd "man --pager='view -c MANPAGER -'"
+	git config --global submodule.recurse true
 	# git config --global help.format man
 	# git config --global man.viewer man
 	git  --git-dir=$HOME/linux-config/.git  --work-tree=$HOME/linux-config/ config user.name "Alejandro Colon"
