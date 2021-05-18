@@ -466,13 +466,13 @@ function hosts
 ## make file executable ##
 function mkexe
 {
-	chmod a+x "$1"; showDir;
+	chmod a+x "$@"; showDir;
 } # make file executable
 
 ## make file executable ##
 function mkx
 {
-	chmod a+x "$1"; showDir;
+	chmod a+x "$@"; showDir;
 }
 
 ## Syntax: "repeat [X] [command]" ##
@@ -743,7 +743,9 @@ function cdt
 ## move file then cd into it ##
 function mvf
 {
-	mv $@ && cd $2;
+	for last in "$@"; do true; done # https://stackoverflow.com/questions/1853946/getting-the-last-argument-passed-to-a-shell-script#comment86992533_1853993
+	mv $@ && cd $last;
+	# mv $@ && cd $2;
 }
 
 ## cat with indentation ##
@@ -788,6 +790,12 @@ function touchsf
 	touch "$1" && chmod a+x "$1" && vim "$1"; showDir;
 }
 
+## makes file then makes it executable and vims it ##
+function touchsv
+{
+	touch "$1" && chmod a+x "$1" && vim "$1"; showDir;
+}
+
 ## makes file then makes it executable ##
 function touchx
 {
@@ -800,10 +808,18 @@ function touchf
 	touch $1 && vim $1; showDir;
 }
 
+## makes file and vims into it ##
+function touchv
+{
+	touch $1 && vim $1; showDir;
+}
+
 ## makes directory then cds into it ##
 function mkdirf
 {
-	mkdir $1 && cd $1;
+	for last in "$@"; do true; done
+	mkdir $@ && cd $last;
+	# mkdir $1 && cd $1;
 }
 
 ## Shortcut for git commit ##
