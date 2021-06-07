@@ -66,7 +66,8 @@ alias fmt='fmt -t -w "$COLUMNS"'	# line indentation
 
 	alias highlight='highlight -O ansi --force -q'		# always run highlight with color and default syntax
 alias tree='tree -ChaDF --du --dirsfirst'		# always colorize Tree
-alias view='view -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable"'	# always run view with line numbers and colors
+alias view='_view_'	# always run view with line numbers and colors
+# alias view='view -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable"'	# always run view with line numbers and colors
 	# alias view='vim -R'	# changes view to vim -R
 # alias mosh='MOSH_SERVER_NETWORK_TMOUT=259200 mosh'	# add timeout to all mosh sessions
 
@@ -273,6 +274,13 @@ alias chgrp='chgrp --preserve-root'	# Parenting changing perms on / #
 ########## vv ########## Functions ########## vv ##########
 
 ##### vv ##### Commands turned into functions ##### vv #####
+
+## Replace view to auto line number and color scheme
+function _view_ {
+	# \view -R --not-a-term -c"terminal cat $@" -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable" -c"only"
+	# \view -R --not-a-term -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable" -c"terminal cat $@" -c"only" -
+	\view -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable" -R --not-a-term -c"terminal cat $@" -c"only"
+}
 
 ## Replace rm to auto showDir after ##
 function _rm_ {
