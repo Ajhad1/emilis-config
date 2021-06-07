@@ -75,7 +75,7 @@ alias ls2='\ls -AhGs --color=always --group-directories-first --file-type'		# au
 	# alias ls='_ls_'		# replace ls with function
 alias diff='colordiff --side-by-side --left-column --report-identical-files'	# diff using side by side
 alias less='_less_' # turns less into function
-export manViewer='view -c MANPAGER -' # use vim to read man pages
+export manViewer='view --not-a-term -c MANPAGER -' # use vim to read man pages
 alias man='man --pager="$manViewer"' # setting man pager to view
 
 #### ^^ #### Command Replacements #### ^^ ####
