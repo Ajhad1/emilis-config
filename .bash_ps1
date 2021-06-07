@@ -280,6 +280,7 @@ function _view_ {
 	# \view -R --not-a-term -c"terminal cat $@" -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable" -c"only"
 	# \view -R --not-a-term -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable" -c"terminal cat $@" -c"only" -
 	\view -c"set number" -c"colorscheme torte" -c"set readonly nomodifiable" -R --not-a-term -c"terminal cat $@" -c"only"
+	# https://gist.github.com/RichardBronosky/94024fac52780e03c936589f4c9ab914
 }
 
 ## Replace rm to auto showDir after ##
